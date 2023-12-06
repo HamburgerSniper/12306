@@ -29,7 +29,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 线程池 {@link ThreadPoolExecutor} 构建器, 构建者模式
+ * @description 线程池 {@link ThreadPoolExecutor} 构建器, 构建者模式
  */
 public final class ThreadPoolBuilder implements Builder<ThreadPoolExecutor> {
 

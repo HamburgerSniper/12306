@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 环境工具类
+ * @description 环境工具类
  */
 public class EnvironmentUtil {
 
@@ -36,9 +36,8 @@ public class EnvironmentUtil {
     }
 
     /**
-     * 判断当前是否为开发环境
-     *
      * @return
+     * @description 判断当前是否为开发环境
      */
     public static boolean isDevEnvironment() {
         ConfigurableEnvironment configurableEnvironment = ApplicationContextHolder.getBean(ConfigurableEnvironment.class);
@@ -47,9 +46,8 @@ public class EnvironmentUtil {
     }
 
     /**
-     * 判断当前是否为正式环境
-     *
      * @return
+     * @description 判断当前是否为正式环境
      */
     public static boolean isProdEnvironment() {
         ConfigurableEnvironment configurableEnvironment = ApplicationContextHolder.getBean(ConfigurableEnvironment.class);

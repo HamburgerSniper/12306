@@ -26,19 +26,19 @@ import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 线程池拒绝策略代理执行器
+ * @description 线程池拒绝策略代理执行器
  */
 @Slf4j
 @AllArgsConstructor
 public class RejectedProxyInvocationHandler implements InvocationHandler {
 
     /**
-     * Target object
+     * @description Target object
      */
     private final Object target;
 
     /**
-     * Reject count
+     * @description Reject count
      */
     private final AtomicLong rejectCount;
 

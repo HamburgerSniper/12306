@@ -18,17 +18,17 @@
 package org.opengoofy.index12306.framework.starter.common.enums;
 
 /**
- * 删除标记枚举
+ * @description 删除标记枚举
  */
 public enum DelEnum {
 
     /**
-     * 正常状态
+     * @description 正常状态
      */
     NORMAL(0),
 
     /**
-     * 删除状态
+     * @description 删除状态
      */
     DELETE(1);
 

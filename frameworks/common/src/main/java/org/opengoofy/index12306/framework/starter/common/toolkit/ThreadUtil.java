@@ -20,14 +20,13 @@ package org.opengoofy.index12306.framework.starter.common.toolkit;
 import lombok.SneakyThrows;
 
 /**
- * 线程池工具类
+ * @description 线程池工具类
  */
 public final class ThreadUtil {
 
     /**
-     * 睡眠当前线程指定时间 {@param millis}
-     *
      * @param millis 睡眠时间，单位毫秒
+     * @description 睡眠当前线程指定时间 {@param millis}
      */
     @SneakyThrows(value = InterruptedException.class)
     public static void sleep(long millis) {

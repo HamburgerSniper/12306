@@ -24,7 +24,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 快速消费任务队列
+ * @description 快速消费任务队列
  */
 public class TaskQueue<R extends Runnable> extends LinkedBlockingQueue<Runnable> {
 

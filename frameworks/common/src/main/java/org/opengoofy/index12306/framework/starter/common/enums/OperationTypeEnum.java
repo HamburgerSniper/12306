@@ -18,7 +18,7 @@
 package org.opengoofy.index12306.framework.starter.common.enums;
 
 /**
- * 操作类型
+ * @description 操作类型
  */
 public enum OperationTypeEnum {
 

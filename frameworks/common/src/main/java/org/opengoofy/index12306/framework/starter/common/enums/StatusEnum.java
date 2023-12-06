@@ -18,17 +18,17 @@
 package org.opengoofy.index12306.framework.starter.common.enums;
 
 /**
- * 状态枚举
+ * @description 状态枚举
  */
 public enum StatusEnum {
 
     /**
-     * 成功
+     * @description 成功
      */
     SUCCESS(0),
 
     /**
-     * 失败
+     * @description 失败
      */
     FAIL(1);
 

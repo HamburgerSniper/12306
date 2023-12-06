@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 快速消费线程池
+ * @description 快速消费线程池
  */
 public class EagerThreadPoolExecutor extends ThreadPoolExecutor {
 

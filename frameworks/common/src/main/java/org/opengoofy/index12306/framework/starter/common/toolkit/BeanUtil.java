@@ -33,7 +33,7 @@ import static com.github.dozermapper.core.loader.api.TypeMappingOptions.mapEmpty
 import static com.github.dozermapper.core.loader.api.TypeMappingOptions.mapNull;
 
 /**
- * 对象属性复制工具类
+ * @description 对象属性复制工具类
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class BeanUtil {
@@ -45,13 +45,12 @@ public class BeanUtil {
     }
 
     /**
-     * 属性复制
-     *
      * @param source 数据对象
      * @param target 目标对象
      * @param <T>
      * @param <S>
      * @return 转换后对象
+     * @description 属性复制
      */
     public static <T, S> T convert(S source, T target) {
         Optional.ofNullable(source)
@@ -60,13 +59,12 @@ public class BeanUtil {
     }
 
     /**
-     * 复制单个对象
-     *
      * @param source 数据对象
      * @param clazz  复制目标类型
      * @param <T>
      * @param <S>
      * @return 转换后对象
+     * @description 复制单个对象
      */
     public static <T, S> T convert(S source, Class<T> clazz) {
         return Optional.ofNullable(source)
@@ -75,13 +73,12 @@ public class BeanUtil {
     }
 
     /**
-     * 复制多个对象
-     *
      * @param sources 数据对象
      * @param clazz   复制目标类型
      * @param <T>
      * @param <S>
      * @return 转换后对象集合
+     * @description 复制多个对象
      */
     public static <T, S> List<T> convert(List<S> sources, Class<T> clazz) {
         return Optional.ofNullable(sources)
@@ -95,13 +92,12 @@ public class BeanUtil {
     }
 
     /**
-     * 复制多个对象
-     *
      * @param sources 数据对象
      * @param clazz   复制目标类型
      * @param <T>
      * @param <S>
      * @return 转换后对象集合
+     * @description 复制多个对象
      */
     public static <T, S> Set<T> convert(Set<S> sources, Class<T> clazz) {
         return Optional.ofNullable(sources)
@@ -115,13 +111,12 @@ public class BeanUtil {
     }
 
     /**
-     * 复制多个对象
-     *
      * @param sources 数据对象
      * @param clazz   复制目标类型
      * @param <T>
      * @param <S>
      * @return 转换后对象集合
+     * @description 复制多个对象
      */
     public static <T, S> T[] convert(S[] sources, Class<T> clazz) {
         return Optional.ofNullable(sources)
@@ -137,10 +132,9 @@ public class BeanUtil {
     }
 
     /**
-     * 拷贝非空且非空串属性
-     *
      * @param source 数据源
      * @param target 指向源
+     * @description 拷贝非空且非空串属性
      */
     public static void convertIgnoreNullAndBlank(Object source, Object target) {
         DozerBeanMapperBuilder dozerBeanMapperBuilder = DozerBeanMapperBuilder.create();
@@ -155,10 +149,9 @@ public class BeanUtil {
     }
 
     /**
-     * 拷贝非空属性
-     *
      * @param source 数据源
      * @param target 指向源
+     * @description 拷贝非空属性
      */
     public static void convertIgnoreNull(Object source, Object target) {
         DozerBeanMapperBuilder dozerBeanMapperBuilder = DozerBeanMapperBuilder.create();
