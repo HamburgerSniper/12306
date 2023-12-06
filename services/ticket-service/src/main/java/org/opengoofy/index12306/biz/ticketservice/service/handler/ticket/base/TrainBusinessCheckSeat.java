@@ -28,17 +28,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @description 高铁商务座验证座位
- *
  */
 public class TrainBusinessCheckSeat implements TrainBitMapCheckSeat {
 
     /**
-     * @description 高铁商务座是否存在检查方法
-     *
      * @param key              缓存Key
      * @param convert          座位统计Map
      * @param distributedCache 分布式缓存接口
      * @return 判断座位是否存在 true or false
+     * @description 高铁商务座是否存在检查方法
      */
     @Override
     public boolean checkSeat(final String key, HashMap<Integer, Integer> convert, DistributedCache distributedCache) {
@@ -71,12 +69,11 @@ public class TrainBusinessCheckSeat implements TrainBitMapCheckSeat {
     }
 
     /**
-     * @description 高铁商务座选择座位是否被占用
-     *
      * @param chooseSeatList 选择座位
      * @param actualSeats    座位状态数组
      * @param SEAT_Y_INT     坐标转换 Map
      * @return
+     * @description 高铁商务座选择座位是否被占用
      */
     @Override
     public boolean checkChooseSeat(List<String> chooseSeatList, int[][] actualSeats, Map<Character, Integer> SEAT_Y_INT) {

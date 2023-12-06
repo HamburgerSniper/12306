@@ -45,7 +45,6 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 
 /**
  * @description 站点详细信息定时任务
- *
  */
 @RestController
 @RequiredArgsConstructor

@@ -17,14 +17,13 @@
 
 package org.opengoofy.index12306.biz.ticketservice.common.constant;
 
-/**@description
- * 系统级公共常量
- *
+/**
+ * @description 系统级公共常量
  */
 public final class Index12306Constant {
 
-    /**@description
-     * 提前买票天数
+    /**
+     * @description 提前买票天数
      */
     public static final int ADVANCE_TICKET_DAY = 15;
 }

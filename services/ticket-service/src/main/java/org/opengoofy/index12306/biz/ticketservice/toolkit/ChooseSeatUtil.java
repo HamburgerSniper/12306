@@ -31,14 +31,6 @@ public final class ChooseSeatUtil {
     public static final String TRAIN_FIRST = "TRAIN_FIRST";
     public static final String TRAIN_SECOND = "TRAIN_SECOND";
 
-    interface StrPool {
-        String A = "A";
-        String B = "B";
-        String C = "C";
-        String D = "D";
-        String F = "F";
-    }
-
     /**
      * @param mark           座位类别标识
      * @param chooseSeatList 选座座位集合
@@ -79,5 +71,13 @@ public final class ChooseSeatUtil {
             }
         });
         return actualChooseSeatMap;
+    }
+
+    interface StrPool {
+        String A = "A";
+        String B = "B";
+        String C = "C";
+        String D = "D";
+        String F = "F";
     }
 }

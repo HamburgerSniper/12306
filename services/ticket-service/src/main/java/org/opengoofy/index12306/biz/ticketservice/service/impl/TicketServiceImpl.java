@@ -145,8 +145,10 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
     private final RedissonClient redissonClient;
     private final ConfigurableEnvironment environment;
     private final TicketAvailabilityTokenBucket ticketAvailabilityTokenBucket;
+    private final Cache<String, ReentrantLock> localLockMap = Caffeine.newBuilder()
+            .expireAfterWrite(1, TimeUnit.DAYS)
+            .build();
     private TicketService ticketService;
-
     @Value("${ticket.availability.cache-update.type:}")
     private String ticketAvailabilityCacheUpdateType;
     @Value("${framework.cache.redis.prefix:}")
@@ -356,10 +358,6 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
             lock.unlock();
         }
     }
-
-    private final Cache<String, ReentrantLock> localLockMap = Caffeine.newBuilder()
-            .expireAfterWrite(1, TimeUnit.DAYS)
-            .build();
 
     @Override
     public TicketPurchaseRespDTO purchaseTicketsV2(PurchaseTicketReqDTO requestParam) {

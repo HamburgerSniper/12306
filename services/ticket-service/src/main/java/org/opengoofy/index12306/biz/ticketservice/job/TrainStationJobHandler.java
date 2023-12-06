@@ -39,7 +39,6 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 /**
  * @description 列车路线信息定时任务
  * @description 已通过运行时实时获取解决该定时任务
- *
  */
 @Deprecated
 @RestController

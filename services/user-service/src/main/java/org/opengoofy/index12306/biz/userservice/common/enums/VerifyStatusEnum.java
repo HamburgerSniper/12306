@@ -22,7 +22,6 @@ import lombok.Getter;
 
 /**
  * @description 用户注册错误码枚举
- *
  */
 @Getter
 @AllArgsConstructor

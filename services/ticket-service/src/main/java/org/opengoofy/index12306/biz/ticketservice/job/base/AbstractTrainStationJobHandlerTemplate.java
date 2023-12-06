@@ -36,14 +36,12 @@ import java.util.Optional;
 
 /**
  * @description 抽象列车&车票相关定时任务
- *
  */
 public abstract class AbstractTrainStationJobHandlerTemplate extends IJobHandler {
 
     /**
-     * @description 模板方法模式具体实现子类执行定时任务
-     *
      * @param trainDOPageRecords 列车信息分页记录
+     * @description 模板方法模式具体实现子类执行定时任务
      */
     protected abstract void actualExecute(List<TrainDO> trainDOPageRecords);
 

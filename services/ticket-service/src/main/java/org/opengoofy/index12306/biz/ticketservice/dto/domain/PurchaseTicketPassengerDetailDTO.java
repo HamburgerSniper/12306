@@ -19,20 +19,19 @@ package org.opengoofy.index12306.biz.ticketservice.dto.domain;
 
 import lombok.Data;
 
-/**@description
- * 购票乘车人详情实体
- *
+/**
+ * @description 购票乘车人详情实体
  */
 @Data
 public class PurchaseTicketPassengerDetailDTO {
 
-    /**@description
-     * 乘车人 ID
+    /**
+     * @description 乘车人 ID
      */
     private String passengerId;
 
-    /**@description
-     * 座位类型
+    /**
+     * @description 座位类型
      */
     private Integer seatType;
 }

@@ -50,7 +50,6 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 
 /**
  * @description 地区站点查询定时任务
- *
  */
 @RestController
 @RequiredArgsConstructor

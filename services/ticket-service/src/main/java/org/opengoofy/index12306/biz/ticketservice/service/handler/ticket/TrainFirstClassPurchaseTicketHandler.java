@@ -52,9 +52,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class TrainFirstClassPurchaseTicketHandler extends AbstractTrainPurchaseTicketTemplate {
 
+    private static final Map<Character, Integer> SEAT_Y_INT = Map.of('A', 0, 'C', 1, 'D', 2, 'F', 3);
     private final SeatService seatService;
 
-    private static final Map<Character, Integer> SEAT_Y_INT = Map.of('A', 0, 'C', 1, 'D', 2, 'F', 3);
+    public static int[][] mergeArrays(int[][] array1, int[][] array2) {
+        List<int[]> list = new ArrayList<>(Arrays.asList(array1));
+        list.addAll(Arrays.asList(array2));
+        return list.toArray(new int[0][]);
+    }
+
+    public static int[][] deepCopy(int[][] originalArray) {
+        int[][] copy = new int[originalArray.length][originalArray[0].length];
+        for (int i = 0; i < originalArray.length; i++) {
+            System.arraycopy(originalArray[i], 0, copy[i], 0, originalArray[i].length);
+        }
+        return copy;
+    }
 
     @Override
     public String mark() {
@@ -449,19 +462,5 @@ public class TrainFirstClassPurchaseTicketHandler extends AbstractTrainPurchaseT
             }
         }
         return actualResult;
-    }
-
-    public static int[][] mergeArrays(int[][] array1, int[][] array2) {
-        List<int[]> list = new ArrayList<>(Arrays.asList(array1));
-        list.addAll(Arrays.asList(array2));
-        return list.toArray(new int[0][]);
-    }
-
-    public static int[][] deepCopy(int[][] originalArray) {
-        int[][] copy = new int[originalArray.length][originalArray[0].length];
-        for (int i = 0; i < originalArray.length; i++) {
-            System.arraycopy(originalArray[i], 0, copy[i], 0, originalArray[i].length);
-        }
-        return copy;
     }
 }

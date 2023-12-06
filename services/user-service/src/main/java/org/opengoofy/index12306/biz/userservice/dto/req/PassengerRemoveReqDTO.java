@@ -21,7 +21,6 @@ import lombok.Data;
 
 /**
  * @description 乘车人移除请求参数
- *
  */
 @Data
 public class PassengerRemoveReqDTO {
