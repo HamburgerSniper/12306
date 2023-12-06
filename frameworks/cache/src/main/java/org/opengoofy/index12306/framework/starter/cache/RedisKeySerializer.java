@@ -25,7 +25,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.Charset;
 
 /**
- * Redis Key 序列化
+ * @description Redis Key 序列化
  */
 @RequiredArgsConstructor
 public class RedisKeySerializer implements InitializingBean, RedisSerializer<String> {

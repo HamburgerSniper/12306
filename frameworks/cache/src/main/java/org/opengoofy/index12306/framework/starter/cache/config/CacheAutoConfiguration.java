@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
- * 缓存配置自动装配
+ * @description 缓存配置自动装配
  */
 @AllArgsConstructor
 @EnableConfigurationProperties({RedisDistributedProperties.class, BloomFilterPenetrateProperties.class})
@@ -37,7 +37,7 @@ public class CacheAutoConfiguration {
     private final RedisDistributedProperties redisDistributedProperties;
 
     /**
-     * 创建 Redis Key 序列化器，可自定义 Key Prefix
+     * @description 创建 Redis Key 序列化器，可自定义 Key Prefix
      */
     @Bean
     public RedisKeySerializer redisKeySerializer() {
@@ -47,7 +47,7 @@ public class CacheAutoConfiguration {
     }
 
     /**
-     * 防止缓存穿透的布隆过滤器
+     * @description 防止缓存穿透的布隆过滤器
      */
     @Bean
     @ConditionalOnProperty(prefix = BloomFilterPenetrateProperties.PREFIX, name = "enabled", havingValue = "true")
