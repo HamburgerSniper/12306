@@ -18,6 +18,7 @@
 package org.opengoofy.index12306.biz.userservice.service.handler.filter.user;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterChainHandlerEnum;
 import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterErrorCodeEnum;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserRegisterReqDTO;
 import org.opengoofy.index12306.biz.userservice.service.UserLoginService;
@@ -25,9 +26,7 @@ import org.opengoofy.index12306.framework.starter.convention.exception.ClientExc
 import org.springframework.stereotype.Component;
 
 /**
- * 用户注册用户名唯一检验
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户注册用户名唯一检验
  */
 @Component
 @RequiredArgsConstructor
@@ -44,6 +43,6 @@ public final class UserRegisterHasUsernameChainHandler implements UserRegisterCr
 
     @Override
     public int getOrder() {
-        return 1;
+        return UserRegisterChainHandlerEnum.HAS_USERNAME.getCode();
     }
 }

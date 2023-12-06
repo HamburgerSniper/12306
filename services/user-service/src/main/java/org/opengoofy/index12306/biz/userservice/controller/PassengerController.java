@@ -38,9 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 乘车人控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 乘车人控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class PassengerController {
     private final PassengerService passengerService;
 
     /**
-     * 根据用户名查询乘车人列表
+     * @description 根据用户名查询乘车人列表
      */
     @GetMapping("/api/user-service/passenger/query")
     public Result<List<PassengerRespDTO>> listPassengerQueryByUsername() {
@@ -57,7 +55,7 @@ public class PassengerController {
     }
 
     /**
-     * 根据乘车人 ID 集合查询乘车人列表
+     * @description 根据乘车人 ID 集合查询乘车人列表
      */
     @GetMapping("/api/user-service/inner/passenger/actual/query/ids")
     public Result<List<PassengerActualRespDTO>> listPassengerQueryByIds(@RequestParam("username") String username, @RequestParam("ids") List<Long> ids) {
@@ -65,7 +63,7 @@ public class PassengerController {
     }
 
     /**
-     * 新增乘车人
+     * @description 新增乘车人
      */
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",
@@ -81,7 +79,7 @@ public class PassengerController {
     }
 
     /**
-     * 修改乘车人
+     * @description 修改乘车人
      */
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",
@@ -97,7 +95,7 @@ public class PassengerController {
     }
 
     /**
-     * 移除乘车人
+     * @description 移除乘车人
      */
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",

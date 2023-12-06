@@ -20,15 +20,13 @@ package org.opengoofy.index12306.biz.userservice.dto.req;
 import lombok.Data;
 
 /**
- * 用户注销请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户注销请求参数
  */
 @Data
 public class UserDeletionReqDTO {
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 }

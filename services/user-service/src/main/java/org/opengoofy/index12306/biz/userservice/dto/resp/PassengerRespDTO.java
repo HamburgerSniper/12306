@@ -19,7 +19,10 @@ package org.opengoofy.index12306.biz.userservice.dto.resp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.opengoofy.index12306.biz.userservice.serialize.IdCardDesensitizationSerializer;
 import org.opengoofy.index12306.biz.userservice.serialize.PhoneDesensitizationSerializer;
@@ -27,26 +30,27 @@ import org.opengoofy.index12306.biz.userservice.serialize.PhoneDesensitizationSe
 import java.util.Date;
 
 /**
- * 乘车人返回参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 乘车人返回参数
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 public class PassengerRespDTO {
 
     /**
-     * 乘车人id
+     * @description 乘车人id
      */
     private String id;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 真实姓名
+     * @description 真实姓名
      */
     private String realName;
 
@@ -56,40 +60,40 @@ public class PassengerRespDTO {
     private Integer idType;
 
     /**
-     * 证件号码
+     * @description 证件号码
      */
     @JsonSerialize(using = IdCardDesensitizationSerializer.class)
     private String idCard;
 
     /**
-     * 真实证件号码
+     * @description 真实证件号码
      */
     private String actualIdCard;
 
     /**
-     * 优惠类型
+     * @description 优惠类型
      */
     private Integer discountType;
 
     /**
-     * 手机号
+     * @description 手机号
      */
     @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
-     * 真实手机号
+     * @description 真实手机号
      */
     private String actualPhone;
 
     /**
-     * 添加日期
+     * @description 添加日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createDate;
 
     /**
-     * 审核状态
+     * @description 审核状态
      */
     private Integer verifyStatus;
 }

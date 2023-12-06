@@ -18,15 +18,14 @@
 package org.opengoofy.index12306.biz.userservice.service.handler.filter.user;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterChainHandlerEnum;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserRegisterReqDTO;
 import org.opengoofy.index12306.biz.userservice.service.UserService;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
 import org.springframework.stereotype.Component;
 
 /**
- * 用户注册检查证件号是否多次注销
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户注册检查证件号是否多次注销
  */
 @Component
 @RequiredArgsConstructor
@@ -44,6 +43,6 @@ public final class UserRegisterCheckDeletionChainHandler implements UserRegister
 
     @Override
     public int getOrder() {
-        return 2;
+        return UserRegisterChainHandlerEnum.CHECK_DELETION.getCode();
     }
 }

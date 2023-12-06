@@ -25,12 +25,17 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
 /**
- * 身份证号脱敏反序列化
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 身份证号脱敏反序列化
  */
 public class IdCardDesensitizationSerializer extends JsonSerializer<String> {
 
+    /**
+     * @param idCard             需要脱敏序列化的手机号
+     * @param jsonGenerator      用于生成JSON字符串
+     * @param serializerProvider 提供序列化服务，用于复杂序列化
+     * @throws IOException 异常
+     * @description 身份证号前4位后4位保留, 其余隐藏
+     */
     @Override
     public void serialize(String idCard, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         String idCardDesensitization = DesensitizedUtil.idCardNum(idCard, 4, 4);

@@ -25,9 +25,7 @@ import lombok.NoArgsConstructor;
 import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 
 /**
- * 用户注销表实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户注销表实体
  */
 @Data
 @Builder
@@ -37,17 +35,17 @@ import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 public class UserDeletionDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 证件类型
+     * @description 证件类型
      */
     private Integer idType;
 
     /**
-     * 证件号
+     * @description 证件号
      */
     private String idCard;
 }

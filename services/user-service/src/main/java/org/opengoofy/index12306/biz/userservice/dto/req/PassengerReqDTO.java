@@ -20,40 +20,38 @@ package org.opengoofy.index12306.biz.userservice.dto.req;
 import lombok.Data;
 
 /**
- * 乘车人添加&修改请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 乘车人添加&修改请求参数
  */
 @Data
 public class PassengerReqDTO {
 
     /**
-     * 乘车人id
+     * @description 乘车人id
      */
     private String id;
 
     /**
-     * 真实姓名
+     * @description 真实姓名
      */
     private String realName;
 
     /**
-     * 证件类型
+     * @description 证件类型
      */
     private Integer idType;
 
     /**
-     * 证件号码
+     * @description 证件号码
      */
     private String idCard;
 
     /**
-     * 优惠类型
+     * @description 优惠类型
      */
     private Integer discountType;
 
     /**
-     * 手机号
+     * @description 手机号
      */
     private String phone;
 }

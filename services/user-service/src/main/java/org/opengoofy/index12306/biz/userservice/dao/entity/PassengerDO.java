@@ -27,9 +27,7 @@ import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 import java.util.Date;
 
 /**
- * 乘车人实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 乘车人实体
  */
 @Data
 @TableName("t_passenger")
@@ -39,47 +37,47 @@ import java.util.Date;
 public class PassengerDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 真实姓名
+     * @description 真实姓名
      */
     private String realName;
 
     /**
-     * 证件类型
+     * @description 证件类型
      */
     private Integer idType;
 
     /**
-     * 证件号码
+     * @description 证件号码
      */
     private String idCard;
 
     /**
-     * 优惠类型
+     * @description 优惠类型
      */
     private Integer discountType;
 
     /**
-     * 手机号
+     * @description 手机号
      */
     private String phone;
 
     /**
-     * 添加日期
+     * @description 添加日期
      */
     private Date createDate;
 
     /**
-     * 审核状态
+     * @description 审核状态
      */
     private Integer verifyStatus;
 }

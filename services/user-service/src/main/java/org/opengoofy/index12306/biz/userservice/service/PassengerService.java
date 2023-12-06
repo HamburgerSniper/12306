@@ -25,47 +25,40 @@ import org.opengoofy.index12306.biz.userservice.dto.resp.PassengerRespDTO;
 import java.util.List;
 
 /**
- * 乘车人接口层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 乘车人接口层
  */
 public interface PassengerService {
 
     /**
-     * 根据用户名查询乘车人列表
-     *
      * @param username 用户名
      * @return 乘车人返回列表
+     * @description 根据用户名查询乘车人列表
      */
     List<PassengerRespDTO> listPassengerQueryByUsername(String username);
 
     /**
-     * 根据乘车人 ID 集合查询乘车人列表
-     *
      * @param username 用户名
      * @param ids      乘车人 ID 集合
      * @return 乘车人返回列表
+     * @description 根据乘车人 ID 集合查询乘车人列表
      */
     List<PassengerActualRespDTO> listPassengerQueryByIds(String username, List<Long> ids);
 
     /**
-     * 新增乘车人
-     *
      * @param requestParam 乘车人信息
+     * @description 新增乘车人
      */
     void savePassenger(PassengerReqDTO requestParam);
 
     /**
-     * 修改乘车人
-     *
      * @param requestParam 乘车人信息
+     * @description 修改乘车人
      */
     void updatePassenger(PassengerReqDTO requestParam);
 
     /**
-     * 移除乘车人
-     *
      * @param requestParam 移除乘车人信息
+     * @description 移除乘车人
      */
     void removePassenger(PassengerRemoveReqDTO requestParam);
 }

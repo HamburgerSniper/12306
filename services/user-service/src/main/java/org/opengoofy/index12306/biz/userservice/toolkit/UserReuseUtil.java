@@ -20,14 +20,12 @@ package org.opengoofy.index12306.biz.userservice.toolkit;
 import static org.opengoofy.index12306.biz.userservice.common.constant.Index12306Constant.USER_REGISTER_REUSE_SHARDING_COUNT;
 
 /**
- * 用户名可复用工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户名可复用工具类
  */
 public final class UserReuseUtil {
 
     /**
-     * 计算分片位置
+     * @description 计算分片位置
      */
     public static int hashShardingIdx(String username) {
         return Math.abs(username.hashCode() % USER_REGISTER_REUSE_SHARDING_COUNT);

@@ -22,9 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户登录请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户登录请求参数
  */
 @Data
 @NoArgsConstructor
@@ -32,12 +30,12 @@ import lombok.NoArgsConstructor;
 public class UserLoginReqDTO {
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String usernameOrMailOrPhone;
 
     /**
-     * 密码
+     * @description 密码
      */
     private String password;
 }

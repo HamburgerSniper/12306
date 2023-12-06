@@ -37,9 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 用户控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class UserInfoController {
     private final UserService userService;
 
     /**
-     * 根据用户名查询用户信息
+     * @description 根据用户名查询用户信息
      */
     @GetMapping("/api/user-service/query")
     public Result<UserQueryRespDTO> queryUserByUsername(@RequestParam("username") @NotEmpty String username) {
@@ -57,7 +55,7 @@ public class UserInfoController {
     }
 
     /**
-     * 根据用户名查询用户无脱敏信息
+     * @description 根据用户名查询用户无脱敏信息
      */
     @GetMapping("/api/user-service/actual/query")
     public Result<UserQueryActualRespDTO> queryActualUserByUsername(@RequestParam("username") @NotEmpty String username) {
@@ -65,7 +63,7 @@ public class UserInfoController {
     }
 
     /**
-     * 检查用户名是否已存在
+     * @description 检查用户名是否已存在
      */
     @GetMapping("/api/user-service/has-username")
     public Result<Boolean> hasUsername(@RequestParam("username") @NotEmpty String username) {
@@ -73,7 +71,7 @@ public class UserInfoController {
     }
 
     /**
-     * 注册用户
+     * @description 注册用户
      */
     @PostMapping("/api/user-service/register")
     public Result<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterReqDTO requestParam) {
@@ -81,7 +79,7 @@ public class UserInfoController {
     }
 
     /**
-     * 修改用户
+     * @description 修改用户
      */
     @PostMapping("/api/user-service/update")
     public Result<Void> update(@RequestBody @Valid UserUpdateReqDTO requestParam) {
@@ -90,7 +88,7 @@ public class UserInfoController {
     }
 
     /**
-     * 注销用户
+     * @description 注销用户
      */
     @PostMapping("/api/user-service/deletion")
     public Result<Void> deletion(@RequestBody @Valid UserDeletionReqDTO requestParam) {
