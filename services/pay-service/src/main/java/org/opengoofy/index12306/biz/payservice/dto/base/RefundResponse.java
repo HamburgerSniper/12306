@@ -23,9 +23,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 退款返回
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款返回
  */
 @Data
 @NoArgsConstructor
@@ -34,12 +32,12 @@ import lombok.NoArgsConstructor;
 public final class RefundResponse {
 
     /**
-     * 退款状态
+     * @description 退款状态
      */
     private Integer status;
 
     /**
-     * 第三方交易凭证
+     * @description 第三方交易凭证
      */
     private String tradeNo;
 }

@@ -26,17 +26,14 @@ import org.opengoofy.index12306.framework.starter.common.toolkit.BeanUtil;
 import java.util.Objects;
 
 /**
- * 支付请求入参转换器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付请求入参转换器
  */
 public final class PayRequestConvert {
 
     /**
-     * {@link PayCommand} to {@link PayRequest}
-     *
      * @param payCommand 支付请求参数
      * @return {@link PayRequest}
+     * @description {@link PayCommand} to {@link PayRequest}
      */
     public static PayRequest command2PayRequest(PayCommand payCommand) {
         PayRequest payRequest = null;

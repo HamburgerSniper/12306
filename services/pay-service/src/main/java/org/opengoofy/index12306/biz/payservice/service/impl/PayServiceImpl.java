@@ -53,9 +53,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * 支付接口层实现
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付接口层实现
  */
 @Slf4j
 @Service
@@ -69,7 +67,7 @@ public class PayServiceImpl implements PayService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public PayRespDTO commonPay(PayRequest requestParam) {
-        /**
+        /**@description
          * {@link AliPayNativeHandler}
          */
         // 策略模式：通过策略模式封装支付渠道和支付场景，用户支付时动态选择对应的支付组件
@@ -139,7 +137,7 @@ public class PayServiceImpl implements PayService {
             log.error("支付单不存在，orderSn：{}", requestParam.getOrderSn());
             throw new ServiceException("支付单不存在");
         }
-        /**
+        /**@description
          * {@link AliRefundNativeHandler}
          */
         // 策略模式：通过策略模式封装退款渠道和退款场景，用户退款时动态选择对应的退款组件

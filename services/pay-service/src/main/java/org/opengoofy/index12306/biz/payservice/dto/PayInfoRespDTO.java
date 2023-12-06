@@ -22,30 +22,28 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 支付单详情信息返回参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付单详情信息返回参数
  */
 @Data
 public class PayInfoRespDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 支付总金额
+     * @description 支付总金额
      */
     private Integer totalAmount;
 
     /**
-     * 支付状态
+     * @description 支付状态
      */
     private Integer status;
 
     /**
-     * 支付时间
+     * @description 支付时间
      */
     private Date gmtPayment;
 }

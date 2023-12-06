@@ -17,27 +17,23 @@
 
 package org.opengoofy.index12306.biz.payservice.dto.base;
 
-import java.math.BigDecimal;
-
 /**
- * 退款入参接口
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款入参接口
  */
 public interface RefundRequest {
 
     /**
-     * 获取阿里退款入参
+     * @description 获取阿里退款入参
      */
     AliRefundRequest getAliRefundRequest();
 
     /**
-     * 获取订单号
+     * @description 获取订单号
      */
     String getOrderSn();
 
     /**
-     * 构建查找支付策略实现类标识
+     * @description 构建查找支付策略实现类标识
      */
     String buildMark();
 }

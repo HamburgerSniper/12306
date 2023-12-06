@@ -21,15 +21,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 支付渠道枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付渠道枚举
  */
 @RequiredArgsConstructor
 public enum PayChannelEnum {
 
     /**
-     * 支付宝
+     * @description 支付宝
      */
     ALI_PAY(0, "ALI_PAY", "支付宝");
 

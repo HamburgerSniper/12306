@@ -34,9 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 支付结果回调
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付结果回调
  */
 @RestController
 @RequiredArgsConstructor
@@ -45,7 +43,7 @@ public class PayCallbackController {
     private final AbstractStrategyChoose abstractStrategyChoose;
 
     /**
-     * 支付宝回调
+     * @description 支付宝回调
      * 调用支付宝支付后，支付宝会调用此接口发送支付结果
      */
     @PostMapping("/api/pay-service/callback/alipay")
@@ -55,7 +53,7 @@ public class PayCallbackController {
         payCallbackCommand.setOrderRequestId(requestParam.get("out_trade_no").toString());
         payCallbackCommand.setGmtPayment(DateUtil.parse(requestParam.get("gmt_payment").toString()));
         PayCallbackRequest payCallbackRequest = PayCallbackRequestConvert.command2PayCallbackRequest(payCallbackCommand);
-        /**
+        /**@description
          * {@link AliPayCallbackHandler}
          */
         // 策略模式：通过策略模式封装支付回调渠道，支付回调时动态选择对应的支付回调组件

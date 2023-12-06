@@ -25,9 +25,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 支付单回调请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付单回调请求参数
  */
 @Data
 @NoArgsConstructor
@@ -36,57 +34,57 @@ import java.util.Date;
 public class PayCallbackReqDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 商户订单号
+     * @description 商户订单号
      */
     private String outOrderSn;
 
     /**
-     * 支付渠道
+     * @description 支付渠道
      */
     private String channel;
 
     /**
-     * 支付环境
+     * @description 支付环境
      */
     private String tradeType;
 
     /**
-     * 订单标题
+     * @description 订单标题
      */
     private String subject;
 
     /**
-     * 交易凭证号
+     * @description 交易凭证号
      */
     private String tradeNo;
 
     /**
-     * 交易总金额
+     * @description 交易总金额
      */
     private Integer totalAmount;
 
     /**
-     * 付款时间
+     * @description 付款时间
      */
     private Date gmtPayment;
 
     /**
-     * 支付金额
+     * @description 支付金额
      */
     private Integer payAmount;
 
     /**
-     * 支付状态
+     * @description 支付状态
      */
     private Integer status;
 
     /**
-     * 商户订单号
+     * @description 商户订单号
      */
     private String orderRequestId;
 }

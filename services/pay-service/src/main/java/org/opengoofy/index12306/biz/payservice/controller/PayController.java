@@ -35,9 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 支付控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -46,7 +44,7 @@ public class PayController {
     private final PayService payService;
 
     /**
-     * 公共支付接口
+     * @description 公共支付接口
      * 对接常用支付方式，比如：支付宝、微信以及银行卡等
      */
     @PostMapping("/api/pay-service/pay/create")
@@ -57,7 +55,7 @@ public class PayController {
     }
 
     /**
-     * 跟据订单号查询支付单详情
+     * @description 跟据订单号查询支付单详情
      */
     @GetMapping("/api/pay-service/pay/query/order-sn")
     public Result<PayInfoRespDTO> getPayInfoByOrderSn(@RequestParam(value = "orderSn") String orderSn) {
@@ -65,7 +63,7 @@ public class PayController {
     }
 
     /**
-     * 跟据支付流水号查询支付单详情
+     * @description 跟据支付流水号查询支付单详情
      */
     @GetMapping("/api/pay-service/pay/query/pay-sn")
     public Result<PayInfoRespDTO> getPayInfoByPaySn(@RequestParam(value = "paySn") String paySn) {
@@ -73,7 +71,7 @@ public class PayController {
     }
 
     /**
-     * 公共退款接口
+     * @description 公共退款接口
      * 后续为了方便开发系列退款相关接口，已迁移 {@link RefundController#commonRefund(RefundReqDTO)}
      */
     @Deprecated

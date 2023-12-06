@@ -28,23 +28,20 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * 支付 ID 全局唯一生成器管理
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付 ID 全局唯一生成器管理
  */
 @Component
 @RequiredArgsConstructor
 public final class PayIdGeneratorManager implements InitializingBean {
 
+    private static DistributedIdGenerator DISTRIBUTED_ID_GENERATOR;
     private final RedissonClient redissonClient;
     private final DistributedCache distributedCache;
-    private static DistributedIdGenerator DISTRIBUTED_ID_GENERATOR;
 
     /**
-     * 生成支付全局唯一流水号
-     *
      * @param orderSn 订单号
      * @return 支付流水号
+     * @description 生成支付全局唯一流水号
      */
     public static String generateId(String orderSn) {
         return DISTRIBUTED_ID_GENERATOR.generateId() + orderSn.substring(orderSn.length() - 6);

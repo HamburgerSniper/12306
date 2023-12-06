@@ -19,31 +19,28 @@ package org.opengoofy.index12306.biz.payservice.dto.base;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.opengoofy.index12306.framework.starter.distributedid.toolkit.SnowflakeIdUtil;
 
 /**
- * 抽象退款入参实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 抽象退款入参实体
  */
 public abstract class AbstractRefundRequest implements RefundRequest {
 
     /**
-     * 交易环境，H5、小程序、网站等
+     * @description 交易环境，H5、小程序、网站等
      */
     @Getter
     @Setter
     private Integer tradeType;
 
     /**
-     * 订单号
+     * @description 订单号
      */
     @Getter
     @Setter
     private String orderSn;
 
     /**
-     * 支付渠道
+     * @description 支付渠道
      */
     @Getter
     @Setter

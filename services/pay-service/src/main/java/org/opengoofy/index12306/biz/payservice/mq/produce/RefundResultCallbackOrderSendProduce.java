@@ -29,15 +29,13 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static org.opengoofy.index12306.biz.payservice.common.constant.PayRocketMQConstant.PAY_GLOBAL_TOPIC_KEY;
 import static org.opengoofy.index12306.biz.payservice.common.constant.PayRocketMQConstant.REFUND_RESULT_CALLBACK_TAG_KEY;
 
-import java.util.UUID;
-
 /**
- * 退款结果回调订单生产者
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款结果回调订单生产者
  */
 @Slf4j
 @Component

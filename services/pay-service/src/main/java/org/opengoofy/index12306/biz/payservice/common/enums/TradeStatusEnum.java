@@ -25,15 +25,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 交易状态枚举
+ * @description 交易状态枚举
  * 映射不同平台状态码，最终入库的值为枚举名
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public enum TradeStatusEnum {
 
     /**
-     * 交易创建，等待买家付款
+     * @description 交易创建，等待买家付款
      */
     WAIT_BUYER_PAY {
         @Override
@@ -48,7 +46,7 @@ public enum TradeStatusEnum {
     },
 
     /**
-     * 未付款交易超时关闭，或支付完成后全额退款/部分退款
+     * @description 未付款交易超时关闭，或支付完成后全额退款/部分退款
      */
     TRADE_CLOSED {
         @Override
@@ -63,7 +61,7 @@ public enum TradeStatusEnum {
     },
 
     /**
-     * 交易支付成功
+     * @description 交易支付成功
      */
     TRADE_SUCCESS {
         @Override
@@ -78,7 +76,7 @@ public enum TradeStatusEnum {
     },
 
     /**
-     * 交易结束，不可退款
+     * @description 交易结束，不可退款
      */
     TRADE_FINISHED {
         @Override
@@ -93,20 +91,9 @@ public enum TradeStatusEnum {
     };
 
     /**
-     * 获取交易状态码
-     */
-    public abstract Integer tradeCode();
-
-    /**
-     * 获取交易状态集合
-     */
-    protected abstract List<String> tradeStatus();
-
-    /**
-     * 查询真实的交易状态
-     *
      * @param tradeStatus 三方交易状态
      * @return 真实的交易状态，入库使用
+     * @description 查询真实的交易状态
      */
     public static String queryActualTradeStatus(String tradeStatus) {
         Optional<TradeStatusEnum> tradeStatusEnum = Arrays.stream(TradeStatusEnum.values()).filter(each -> each.tradeStatus().contains(tradeStatus)).findFirst();
@@ -114,13 +101,22 @@ public enum TradeStatusEnum {
     }
 
     /**
-     * 查询真实的交易状态
-     *
      * @param tradeStatus 三方交易状态
      * @return 真实的交易状态，入库使用
+     * @description 查询真实的交易状态
      */
     public static Integer queryActualTradeStatusCode(String tradeStatus) {
         Optional<TradeStatusEnum> tradeStatusEnum = Arrays.stream(TradeStatusEnum.values()).filter(each -> each.tradeStatus().contains(tradeStatus)).findFirst();
         return tradeStatusEnum.orElseThrow(() -> new ServiceException("未找到支付状态")).tradeCode();
     }
+
+    /**
+     * @description 获取交易状态码
+     */
+    public abstract Integer tradeCode();
+
+    /**
+     * @description 获取交易状态集合
+     */
+    protected abstract List<String> tradeStatus();
 }

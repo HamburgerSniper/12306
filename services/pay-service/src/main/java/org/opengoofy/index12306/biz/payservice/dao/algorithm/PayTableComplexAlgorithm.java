@@ -29,18 +29,14 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * 支付表相关复合分片算法配置
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付表相关复合分片算法配置
  */
 public class PayTableComplexAlgorithm implements ComplexKeysShardingAlgorithm {
 
+    private static final String SHARDING_COUNT_KEY = "sharding-count";
     @Getter
     private Properties props;
-
     private int shardingCount;
-
-    private static final String SHARDING_COUNT_KEY = "sharding-count";
 
     @Override
     public Collection<String> doSharding(Collection availableTargetNames, ComplexKeysShardingValue shardingValue) {

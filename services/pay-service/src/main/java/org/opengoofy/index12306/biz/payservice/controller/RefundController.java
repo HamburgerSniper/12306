@@ -28,9 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 退款控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -39,7 +37,7 @@ public class RefundController {
     private final RefundService refundService;
 
     /**
-     * 公共退款接口
+     * @description 公共退款接口
      */
     @PostMapping("/api/pay-service/common/refund")
     public Result<RefundRespDTO> commonRefund(@RequestBody RefundReqDTO requestParam) {

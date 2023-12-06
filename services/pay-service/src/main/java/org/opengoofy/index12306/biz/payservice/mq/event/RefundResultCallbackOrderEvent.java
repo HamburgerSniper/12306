@@ -27,9 +27,7 @@ import org.opengoofy.index12306.biz.payservice.remote.dto.TicketOrderPassengerDe
 import java.util.List;
 
 /**
- * 退款结果回调订单服务事件
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款结果回调订单服务事件
  */
 @Data
 @Builder
@@ -37,16 +35,16 @@ import java.util.List;
 @AllArgsConstructor
 public final class RefundResultCallbackOrderEvent {
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
     /**
-     * 退款类型
+     * @description 退款类型
      */
     private RefundTypeEnum refundTypeEnum;
 
     /**
-     * 部分退款车票详情
+     * @description 部分退款车票详情
      */
     private List<TicketOrderPassengerDetailRespDTO> partialRefundTicketDetailList;
 }

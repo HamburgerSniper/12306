@@ -21,21 +21,19 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 退款类型枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款类型枚举
  */
 @Getter
 @RequiredArgsConstructor
 public enum RefundTypeEnum {
 
     /**
-     * 部分退款
+     * @description 部分退款
      */
     PARTIAL_REFUND(11, 0, "PARTIAL_REFUND", "部分退款"),
 
     /**
-     * 全部退款
+     * @description 全部退款
      */
     FULL_REFUND(12, 1, "FULL_REFUND", "全部退款");
 

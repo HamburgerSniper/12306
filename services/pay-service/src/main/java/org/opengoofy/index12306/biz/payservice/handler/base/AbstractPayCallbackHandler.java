@@ -20,16 +20,13 @@ package org.opengoofy.index12306.biz.payservice.handler.base;
 import org.opengoofy.index12306.biz.payservice.dto.base.PayCallbackRequest;
 
 /**
- * 抽象支付回调组件
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 抽象支付回调组件
  */
 public abstract class AbstractPayCallbackHandler {
 
     /**
-     * 支付回调抽象接口
-     *
      * @param payCallbackRequest 支付回调请求参数
+     * @description 支付回调抽象接口
      */
     public abstract void callback(PayCallbackRequest payCallbackRequest);
 }

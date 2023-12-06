@@ -21,17 +21,14 @@ import org.opengoofy.index12306.biz.payservice.dto.base.PayRequest;
 import org.opengoofy.index12306.biz.payservice.dto.base.PayResponse;
 
 /**
- * 抽象支付组件
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 抽象支付组件
  */
 public abstract class AbstractPayHandler {
 
     /**
-     * 支付抽象接口
-     *
      * @param payRequest 支付请求参数
      * @return 支付响应参数
+     * @description 支付抽象接口
      */
     public abstract PayResponse pay(PayRequest payRequest);
 }

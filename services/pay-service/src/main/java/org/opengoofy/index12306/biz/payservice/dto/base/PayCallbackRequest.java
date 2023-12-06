@@ -18,19 +18,17 @@
 package org.opengoofy.index12306.biz.payservice.dto.base;
 
 /**
- * 支付回调请求入参
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付回调请求入参
  */
 public interface PayCallbackRequest {
 
     /**
-     * 获取阿里支付回调入参
+     * @description 获取阿里支付回调入参
      */
     AliPayCallbackRequest getAliPayCallBackRequest();
 
     /**
-     * 构建查找支付回调策略实现类标识
+     * @description 构建查找支付回调策略实现类标识
      */
     String buildMark();
 }

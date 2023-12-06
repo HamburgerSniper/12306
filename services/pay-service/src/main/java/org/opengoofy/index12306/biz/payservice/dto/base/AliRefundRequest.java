@@ -26,21 +26,19 @@ import org.opengoofy.index12306.biz.payservice.common.enums.TradeStatusEnum;
 import java.math.BigDecimal;
 
 /**
- * 支付宝退款请求入参
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 支付宝退款请求入参
  */
 @Data
 @Accessors(chain = true)
 public final class AliRefundRequest extends AbstractRefundRequest {
 
     /**
-     * 支付金额
+     * @description 支付金额
      */
     private BigDecimal payAmount;
 
     /**
-     * 交易凭证号
+     * @description 交易凭证号
      */
     private String tradeNo;
 

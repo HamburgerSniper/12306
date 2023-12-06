@@ -24,30 +24,28 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * 交易环境枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 交易环境枚举
  */
 @RequiredArgsConstructor
 public enum PayTradeTypeEnum {
 
     /**
-     * 扫码支付环境
+     * @description 扫码支付环境
      */
     NATIVE(0),
 
     /**
-     * 移动端 Web 应用中支付环境
+     * @description 移动端 Web 应用中支付环境
      */
     JSAPI(1),
 
     /**
-     * 手机浏览器中打开的H5网页支付环境
+     * @description 手机浏览器中打开的H5网页支付环境
      */
     MWEB(2),
 
     /**
-     * 去中心化应用程序中支付环境
+     * @description 去中心化应用程序中支付环境
      */
     DAPP(3);
 
@@ -55,7 +53,7 @@ public enum PayTradeTypeEnum {
     private final Integer code;
 
     /**
-     * 根据名称查找码值
+     * @description 根据名称查找码值
      */
     public static String findNameByCode(Integer code) {
         return Arrays.stream(PayTradeTypeEnum.values())

@@ -26,17 +26,14 @@ import org.opengoofy.index12306.framework.starter.common.toolkit.BeanUtil;
 import java.util.Objects;
 
 /**
- * 退款请求入参转换器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 退款请求入参转换器
  */
 public final class RefundRequestConvert {
 
     /**
-     * {@link RefundCommand} to {@link RefundRequest}
-     *
      * @param refundCommand 退款请求参数
      * @return {@link RefundRequest}
+     * @description {@link RefundCommand} to {@link RefundRequest}
      */
     public static RefundRequest command2RefundRequest(RefundCommand refundCommand) {
         RefundRequest refundRequest = null;
