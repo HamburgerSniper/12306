@@ -28,19 +28,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * 日期工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 日期工具类
  */
 @Slf4j
 public final class DateUtil {
 
     /**
-     * 计算小时差
-     *
      * @param startTime 开始时间 2022-10-01 00:00:00
      * @param endTime   结束时间 2022-10-01 12:23:00
      * @return 12:23
+     * @description 计算小时差
      */
     public static String calculateHourDifference(Date startTime, Date endTime) {
         LocalDateTime startDateTime = startTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -52,11 +49,10 @@ public final class DateUtil {
     }
 
     /**
-     * 日期转换为列车行驶开始时间和结束时间
-     *
      * @param date    时间
      * @param pattern 日期格式
      * @return 日期格式对应的时间
+     * @description 日期转换为列车行驶开始时间和结束时间
      */
     public static String convertDateToLocalTime(Date date, String pattern) {
         LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();

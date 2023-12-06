@@ -24,61 +24,59 @@ import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 import java.util.Date;
 
 /**
- * 列车站点关系实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 列车站点关系实体
  */
 @Data
 @TableName("t_train_station_relation")
 public class TrainStationRelationDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 车次id
+     * @description 车次id
      */
     private Long trainId;
 
     /**
-     * 出发站点
+     * @description 出发站点
      */
     private String departure;
 
     /**
-     * 到达站点
+     * @description 到达站点
      */
     private String arrival;
 
     /**
-     * 起始城市
+     * @description 起始城市
      */
     private String startRegion;
 
     /**
-     * 终点城市
+     * @description 终点城市
      */
     private String endRegion;
 
     /**
-     * 始发站标识
+     * @description 始发站标识
      */
     private Boolean departureFlag;
 
     /**
-     * 终点站标识
+     * @description 终点站标识
      */
     private Boolean arrivalFlag;
 
     /**
-     * 出发时间
+     * @description 出发时间
      */
     private Date departureTime;
 
     /**
-     * 到达时间
+     * @description 到达时间
      */
     private Date arrivalTime;
 }

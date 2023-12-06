@@ -27,9 +27,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.req.PurchaseTicketReqDTO;
 import java.util.List;
 
 /**
- * 选择座位实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 选择座位实体
  */
 @Data
 @NoArgsConstructor
@@ -38,17 +36,17 @@ import java.util.List;
 public final class SelectSeatDTO {
 
     /**
-     * 座位类型
+     * @description 座位类型
      */
     private Integer seatType;
 
     /**
-     * 座位对应的乘车人集合
+     * @description 座位对应的乘车人集合
      */
     private List<PurchaseTicketPassengerDetailDTO> passengerSeatDetails;
 
     /**
-     * 购票原始入参
+     * @description 购票原始入参
      */
     private PurchaseTicketReqDTO requestParam;
 }

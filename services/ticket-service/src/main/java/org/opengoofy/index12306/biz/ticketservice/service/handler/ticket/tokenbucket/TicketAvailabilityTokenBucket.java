@@ -60,9 +60,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_INFO;
 
 /**
- * 列车车票余量令牌桶，应对海量并发场景下满足并行、限流以及防超卖等场景
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ *  @description 列车车票余量令牌桶，应对海量并发场景下满足并行、限流以及防超卖等场景
  */
 @Slf4j
 @Component
@@ -79,9 +77,9 @@ public final class TicketAvailabilityTokenBucket {
     private static final String LUA_TICKET_AVAILABILITY_ROLLBACK_TOKEN_BUCKET_PATH = "lua/ticket_availability_rollback_token_bucket.lua";
 
     /**
-     * 获取车站间令牌桶中的令牌访问
-     * 如果返回 {@link Boolean#TRUE} 代表可以参与接下来的购票下单流程
-     * 如果返回 {@link Boolean#FALSE} 代表当前访问出发站点和到达站点令牌已被拿完，无法参与购票下单等逻辑
+     *  @description 获取车站间令牌桶中的令牌访问
+     *  @description 如果返回 {@link Boolean#TRUE} 代表可以参与接下来的购票下单流程
+     *  @description 如果返回 {@link Boolean#FALSE} 代表当前访问出发站点和到达站点令牌已被拿完，无法参与购票下单等逻辑
      *
      * @param requestParam 购票请求参数入参
      * @return 是否获取列车车票余量令牌桶中的令牌，{@link Boolean#TRUE} or {@link Boolean#FALSE}

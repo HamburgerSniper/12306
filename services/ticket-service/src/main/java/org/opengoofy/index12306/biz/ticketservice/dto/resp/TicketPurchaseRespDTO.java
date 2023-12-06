@@ -25,9 +25,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 车票购买返回参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票购买返回参数
  */
 @Data
 @AllArgsConstructor
@@ -36,12 +34,12 @@ import java.util.List;
 public class TicketPurchaseRespDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 乘车人订单详情
+     * @description 乘车人订单详情
      */
     private List<TicketOrderDetailRespDTO> ticketOrderDetails;
 }

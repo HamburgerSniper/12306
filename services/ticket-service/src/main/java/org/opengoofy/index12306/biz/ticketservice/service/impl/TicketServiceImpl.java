@@ -121,9 +121,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 import static org.opengoofy.index12306.biz.ticketservice.toolkit.DateUtil.convertDateToLocalTime;
 
 /**
- * 车票接口实现
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票接口实现
  */
 @Slf4j
 @Service
@@ -233,9 +231,9 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
             }
         }
         seatResults = CollUtil.isEmpty(seatResults)
-                ? regionTrainStationAllMap.values().stream().map(each -> JSON.parseObject(each.toString(), TicketListDTO.class)).toList()
+                ? regionTrainStationAllMap.values().stream().map(each -> JSON.parseObject(each.toString(), TicketListDTO.class)).collect(Collectors.toList())
                 : seatResults;
-        seatResults = seatResults.stream().sorted(new TimeStringComparator()).toList();
+        seatResults = seatResults.stream().sorted(new TimeStringComparator()).collect(Collectors.toList());
         for (TicketListDTO each : seatResults) {
             String trainStationPriceStr = distributedCache.safeGet(
                     String.format(TRAIN_STATION_PRICE, each.getTrainId(), each.getDeparture(), each.getArrival()),
@@ -291,7 +289,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         List<TicketListDTO> seatResults = regionTrainStationAllMap.values().stream()
                 .map(each -> JSON.parseObject(each.toString(), TicketListDTO.class))
                 .sorted(new TimeStringComparator())
-                .toList();
+                .collect(Collectors.toList());
         List<String> trainStationPriceKeys = seatResults.stream()
                 .map(each -> String.format(cacheRedisPrefix + TRAIN_STATION_PRICE, each.getTrainId(), each.getDeparture(), each.getArrival()))
                 .toList();
@@ -434,7 +432,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
                         .passengerId(each.getPassengerId())
                         .ticketStatus(TicketStatusEnum.UNPAID.getCode())
                         .build())
-                .toList();
+                .collect(Collectors.toList());
         saveBatch(ticketDOList);
         Result<String> ticketOrderResult;
         try {
@@ -593,7 +591,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
                 resultSeatClassList.add(item.getType());
             }
         }
-        return resultSeatClassList.stream().toList();
+        return new ArrayList<>(resultSeatClassList);
     }
 
     private List<Integer> buildTrainBrandList(List<TicketListDTO> seatResults) {
@@ -603,7 +601,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
                 trainBrandSet.addAll(StrUtil.split(each.getTrainBrand(), ",").stream().map(Integer::parseInt).toList());
             }
         }
-        return trainBrandSet.stream().toList();
+        return new ArrayList<>(trainBrandSet);
     }
 
     @Override

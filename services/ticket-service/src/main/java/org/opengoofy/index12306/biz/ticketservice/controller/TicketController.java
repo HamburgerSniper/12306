@@ -40,9 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 车票控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +49,7 @@ public class TicketController {
     private final TicketService ticketService;
 
     /**
-     * 根据条件查询车票
+     * @description 根据条件查询车票
      */
     @GetMapping("/api/ticket-service/ticket/query")
     public Result<TicketPageQueryRespDTO> pageListTicketQuery(TicketPageQueryReqDTO requestParam) {
@@ -59,7 +57,7 @@ public class TicketController {
     }
 
     /**
-     * 购买车票
+     * @description 购买车票
      */
     @ILog
     @Idempotent(
@@ -77,7 +75,7 @@ public class TicketController {
     }
 
     /**
-     * 购买车票v2
+     * @description 购买车票v2
      */
     @ILog
     @Idempotent(
@@ -95,7 +93,7 @@ public class TicketController {
     }
 
     /**
-     * 取消车票订单
+     * @description 取消车票订单
      */
     @ILog
     @PostMapping("/api/ticket-service/ticket/cancel")
@@ -105,7 +103,7 @@ public class TicketController {
     }
 
     /**
-     * 支付单详情查询
+     * @description 支付单详情查询
      */
     @GetMapping("/api/ticket-service/ticket/pay/query")
     public Result<PayInfoRespDTO> getPayInfo(@RequestParam(value = "orderSn") String orderSn) {
@@ -113,7 +111,7 @@ public class TicketController {
     }
 
     /**
-     * 公共退款接口
+     * @description 公共退款接口
      */
     @PostMapping("/api/ticket-service/ticket/refund")
     public Result<RefundTicketRespDTO> commonTicketRefund(@RequestBody RefundTicketReqDTO requestParam) {

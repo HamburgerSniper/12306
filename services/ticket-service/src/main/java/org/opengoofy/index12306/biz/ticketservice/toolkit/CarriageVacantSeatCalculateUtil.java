@@ -25,19 +25,16 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * 座位统计工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 座位统计工具类
  */
 public final class CarriageVacantSeatCalculateUtil {
 
     /**
-     * 座位统计方法
-     *
      * @param actualSeats 座位选座情况二位数组
      * @param n           列数
      * @param m           行数
      * @return 空余座位集合小根堆
+     * @description 座位统计方法
      */
     public static PriorityQueue<List<Pair<Integer, Integer>>> buildCarriageVacantSeatList(int[][] actualSeats, int n, int m) {
         PriorityQueue<List<Pair<Integer, Integer>>> vacantSeatQueue = new PriorityQueue<>(Comparator.comparingInt(List::size));
@@ -59,12 +56,11 @@ public final class CarriageVacantSeatCalculateUtil {
     }
 
     /**
-     * 空余座位统计方法
-     *
      * @param actualSeats 座位状态数组
      * @param n
      * @param m
      * @return 空余座位集合
+     * @description 空余座位统计方法
      */
     public static List<Pair<Integer, Integer>> buildCarriageVacantSeatList2(int[][] actualSeats, int n, int m) {
         List<Pair<Integer, Integer>> vacantSeatList = new ArrayList<>(16);

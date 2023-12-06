@@ -23,9 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 座位转换工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 座位转换工具类
  */
 public final class ChooseSeatUtil {
 
@@ -42,14 +40,13 @@ public final class ChooseSeatUtil {
     }
 
     /**
-     * 选座座位分类 convert
-     *
      * @param mark           座位类别标识
      * @param chooseSeatList 选座座位集合
      * @return 选择座位位置 Map
+     * @description 选座座位分类 convert
      */
-    public static HashMap<Integer,Integer> convert(String mark, List<String> chooseSeatList) {
-       HashMap<Integer, Integer> actualChooseSeatMap = new HashMap<>(8);
+    public static HashMap<Integer, Integer> convert(String mark, List<String> chooseSeatList) {
+        HashMap<Integer, Integer> actualChooseSeatMap = new HashMap<>(8);
         Map<String, List<String>> chooseSeatMap = chooseSeatList
                 .stream()
                 .collect(Collectors.groupingBy(seat -> seat.substring(0, 1)));

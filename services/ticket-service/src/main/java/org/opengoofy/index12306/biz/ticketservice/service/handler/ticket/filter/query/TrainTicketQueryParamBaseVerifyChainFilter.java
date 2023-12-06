@@ -27,9 +27,7 @@ import java.time.ZoneId;
 import java.util.Objects;
 
 /**
- * 查询列车车票流程过滤器之基础数据验证
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 查询列车车票流程过滤器之基础数据验证
  */
 @Component
 @RequiredArgsConstructor

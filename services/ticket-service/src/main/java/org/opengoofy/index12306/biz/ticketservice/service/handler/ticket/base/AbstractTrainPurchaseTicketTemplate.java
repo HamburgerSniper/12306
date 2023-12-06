@@ -36,9 +36,7 @@ import java.util.List;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_REMAINING_TICKET;
 
 /**
- * 抽象高铁购票模板基础服务
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 抽象高铁购票模板基础服务
  */
 public abstract class AbstractTrainPurchaseTicketTemplate implements IPurchaseTicket, CommandLineRunner, AbstractExecuteStrategy<SelectSeatDTO, List<TrainPurchaseTicketRespDTO>> {
 
@@ -47,10 +45,9 @@ public abstract class AbstractTrainPurchaseTicketTemplate implements IPurchaseTi
     private TrainStationService trainStationService;
 
     /**
-     * 选择座位
-     *
      * @param requestParam 购票请求入参
      * @return 乘车人座位
+     * @description 选择座位
      */
     protected abstract List<TrainPurchaseTicketRespDTO> selectSeats(SelectSeatDTO requestParam);
 

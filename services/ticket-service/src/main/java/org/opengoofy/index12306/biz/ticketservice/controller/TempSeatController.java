@@ -40,9 +40,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_REMAINING_TICKET;
 
 /**
- * TODO 待删除，联调临时解决方案
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description TODO 待删除，联调临时解决方案
  */
 @Deprecated
 @RestController
@@ -54,7 +52,7 @@ public class TempSeatController {
     private final DistributedCache distributedCache;
 
     /**
-     * 座位重置
+     * @description 座位重置
      */
     @PostMapping("/api/ticket-service/temp/seat/reset")
     public Result<Void> purchaseTickets(@RequestParam String trainId) {

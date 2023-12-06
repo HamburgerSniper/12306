@@ -43,9 +43,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.QUERY_ALL_REGION_LIST;
 
 /**
- * 查询列车车票流程过滤器之验证数据是否正确
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 查询列车车票流程过滤器之验证数据是否正确
  */
 @Component
 @RequiredArgsConstructor
@@ -57,7 +55,7 @@ public class TrainTicketQueryParamVerifyChainFilter implements TrainTicketQueryC
     private final RedissonClient redissonClient;
 
     /**
-     * 缓存数据为空并且已经加载过标识
+     * @description 缓存数据为空并且已经加载过标识
      */
     private static boolean CACHE_DATA_ISNULL_AND_LOAD_FLAG = false;
 

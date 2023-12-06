@@ -22,41 +22,39 @@ import lombok.Data;
 import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 
 /**
- * 车站实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车站实体
  */
 @Data
 @TableName("t_station")
 public class StationDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 车站编码
+     * @description 车站编码
      */
     private String code;
 
     /**
-     * 车站名称
+     * @description 车站名称
      */
     private String name;
 
     /**
-     * 拼音
+     * @description 拼音
      */
     private String spell;
 
     /**
-     * 地区编号
+     * @description 地区编号
      */
     private String region;
 
     /**
-     * 地区名称
+     * @description 地区名称
      */
     private String regionName;
 }

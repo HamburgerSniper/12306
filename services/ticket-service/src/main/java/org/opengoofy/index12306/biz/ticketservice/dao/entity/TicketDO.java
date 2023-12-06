@@ -25,9 +25,7 @@ import lombok.NoArgsConstructor;
 import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 
 /**
- * 车票实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票实体
  */
 @Data
 @NoArgsConstructor
@@ -37,37 +35,37 @@ import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 public class TicketDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 列车id
+     * @description 列车id
      */
     private Long trainId;
 
     /**
-     * 车厢号
+     * @description 车厢号
      */
     private String carriageNumber;
 
     /**
-     * 座位号
+     * @description 座位号
      */
     private String seatNumber;
 
     /**
-     * 乘车人 ID
+     * @description 乘车人 ID
      */
     private String passengerId;
 
     /**
-     * 车票状态
+     * @description 车票状态
      */
     private Integer ticketStatus;
 }

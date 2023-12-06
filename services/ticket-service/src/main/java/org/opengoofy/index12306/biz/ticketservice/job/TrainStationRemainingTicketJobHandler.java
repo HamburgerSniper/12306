@@ -42,10 +42,8 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_REMAINING_TICKET;
 
 /**
- * 列车站点余票定时任务
- * 已通过运行时实时获取解决该定时任务
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 列车站点余票定时任务
+ * @description 已通过运行时实时获取解决该定时任务
  */
 @Deprecated
 @RestController

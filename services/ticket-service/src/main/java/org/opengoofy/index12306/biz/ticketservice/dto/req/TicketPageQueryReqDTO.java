@@ -24,36 +24,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * 车票分页查询请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票分页查询请求参数
  */
 @Data
 public class TicketPageQueryReqDTO extends PageRequest {
 
     /**
-     * 出发地 Code
+     * @description 出发地 Code
      */
     private String fromStation;
 
     /**
-     * 目的地 Code
+     * @description 目的地 Code
      */
     private String toStation;
 
     /**
-     * 出发日期
+     * @description 出发日期
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date departureDate;
 
     /**
-     * 出发站点
+     * @description 出发站点
      */
     private String departure;
 
     /**
-     * 到达站点
+     * @description 到达站点
      */
     private String arrival;
 }

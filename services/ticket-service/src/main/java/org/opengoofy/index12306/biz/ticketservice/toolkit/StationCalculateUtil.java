@@ -24,19 +24,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 站点计算工具
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 站点计算工具
  */
 public final class StationCalculateUtil {
 
     /**
-     * 计算出发站和终点站中间的站点（包含出发站和终点站）
-     *
      * @param stations     所有站点数据
      * @param startStation 出发站
      * @param endStation   终点站
      * @return 出发站和终点站中间的站点（包含出发站和终点站）
+     * @description 计算出发站和终点站中间的站点（包含出发站和终点站）
      */
     public static List<RouteDTO> throughStation(List<String> stations, String startStation, String endStation) {
         List<RouteDTO> routesToDeduct = new ArrayList<>();
@@ -57,12 +54,11 @@ public final class StationCalculateUtil {
     }
 
     /**
-     * 计算出发站和终点站需要扣减余票的站点（包含出发站和终点站）
-     *
      * @param stations     所有站点数据
      * @param startStation 出发站
      * @param endStation   终点站
      * @return 出发站和终点站需要扣减余票的站点（包含出发站和终点站）
+     * @description 计算出发站和终点站需要扣减余票的站点（包含出发站和终点站）
      */
     public static List<RouteDTO> takeoutStation(List<String> stations, String startStation, String endStation) {
         List<RouteDTO> takeoutStationList = new ArrayList<>();

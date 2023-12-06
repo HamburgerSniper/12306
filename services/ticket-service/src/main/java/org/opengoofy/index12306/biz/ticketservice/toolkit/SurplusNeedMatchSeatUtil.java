@@ -26,18 +26,15 @@ import java.util.Optional;
 import java.util.PriorityQueue;
 
 /**
- * 匹配剩余的座位工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 匹配剩余的座位工具类
  */
 public final class SurplusNeedMatchSeatUtil {
 
     /**
-     * 匹配指定数量的空余座位方法
-     *
      * @param chooseSeatSize  选择座位数量
      * @param vacantSeatQueue 空余座位集合
      * @return 获取选择座位数量的空余座位集合 (获取数量可能小于选择座位数量)
+     * @description 匹配指定数量的空余座位方法
      */
     public static List<Pair<Integer, Integer>> getSurplusNeedMatchSeat(int chooseSeatSize, PriorityQueue<List<Pair<Integer, Integer>>> vacantSeatQueue) {
         Optional<List<Pair<Integer, Integer>>> optionalList = vacantSeatQueue.parallelStream().filter(each -> each.size() >= chooseSeatSize).findFirst();
@@ -49,8 +46,7 @@ public final class SurplusNeedMatchSeatUtil {
             List<Pair<Integer, Integer>> pairList = vacantSeatQueue.poll();
             if (result.size() + pairList.size() < chooseSeatSize) {
                 result.addAll(pairList);
-            }
-            else if (result.size() + pairList.size() >= chooseSeatSize) {
+            } else if (result.size() + pairList.size() >= chooseSeatSize) {
                 int needPairListLen = pairList.size() - (result.size() + pairList.size() - chooseSeatSize);
                 result.addAll(pairList.subList(0, needPairListLen));
                 if (result.size() == chooseSeatSize) {

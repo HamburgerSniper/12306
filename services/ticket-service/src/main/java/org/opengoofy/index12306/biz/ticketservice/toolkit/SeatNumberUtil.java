@@ -21,24 +21,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 座位号转换工具
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 座位号转换工具
  */
 public final class SeatNumberUtil {
 
     /**
-     * 复兴号-商务座
+     * @description 复兴号-商务座
      */
     private static final Map<Integer, String> TRAIN_BUSINESS_CLASS_SEAT_NUMBER_MAP = new HashMap<>();
 
     /**
-     * 复兴号-一等座
+     * @description 复兴号-一等座
      */
     private static final Map<Integer, String> TRAIN_FIRST_CLASS_SEAT_NUMBER_MAP = new HashMap<>();
 
     /**
-     * 复兴号-二等座
+     * @description 复兴号-二等座
      */
     private static final Map<Integer, String> TRAIN_SECOND_CLASS_SEAT_NUMBER_MAP = new HashMap<>();
 
@@ -58,11 +56,10 @@ public final class SeatNumberUtil {
     }
 
     /**
-     * 根据类型转换座位号
-     *
      * @param type 列车座位类型
      * @param num  座位号
      * @return 座位编号
+     * @description 根据类型转换座位号
      */
     public static String convert(int type, int num) {
         String serialNumber = null;

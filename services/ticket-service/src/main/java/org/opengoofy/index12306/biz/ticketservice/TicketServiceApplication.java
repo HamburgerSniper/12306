@@ -24,9 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 购票服务应用启动器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 购票服务应用启动器
  */
 @SpringBootApplication
 @EnableDynamicThreadPool

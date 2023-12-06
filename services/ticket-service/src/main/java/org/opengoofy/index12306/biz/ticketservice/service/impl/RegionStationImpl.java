@@ -41,19 +41,18 @@ import org.opengoofy.index12306.framework.starter.convention.exception.ClientExc
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12306Constant.ADVANCE_TICKET_DAY;
-import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.STATION_ALL;
-import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.REGION_STATION;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.LOCK_QUERY_REGION_STATION_LIST;
+import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.REGION_STATION;
+import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.STATION_ALL;
 
 /**
- * 地区以及车站接口实现层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 地区以及车站接口实现层
  */
 @Service
 @RequiredArgsConstructor
@@ -68,9 +67,9 @@ public class RegionStationImpl implements RegionStationService {
     public List<RegionStationQueryRespDTO> listRegionStation(RegionStationQueryReqDTO requestParam) {
         String key;
         if (StrUtil.isNotBlank(requestParam.getName())) {
-            key  = REGION_STATION  + requestParam.getName();
+            key = REGION_STATION + requestParam.getName();
             return safeGetRegionStation(
-                    key ,
+                    key,
                     () -> {
                         LambdaQueryWrapper<StationDO> queryWrapper = Wrappers.lambdaQuery(StationDO.class)
                                 .likeRight(StationDO::getName, requestParam.getName())
@@ -82,7 +81,7 @@ public class RegionStationImpl implements RegionStationService {
                     requestParam.getName()
             );
         }
-        key  = REGION_STATION  + requestParam.getQueryType();
+        key = REGION_STATION + requestParam.getQueryType();
         LambdaQueryWrapper<RegionDO> queryWrapper = switch (requestParam.getQueryType()) {
             case 0 -> Wrappers.lambdaQuery(RegionDO.class)
                     .eq(RegionDO::getPopularFlag, FlagEnum.TRUE.code());
@@ -119,7 +118,7 @@ public class RegionStationImpl implements RegionStationService {
         );
     }
 
-    private  List<RegionStationQueryRespDTO> safeGetRegionStation(final String key, CacheLoader<String> loader, String param) {
+    private List<RegionStationQueryRespDTO> safeGetRegionStation(final String key, CacheLoader<String> loader, String param) {
         List<RegionStationQueryRespDTO> result;
         if (CollUtil.isNotEmpty(result = JSON.parseArray(distributedCache.get(key, String.class), RegionStationQueryRespDTO.class))) {
             return result;

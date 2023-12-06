@@ -26,9 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 车票订单创建请求参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票订单创建请求参数
  */
 @Data
 @NoArgsConstructor
@@ -37,62 +35,62 @@ import java.util.List;
 public class TicketOrderCreateRemoteReqDTO {
 
     /**
-     * 用户 ID
+     * @description 用户 ID
      */
     private String userId;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 车次 ID
+     * @description 车次 ID
      */
     private Long trainId;
 
     /**
-     * 出发站点
+     * @description 出发站点
      */
     private String departure;
 
     /**
-     * 到达站点
+     * @description 到达站点
      */
     private String arrival;
 
     /**
-     * 订单来源
+     * @description 订单来源
      */
     private Integer source;
 
     /**
-     * 下单时间
+     * @description 下单时间
      */
     private Date orderTime;
 
     /**
-     * 乘车日期
+     * @description 乘车日期
      */
     private Date ridingDate;
 
     /**
-     * 列车车次
+     * @description 列车车次
      */
     private String trainNumber;
 
     /**
-     * 出发时间
+     * @description 出发时间
      */
     private Date departureTime;
 
     /**
-     * 到达时间
+     * @description 到达时间
      */
     private Date arrivalTime;
 
     /**
-     * 订单明细
+     * @description 订单明细
      */
     private List<TicketOrderItemCreateRemoteReqDTO> ticketOrderItems;
 }

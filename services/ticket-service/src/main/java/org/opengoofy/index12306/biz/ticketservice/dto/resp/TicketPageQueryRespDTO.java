@@ -26,9 +26,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.domain.TicketListDTO;
 import java.util.List;
 
 /**
- * 车票分页查询响应参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票分页查询响应参数
  */
 @Data
 @Builder
@@ -37,27 +35,27 @@ import java.util.List;
 public class TicketPageQueryRespDTO {
 
     /**
-     * 车次集合数据
+     * @description 车次集合数据
      */
     private List<TicketListDTO> trainList;
 
     /**
-     * 车次类型：D-动车 Z-直达 复兴号等
+     * @description 车次类型：D-动车 Z-直达 复兴号等
      */
     private List<Integer> trainBrandList;
 
     /**
-     * 出发车站
+     * @description 出发车站
      */
     private List<String> departureStationList;
 
     /**
-     * 到达车站
+     * @description 到达车站
      */
     private List<String> arrivalStationList;
 
     /**
-     * 车次席别
+     * @description 车次席别
      */
     private List<Integer> seatClassTypeList;
 }

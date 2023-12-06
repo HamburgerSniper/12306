@@ -35,14 +35,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 抽象列车&车票相关定时任务
+ * @description 抽象列车&车票相关定时任务
  *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public abstract class AbstractTrainStationJobHandlerTemplate extends IJobHandler {
 
     /**
-     * 模板方法模式具体实现子类执行定时任务
+     * @description 模板方法模式具体实现子类执行定时任务
      *
      * @param trainDOPageRecords 列车信息分页记录
      */

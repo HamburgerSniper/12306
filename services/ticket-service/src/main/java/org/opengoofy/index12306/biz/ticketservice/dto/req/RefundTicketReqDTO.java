@@ -22,25 +22,23 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 车票退款请求入参数实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票退款请求入参数实体
  */
 @Data
 public class RefundTicketReqDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 退款类型 0 部分退款 1 全部退款
+     * @description 退款类型 0 部分退款 1 全部退款
      */
     private Integer type;
 
     /**
-     * 部分退款子订单记录id集合
+     * @description 部分退款子订单记录id集合
      */
     private List<String> subOrderRecordIdReqList;
 }

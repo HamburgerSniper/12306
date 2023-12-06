@@ -20,85 +20,83 @@ package org.opengoofy.index12306.biz.ticketservice.dto.domain;
 import lombok.Data;
 
 /**
- * 普通车实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 普通车实体
  */
 @Data
 public class RegularTrainDTO {
 
     /**
-     * 软卧数量
+     * @description 软卧数量
      */
     private Integer softSleeperQuantity;
 
     /**
-     * 软卧候选标识
+     * @description 软卧候选标识
      */
     private Boolean softSleeperCandidate;
 
     /**
-     * 软卧价格
+     * @description 软卧价格
      */
     private Integer softSleeperPrice;
 
     /**
-     * 高级软卧数量
+     * @description 高级软卧数量
      */
     private Integer deluxeSoftSleeperQuantity;
 
     /**
-     * 高级软卧候选标识
+     * @description 高级软卧候选标识
      */
     private Boolean deluxeSoftSleeperCandidate;
 
     /**
-     * 高级软卧价格
+     * @description 高级软卧价格
      */
     private Integer deluxeSoftSleeperPrice;
 
     /**
-     * 硬卧数量
+     * @description 硬卧数量
      */
     private Integer hardSleeperQuantity;
 
     /**
-     * 硬卧候选标识
+     * @description 硬卧候选标识
      */
     private Boolean hardSleeperCandidate;
 
     /**
-     * 硬卧价格
+     * @description 硬卧价格
      */
     private Integer hardSleeperPrice;
 
     /**
-     * 硬座数量
+     * @description 硬座数量
      */
     private Integer hardSeatQuantity;
 
     /**
-     * 硬座候选标识
+     * @description 硬座候选标识
      */
     private Boolean hardSeatCandidate;
 
     /**
-     * 硬座价格
+     * @description 硬座价格
      */
     private Integer hardSeatPrice;
 
     /**
-     * 无座数量
+     * @description 无座数量
      */
     private Integer noSeatQuantity;
 
     /**
-     * 无座候选标识
+     * @description 无座候选标识
      */
     private Boolean noSeatCandidate;
 
     /**
-     * 无座价格
+     * @description 无座价格
      */
     private Integer noSeatPrice;
 }

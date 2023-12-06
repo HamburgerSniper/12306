@@ -27,14 +27,13 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 高铁二等座验证座位
+ * @description 高铁二等座验证座位
  *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public class TrainSecondCheckSeat implements TrainBitMapCheckSeat {
 
     /**
-     * 高铁二等座是否存在检查方法
+     * @description 高铁二等座是否存在检查方法
      *
      * @param key              缓存Key
      * @param convert          座位统计Map
@@ -72,7 +71,7 @@ public class TrainSecondCheckSeat implements TrainBitMapCheckSeat {
     }
 
     /**
-     * 高铁二等座选择座位是否被占用
+     * @description 高铁二等座选择座位是否被占用
      *
      * @param chooseSeatList 选择座位
      * @param actualSeats    座位状态数组

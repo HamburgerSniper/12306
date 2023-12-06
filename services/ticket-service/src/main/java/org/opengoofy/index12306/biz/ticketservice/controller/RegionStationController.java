@@ -30,9 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 地区以及车站查询控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 地区以及车站查询控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -41,7 +39,7 @@ public class RegionStationController {
     private final RegionStationService regionStationService;
 
     /**
-     * 查询车站&城市站点集合信息
+     * @description 查询车站&城市站点集合信息
      */
     @GetMapping("/api/ticket-service/region-station/query")
     public Result<List<RegionStationQueryRespDTO>> listRegionStation(RegionStationQueryReqDTO requestParam) {
@@ -49,7 +47,7 @@ public class RegionStationController {
     }
 
     /**
-     * 查询车站站点集合信息
+     * @description 查询车站站点集合信息
      */
     @GetMapping("/api/ticket-service/station/all")
     public Result<List<StationQueryRespDTO>> listAllStation() {
