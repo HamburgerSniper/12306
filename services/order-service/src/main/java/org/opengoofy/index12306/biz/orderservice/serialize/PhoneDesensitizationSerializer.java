@@ -25,9 +25,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
 /**
- * 手机号脱敏反序列化
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 手机号脱敏反序列化
  */
 public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
 

@@ -26,9 +26,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 本人车票订单详情返回参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 本人车票订单详情返回参数
  */
 @Data
 @NoArgsConstructor
@@ -37,65 +35,65 @@ import java.util.Date;
 public class TicketOrderDetailSelfRespDTO {
 
     /**
-     * 出发站点
+     * @description 出发站点
      */
     private String departure;
 
     /**
-     * 到达站点
+     * @description 到达站点
      */
     private String arrival;
 
     /**
-     * 乘车日期
+     * @description 乘车日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date ridingDate;
 
     /**
-     * 列车车次
+     * @description 列车车次
      */
     private String trainNumber;
 
     /**
-     * 出发时间
+     * @description 出发时间
      */
     @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
     private Date departureTime;
 
     /**
-     * 到达时间
+     * @description 到达时间
      */
     @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
     private Date arrivalTime;
 
     /**
-     * 席别类型
+     * @description 席别类型
      */
     private Integer seatType;
 
     /**
-     * 车厢号
+     * @description 车厢号
      */
     private String carriageNumber;
 
     /**
-     * 座位号
+     * @description 座位号
      */
     private String seatNumber;
 
     /**
-     * 真实姓名
+     * @description 真实姓名
      */
     private String realName;
 
     /**
-     * 车票类型 0：成人 1：儿童 2：学生 3：残疾军人
+     * @description 车票类型 0：成人 1：儿童 2：学生 3：残疾军人
      */
     private Integer ticketType;
 
     /**
-     * 订单金额
+     * @description 订单金额
      */
     private Integer amount;
 }

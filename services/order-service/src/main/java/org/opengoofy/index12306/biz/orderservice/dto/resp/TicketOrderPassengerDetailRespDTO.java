@@ -27,9 +27,7 @@ import org.opengoofy.index12306.biz.orderservice.common.enums.OrderItemStatusEnu
 import org.opengoofy.index12306.biz.orderservice.serialize.IdCardDesensitizationSerializer;
 
 /**
- * 车票订单详情返回参数
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票订单详情返回参数
  */
 @Data
 @Builder
@@ -38,69 +36,69 @@ import org.opengoofy.index12306.biz.orderservice.serialize.IdCardDesensitization
 public class TicketOrderPassengerDetailRespDTO {
 
     /**
-     * ID
+     * @description ID
      */
     private String id;
 
     /**
-     * 用户id
+     * @description 用户id
      */
     private String userId;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 席别类型
+     * @description 席别类型
      */
     private Integer seatType;
 
     /**
-     * 车厢号
+     * @description 车厢号
      */
     private String carriageNumber;
 
     /**
-     * 座位号
+     * @description 座位号
      */
     private String seatNumber;
 
     /**
-     * 真实姓名
+     * @description 真实姓名
      */
     private String realName;
 
     /**
-     * 证件类型
+     * @description 证件类型
      */
     private Integer idType;
 
     /**
-     * 证件号
+     * @description 证件号
      */
     @JsonSerialize(using = IdCardDesensitizationSerializer.class)
     private String idCard;
 
     /**
-     * 车票类型 0：成人 1：儿童 2：学生 3：残疾军人
+     * @description 车票类型 0：成人 1：儿童 2：学生 3：残疾军人
      */
     private Integer ticketType;
 
     /**
-     * 订单金额
+     * @description 订单金额
      */
     private Integer amount;
 
     /**
-     * 车票状态
+     * @description 车票状态
      */
     @AssembleEnum(type = OrderItemStatusEnum.class, ref = "statusName")
     private Integer status;
 
     /**
-     * 车票状态名称
+     * @description 车票状态名称
      */
     private String statusName;
 }

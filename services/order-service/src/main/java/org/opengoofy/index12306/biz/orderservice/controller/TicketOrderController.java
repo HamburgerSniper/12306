@@ -41,9 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 车票订单接口控制层
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 车票订单接口控制层
  */
 @RestController
 @RequiredArgsConstructor
@@ -53,7 +51,7 @@ public class TicketOrderController {
     private final OrderItemService orderItemService;
 
     /**
-     * 根据订单号查询车票订单
+     * @description 根据订单号查询车票订单
      */
     @GetMapping("/api/order-service/order/ticket/query")
     public Result<TicketOrderDetailRespDTO> queryTicketOrderByOrderSn(@RequestParam(value = "orderSn") String orderSn) {
@@ -61,7 +59,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 根据子订单记录id查询车票子订单详情
+     * @description 根据子订单记录id查询车票子订单详情
      */
     @GetMapping("/api/order-service/order/item/ticket/query")
     public Result<List<TicketOrderPassengerDetailRespDTO>> queryTicketItemOrderById(TicketOrderItemQueryReqDTO requestParam) {
@@ -69,7 +67,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 分页查询车票订单
+     * @description 分页查询车票订单
      */
     @AutoOperate(type = TicketOrderDetailRespDTO.class, on = "data.records")
     @GetMapping("/api/order-service/order/ticket/page")
@@ -78,7 +76,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 分页查询本人车票订单
+     * @description 分页查询本人车票订单
      */
     @GetMapping("/api/order-service/order/ticket/self/page")
     public Result<PageResponse<TicketOrderDetailSelfRespDTO>> pageSelfTicketOrder(TicketOrderSelfPageQueryReqDTO requestParam) {
@@ -86,7 +84,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 车票订单创建
+     * @description 车票订单创建
      */
     @PostMapping("/api/order-service/order/ticket/create")
     public Result<String> createTicketOrder(@RequestBody TicketOrderCreateReqDTO requestParam) {
@@ -94,7 +92,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 车票订单关闭
+     * @description 车票订单关闭
      */
     @PostMapping("/api/order-service/order/ticket/close")
     public Result<Boolean> closeTickOrder(@RequestBody CancelTicketOrderReqDTO requestParam) {
@@ -102,7 +100,7 @@ public class TicketOrderController {
     }
 
     /**
-     * 车票订单取消
+     * @description 车票订单取消
      */
     @PostMapping("/api/order-service/order/ticket/cancel")
     public Result<Boolean> cancelTickOrder(@RequestBody CancelTicketOrderReqDTO requestParam) {

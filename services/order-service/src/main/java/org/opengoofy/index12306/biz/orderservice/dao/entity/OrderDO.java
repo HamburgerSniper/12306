@@ -27,9 +27,7 @@ import org.opengoofy.index12306.framework.starter.database.base.BaseDO;
 import java.util.Date;
 
 /**
- * 订单数据库实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 订单数据库实体
  */
 @Data
 @TableName("t_order")
@@ -39,82 +37,82 @@ import java.util.Date;
 public class OrderDO extends BaseDO {
 
     /**
-     * id
+     * @description id
      */
     private Long id;
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 用户id
+     * @description 用户id
      */
     private String userId;
 
     /**
-     * 用户名
+     * @description 用户名
      */
     private String username;
 
     /**
-     * 列车id
+     * @description 列车id
      */
     private Long trainId;
 
     /**
-     * 列车车次
+     * @description 列车车次
      */
     private String trainNumber;
 
     /**
-     * 出发站点
+     * @description 出发站点
      */
     private String departure;
 
     /**
-     * 到达站点
+     * @description 到达站点
      */
     private String arrival;
 
     /**
-     * 订单来源
+     * @description 订单来源
      */
     private Integer source;
 
     /**
-     * 订单状态
+     * @description 订单状态
      */
     private Integer status;
 
     /**
-     * 下单时间
+     * @description 下单时间
      */
     private Date orderTime;
 
     /**
-     * 支付方式
+     * @description 支付方式
      */
     private Integer payType;
 
     /**
-     * 支付时间
+     * @description 支付时间
      */
     private Date payTime;
 
     /**
-     * 乘车日期
+     * @description 乘车日期
      */
     private Date ridingDate;
 
     /**
-     * 出发时间
+     * @description 出发时间
      */
     private Date departureTime;
 
     /**
-     * 出发时间
+     * @description 出发时间
      */
     private Date arrivalTime;
 }

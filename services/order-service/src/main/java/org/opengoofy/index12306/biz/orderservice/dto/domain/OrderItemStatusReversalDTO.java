@@ -26,9 +26,7 @@ import org.opengoofy.index12306.biz.orderservice.dao.entity.OrderItemDO;
 import java.util.List;
 
 /**
- * 子订单状态反转实体
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 子订单状态反转实体
  */
 @Data
 @Builder
@@ -37,22 +35,22 @@ import java.util.List;
 public class OrderItemStatusReversalDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 
     /**
-     * 订单反转后状态
+     * @description 订单反转后状态
      */
     private Integer orderStatus;
 
     /**
-     * 订单明细反转后状态
+     * @description 订单明细反转后状态
      */
     private Integer orderItemStatus;
 
     /**
-     * 订单明细集合
+     * @description 订单明细集合
      */
     private List<OrderItemDO> orderItemDOList;
 }

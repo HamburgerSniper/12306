@@ -20,15 +20,13 @@ package org.opengoofy.index12306.biz.orderservice.dto.req;
 import lombok.Data;
 
 /**
- * 取消车票订单请求入参
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 取消车票订单请求入参
  */
 @Data
 public class CancelTicketOrderReqDTO {
 
     /**
-     * 订单号
+     * @description 订单号
      */
     private String orderSn;
 }

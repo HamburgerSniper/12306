@@ -28,23 +28,20 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * 订单 ID 全局唯一生成器管理
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 订单 ID 全局唯一生成器管理
  */
 @Component
 @RequiredArgsConstructor
 public final class OrderIdGeneratorManager implements InitializingBean {
 
+    private static DistributedIdGenerator DISTRIBUTED_ID_GENERATOR;
     private final RedissonClient redissonClient;
     private final DistributedCache distributedCache;
-    private static DistributedIdGenerator DISTRIBUTED_ID_GENERATOR;
 
     /**
-     * 生成订单全局唯一 ID
-     *
      * @param userId 用户名
      * @return 订单 ID
+     * @description 生成订单全局唯一 ID
      */
     public static String generateId(long userId) {
         return DISTRIBUTED_ID_GENERATOR.generateId() + String.valueOf(userId % 1000000);

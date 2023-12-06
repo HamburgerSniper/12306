@@ -21,9 +21,7 @@ import lombok.AllArgsConstructor;
 import org.opengoofy.index12306.framework.starter.convention.errorcode.IErrorCode;
 
 /**
- * 订单取消错误码枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 订单取消错误码枚举
  */
 @AllArgsConstructor
 public enum OrderCanalErrorCodeEnum implements IErrorCode {
@@ -43,12 +41,12 @@ public enum OrderCanalErrorCodeEnum implements IErrorCode {
     ORDER_ITEM_STATUS_REVERSAL_ERROR("B006007", "子订单状态反转失败，请稍后再试");
 
     /**
-     * 错误码
+     * @description 错误码
      */
     private final String code;
 
     /**
-     * 错误提示消息
+     * @description 错误提示消息
      */
     private final String message;
 
