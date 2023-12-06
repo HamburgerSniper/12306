@@ -27,9 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 列车标签枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 列车标签枚举
  */
 @RequiredArgsConstructor
 public enum TrainBrandEnum {
@@ -57,7 +55,7 @@ public enum TrainBrandEnum {
     private final String name;
 
     /**
-     * 根据编码查找名称
+     * @description 根据编码查找名称
      */
     public static String findNameByCode(String code) {
         return Arrays.stream(TrainBrandEnum.values())
@@ -68,7 +66,7 @@ public enum TrainBrandEnum {
     }
 
     /**
-     * 根据编码查找名称
+     * @description 根据编码查找名称
      */
     public static List<String> findNameByCode(List<String> codes) {
         List<String> resultNames = new ArrayList<>();

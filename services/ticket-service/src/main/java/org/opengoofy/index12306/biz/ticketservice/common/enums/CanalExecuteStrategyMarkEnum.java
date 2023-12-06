@@ -26,27 +26,24 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- * Canal 执行策略标记枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description Canal 执行策略标记枚举
  */
+@Getter
 @RequiredArgsConstructor
 public enum CanalExecuteStrategyMarkEnum {
 
     /**
-     * 座位表
+     * @description 座位表
      */
     T_SEAT("t_seat", null),
 
     /**
-     * 订单表
+     * @description 订单表
      */
     T_ORDER("t_order", "^t_order_([0-9]+|1[0-6])");
 
-    @Getter
     private final String actualTable;
 
-    @Getter
     private final String patternMatchTable;
 
     public static boolean isPatternMatch(String tableName) {

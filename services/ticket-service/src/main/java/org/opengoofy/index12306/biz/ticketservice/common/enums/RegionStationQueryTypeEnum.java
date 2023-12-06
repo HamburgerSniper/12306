@@ -26,57 +26,54 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 地区&站点类型枚举
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 地区&站点类型枚举
  */
+@Getter
 @RequiredArgsConstructor
 public enum RegionStationQueryTypeEnum {
 
     /**
-     * 热门查询
+     * @description 热门查询
      */
     HOT(0, null),
 
     /**
-     * A to E
+     * @description A to E
      */
     A_E(1, ListUtil.of("A", "B", "C", "D", "E")),
 
     /**
-     * F to J
+     * @description F to J
      */
     F_J(2, ListUtil.of("F", "G", "H", "R", "J")),
 
     /**
-     * K to O
+     * @description K to O
      */
     K_O(3, ListUtil.of("K", "L", "M", "N", "O")),
 
     /**
-     * P to T
+     * @description P to T
      */
     P_T(4, ListUtil.of("P", "Q", "R", "S", "T")),
 
     /**
-     * U to Z
+     * @description U to Z
      */
     U_Z(5, ListUtil.of("U", "V", "W", "X", "Y", "Z"));
 
     /**
-     * 类型
+     * @description 类型
      */
-    @Getter
     private final Integer type;
 
     /**
-     * 拼音列表
+     * @description 拼音列表
      */
-    @Getter
     private final List<String> spells;
 
     /**
-     * 根据类型查找拼音集合
+     * @description 根据类型查找拼音集合
      */
     public static List<String> findSpellsByType(Integer type) {
         return Arrays.stream(RegionStationQueryTypeEnum.values())
