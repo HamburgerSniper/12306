@@ -26,15 +26,19 @@ import org.opengoofy.index12306.framework.starter.idempotent.annotation.Idempote
 import java.lang.reflect.Method;
 
 /**
- * 幂等注解 AOP 拦截器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 幂等注解 AOP 拦截器
  */
 @Aspect
 public final class IdempotentAspect {
 
+    public static Idempotent getIdempotent(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        Method targetMethod = joinPoint.getTarget().getClass().getDeclaredMethod(methodSignature.getName(), methodSignature.getMethod().getParameterTypes());
+        return targetMethod.getAnnotation(Idempotent.class);
+    }
+
     /**
-     * 增强方法标记 {@link Idempotent} 注解逻辑
+     * @description 增强方法标记 {@link Idempotent} 注解逻辑
      */
     @Around("@annotation(org.opengoofy.index12306.framework.starter.idempotent.annotation.Idempotent)")
     public Object idempotentHandler(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -46,7 +50,7 @@ public final class IdempotentAspect {
             resultObj = joinPoint.proceed();
             instance.postProcessing();
         } catch (RepeatConsumptionException ex) {
-            /**
+            /**@description
              * 触发幂等逻辑时可能有两种情况：
              *    * 1. 消息还在处理，但是不确定是否执行成功，那么需要返回错误，方便 RocketMQ 再次通过重试队列投递
              *    * 2. 消息处理成功了，该消息直接返回成功即可
@@ -63,11 +67,5 @@ public final class IdempotentAspect {
             IdempotentContext.clean();
         }
         return resultObj;
-    }
-
-    public static Idempotent getIdempotent(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method targetMethod = joinPoint.getTarget().getClass().getDeclaredMethod(methodSignature.getName(), methodSignature.getMethod().getParameterTypes());
-        return targetMethod.getAnnotation(Idempotent.class);
     }
 }

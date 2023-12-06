@@ -35,23 +35,20 @@ import static org.opengoofy.index12306.framework.starter.bases.constant.UserCons
 import static org.opengoofy.index12306.framework.starter.bases.constant.UserConstant.USER_NAME_KEY;
 
 /**
- * JWT 工具类
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description JWT 工具类
  */
 @Slf4j
 public final class JWTUtil {
 
-    private static final long EXPIRATION = 86400L;
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String ISS = "index12306";
     public static final String SECRET = "SecretKey039245678901232039487623456783092349288901402967890140939827";
+    private static final long EXPIRATION = 86400L;
 
     /**
-     * 生成用户 Token
-     *
      * @param userInfo 用户信息
      * @return 用户访问 Token
+     * @description 生成用户 Token
      */
     public static String generateAccessToken(UserInfoDTO userInfo) {
         Map<String, Object> customerUserMap = new HashMap<>();
@@ -69,10 +66,9 @@ public final class JWTUtil {
     }
 
     /**
-     * 解析用户 Token
-     *
      * @param jwtToken 用户访问 Token
      * @return 用户信息
+     * @description 解析用户 Token
      */
     public static UserInfoDTO parseJwtToken(String jwtToken) {
         if (StringUtils.hasText(jwtToken)) {

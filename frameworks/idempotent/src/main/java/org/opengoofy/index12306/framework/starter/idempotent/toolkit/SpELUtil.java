@@ -30,17 +30,14 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * SpEL 表达式解析工具
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description SpEL 表达式解析工具
  */
 public class SpELUtil {
 
     /**
-     * 校验并返回实际使用的 spEL 表达式
-     *
      * @param spEl spEL 表达式
      * @return 实际使用的 spEL 表达式
+     * @description 校验并返回实际使用的 spEL 表达式
      */
     public static Object parseKey(String spEl, Method method, Object[] contextObj) {
         ArrayList<String> spELFlag = Lists.newArrayList("#", "T(");
@@ -52,11 +49,10 @@ public class SpELUtil {
     }
 
     /**
-     * 转换参数为字符串
-     *
      * @param spEl       spEl 表达式
      * @param contextObj 上下文对象
      * @return 解析的字符串值
+     * @description 转换参数为字符串
      */
     public static Object parse(String spEl, Method method, Object[] contextObj) {
         DefaultParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();

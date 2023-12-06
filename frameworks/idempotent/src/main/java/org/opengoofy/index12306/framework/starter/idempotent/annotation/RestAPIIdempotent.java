@@ -28,10 +28,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * RestAPI业务场景幂等注解
+ * @description RestAPI业务场景幂等注解
  * 暂时没有找到在 AOP 处理比较优雅的方式，暂时废弃
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Deprecated
 @Target(ElementType.METHOD)
@@ -41,19 +39,19 @@ import java.lang.annotation.Target;
 public @interface RestAPIIdempotent {
 
     /**
-     * {@link Idempotent#key} 的别名
+     * @description {@link Idempotent#key} 的别名
      */
     @AliasFor(annotation = Idempotent.class, attribute = "key")
     String key() default "";
 
     /**
-     * {@link Idempotent#message} 的别名
+     * @description {@link Idempotent#message} 的别名
      */
     @AliasFor(annotation = Idempotent.class, attribute = "message")
     String message() default "您操作太快，请稍后再试";
 
     /**
-     * {@link Idempotent#type} 的别名
+     * @description {@link Idempotent#type} 的别名
      */
     @AliasFor(annotation = Idempotent.class, attribute = "type")
     IdempotentTypeEnum type() default IdempotentTypeEnum.PARAM;

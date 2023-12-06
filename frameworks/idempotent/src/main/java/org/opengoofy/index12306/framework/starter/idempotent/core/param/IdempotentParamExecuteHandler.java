@@ -33,16 +33,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * 基于方法参数验证请求幂等性
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 基于方法参数验证请求幂等性
  */
 @RequiredArgsConstructor
 public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentParamService {
 
-    private final RedissonClient redissonClient;
-
     private final static String LOCK = "lock:param:restAPI";
+    private final RedissonClient redissonClient;
 
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
@@ -52,6 +49,7 @@ public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecu
 
     /**
      * @return 获取当前线程上下文 ServletPath
+     * @description
      */
     private String getServletPath() {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -60,10 +58,11 @@ public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecu
 
     /**
      * @return 当前操作用户 ID
+     * @description
      */
     private String getCurrentUserId() {
         String userId = UserContext.getUserId();
-        if(StrUtil.isBlank(userId)){
+        if (StrUtil.isBlank(userId)) {
             throw new ClientException("用户ID获取失败，请登录");
         }
         return userId;
@@ -71,6 +70,7 @@ public final class IdempotentParamExecuteHandler extends AbstractIdempotentExecu
 
     /**
      * @return joinPoint md5
+     * @description
      */
     private String calcArgsMD5(ProceedingJoinPoint joinPoint) {
         String md5 = DigestUtil.md5Hex(JSON.toJSONBytes(joinPoint.getArgs()));

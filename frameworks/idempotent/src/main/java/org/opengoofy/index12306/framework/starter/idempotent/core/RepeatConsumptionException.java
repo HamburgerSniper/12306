@@ -21,15 +21,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 重复消费异常
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 重复消费异常
  */
 @RequiredArgsConstructor
 public class RepeatConsumptionException extends RuntimeException {
-    
+
     /**
-     * 错误标识
+     * @description 错误标识
      * <p>
      * 触发幂等逻辑时可能有两种情况：
      * 1. 消息还在处理，但是不确定是否执行成功，那么需要返回错误，方便 RocketMQ 再次通过重试队列投递

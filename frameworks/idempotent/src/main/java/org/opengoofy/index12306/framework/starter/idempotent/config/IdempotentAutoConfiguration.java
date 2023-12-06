@@ -33,15 +33,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * 幂等自动装配
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 幂等自动装配
  */
 @EnableConfigurationProperties(IdempotentProperties.class)
 public class IdempotentAutoConfiguration {
 
     /**
-     * 幂等切面
+     * @description 幂等切面
      */
     @Bean
     public IdempotentAspect idempotentAspect() {
@@ -49,7 +47,7 @@ public class IdempotentAutoConfiguration {
     }
 
     /**
-     * 参数方式幂等实现，基于 RestAPI 场景
+     * @description 参数方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
@@ -58,7 +56,7 @@ public class IdempotentAutoConfiguration {
     }
 
     /**
-     * Token 方式幂等实现，基于 RestAPI 场景
+     * @description Token 方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
@@ -68,7 +66,7 @@ public class IdempotentAutoConfiguration {
     }
 
     /**
-     * 申请幂等 Token 控制器，基于 RestAPI 场景
+     * @description 申请幂等 Token 控制器，基于 RestAPI 场景
      */
     @Bean
     public IdempotentTokenController idempotentTokenController(IdempotentTokenService idempotentTokenService) {
@@ -76,7 +74,7 @@ public class IdempotentAutoConfiguration {
     }
 
     /**
-     * SpEL 方式幂等实现，基于 RestAPI 场景
+     * @description SpEL 方式幂等实现，基于 RestAPI 场景
      */
     @Bean
     @ConditionalOnMissingBean
@@ -85,7 +83,7 @@ public class IdempotentAutoConfiguration {
     }
 
     /**
-     * SpEL 方式幂等实现，基于 MQ 场景
+     * @description SpEL 方式幂等实现，基于 MQ 场景
      */
     @Bean
     @ConditionalOnMissingBean

@@ -24,14 +24,12 @@ import org.opengoofy.index12306.framework.starter.convention.result.Result;
 import java.util.Optional;
 
 /**
- * 全局返回对象构造器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 全局返回对象构造器
  */
 public final class Results {
 
     /**
-     * 构造成功响应
+     * @description 构造成功响应
      */
     public static Result<Void> success() {
         return new Result<Void>()
@@ -39,7 +37,7 @@ public final class Results {
     }
 
     /**
-     * 构造带返回数据的成功响应
+     * @description 构造带返回数据的成功响应
      */
     public static <T> Result<T> success(T data) {
         return new Result<T>()
@@ -48,7 +46,7 @@ public final class Results {
     }
 
     /**
-     * 构建服务端失败响应
+     * @description 构建服务端失败响应
      */
     protected static Result<Void> failure() {
         return new Result<Void>()
@@ -57,7 +55,7 @@ public final class Results {
     }
 
     /**
-     * 通过 {@link AbstractException} 构建失败响应
+     * @description 通过 {@link AbstractException} 构建失败响应
      */
     protected static Result<Void> failure(AbstractException abstractException) {
         String errorCode = Optional.ofNullable(abstractException.getErrorCode())
@@ -70,7 +68,7 @@ public final class Results {
     }
 
     /**
-     * 通过 errorCode、errorMessage 构建失败响应
+     * @description 通过 errorCode、errorMessage 构建失败响应
      */
     protected static Result<Void> failure(String errorCode, String errorMessage) {
         return new Result<Void>()

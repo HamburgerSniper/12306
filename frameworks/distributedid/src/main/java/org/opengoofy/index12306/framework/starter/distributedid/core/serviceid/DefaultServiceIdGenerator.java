@@ -22,14 +22,47 @@ import org.opengoofy.index12306.framework.starter.distributedid.core.snowflake.S
 import org.opengoofy.index12306.framework.starter.distributedid.toolkit.SnowflakeIdUtil;
 
 /**
- * 默认业务 ID 生成器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 默认业务 ID 生成器
  */
 public final class DefaultServiceIdGenerator implements ServiceIdGenerator {
 
+    /**
+     * @description 工作 ID 5 bit
+     */
+    private static final long WORKER_ID_BITS = 5L;
+    /**
+     * @description 数据中心 ID 5 bit
+     */
+    private static final long DATA_CENTER_ID_BITS = 5L;
+    /**
+     * @description 序列号 12 位，表示只允许 workerId 的范围为 0-4095
+     */
+    private static final long SEQUENCE_BITS = 12L;
+    /**
+     * @description 真实序列号 bit
+     */
+    private static final long SEQUENCE_ACTUAL_BITS = 8L;
+    /**
+     * @description 基因 bit
+     */
+    private static final long SEQUENCE_BIZ_BITS = 4L;
+    /**
+     * @description 机器节点左移12位
+     */
+    private static final long WORKER_ID_SHIFT = SEQUENCE_BITS;
+    /**
+     * @description 数据中心节点左移 17 位
+     */
+    private static final long DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
+    /**
+     * @description 时间毫秒数左移 22 位
+     */
+    private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATA_CENTER_ID_BITS;
+    /**
+     * @description 默认开始时间
+     */
+    private static long DEFAULT_TWEPOCH = 1288834974657L;
     private final IdGenerator idGenerator;
-
     private long maxBizIdBitsLen;
 
     public DefaultServiceIdGenerator() {
@@ -64,49 +97,4 @@ public final class DefaultServiceIdGenerator implements ServiceIdGenerator {
                 .build();
         return snowflakeIdInfo;
     }
-
-    /**
-     * 工作 ID 5 bit
-     */
-    private static final long WORKER_ID_BITS = 5L;
-
-    /**
-     * 数据中心 ID 5 bit
-     */
-    private static final long DATA_CENTER_ID_BITS = 5L;
-
-    /**
-     * 序列号 12 位，表示只允许 workerId 的范围为 0-4095
-     */
-    private static final long SEQUENCE_BITS = 12L;
-
-    /**
-     * 真实序列号 bit
-     */
-    private static final long SEQUENCE_ACTUAL_BITS = 8L;
-
-    /**
-     * 基因 bit
-     */
-    private static final long SEQUENCE_BIZ_BITS = 4L;
-
-    /**
-     * 机器节点左移12位
-     */
-    private static final long WORKER_ID_SHIFT = SEQUENCE_BITS;
-
-    /**
-     * 默认开始时间
-     */
-    private static long DEFAULT_TWEPOCH = 1288834974657L;
-
-    /**
-     * 数据中心节点左移 17 位
-     */
-    private static final long DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
-
-    /**
-     * 时间毫秒数左移 22 位
-     */
-    private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATA_CENTER_ID_BITS;
 }

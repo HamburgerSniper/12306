@@ -26,15 +26,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
- * 分布式 ID 自动装配
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 分布式 ID 自动装配
  */
 @Import(ApplicationContextHolder.class)
 public class DistributedIdAutoConfiguration {
 
     /**
-     * 本地 Redis 构建雪花 WorkId 选择器
+     * @description 本地 Redis 构建雪花 WorkId 选择器
      */
     @Bean
     @ConditionalOnProperty("spring.data.redis.host")
@@ -43,7 +41,7 @@ public class DistributedIdAutoConfiguration {
     }
 
     /**
-     * 随机数构建雪花 WorkId 选择器。如果项目未使用 Redis，使用该选择器
+     * @description 随机数构建雪花 WorkId 选择器。如果项目未使用 Redis，使用该选择器
      */
     @Bean
     @ConditionalOnMissingBean(LocalRedisWorkIdChoose.class)

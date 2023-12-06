@@ -44,18 +44,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * 分布式缓存之操作 Redis 模版代理
  * 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @RequiredArgsConstructor
 public class StringRedisTemplateProxy implements DistributedCache {
 
+    private static final String LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH = "lua/putIfAllAbsent.lua";
+    private static final String SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX = "safe_get_distributed_lock_get:";
     private final StringRedisTemplate stringRedisTemplate;
     private final RedisDistributedProperties redisProperties;
     private final RedissonClient redissonClient;
-
-    private static final String LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH = "lua/putIfAllAbsent.lua";
-    private static final String SAFE_GET_DISTRIBUTED_LOCK_KEY_PREFIX = "safe_get_distributed_lock_get:";
 
     @Override
     public <T> T get(String key, Class<T> clazz) {

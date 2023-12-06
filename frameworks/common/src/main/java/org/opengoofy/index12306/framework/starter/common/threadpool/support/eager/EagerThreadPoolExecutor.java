@@ -26,10 +26,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 快速消费线程池
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public class EagerThreadPoolExecutor extends ThreadPoolExecutor {
+
+    private final AtomicInteger submittedTaskCount = new AtomicInteger(0);
 
     public EagerThreadPoolExecutor(int corePoolSize,
                                    int maximumPoolSize,
@@ -40,8 +40,6 @@ public class EagerThreadPoolExecutor extends ThreadPoolExecutor {
                                    RejectedExecutionHandler handler) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
     }
-
-    private final AtomicInteger submittedTaskCount = new AtomicInteger(0);
 
     public int getSubmittedTaskCount() {
         return submittedTaskCount.get();

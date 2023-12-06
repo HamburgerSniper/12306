@@ -32,16 +32,13 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
 /**
- * 基于 SpEL 方法验证请求幂等性，适用于 RestAPI 场景
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 基于 SpEL 方法验证请求幂等性，适用于 RestAPI 场景
  */
 @RequiredArgsConstructor
 public final class IdempotentSpELByRestAPIExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService {
 
-    private final RedissonClient redissonClient;
-
     private final static String LOCK = "lock:spEL:restAPI";
+    private final RedissonClient redissonClient;
 
     @SneakyThrows
     @Override

@@ -37,15 +37,13 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * {@link ILog} 日志打印 AOP 切面
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description {@link ILog} 日志打印 AOP 切面
  */
 @Aspect
 public class ILogPrintAspect {
 
     /**
-     * 打印类或方法上的 {@link ILog}
+     * @description 打印类或方法上的 {@link ILog}
      */
     @Around("@within(org.opengoofy.index12306.framework.starter.log.annotation.ILog) || @annotation(org.opengoofy.index12306.framework.starter.log.annotation.ILog)")
     public Object printMLog(ProceedingJoinPoint joinPoint) throws Throwable {

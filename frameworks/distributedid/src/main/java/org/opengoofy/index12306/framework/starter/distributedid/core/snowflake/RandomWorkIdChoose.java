@@ -21,12 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * 使用随机数获取雪花 WorkId
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 使用随机数获取雪花 WorkId
  */
 @Slf4j
 public class RandomWorkIdChoose extends AbstractWorkIdChooseTemplate implements InitializingBean {
+
+    private static long getRandom(int start, int end) {
+        long random = (long) (Math.random() * (end - start + 1) + start);
+        return random;
+    }
 
     @Override
     protected WorkIdWrapper chooseWorkId() {
@@ -37,10 +40,5 @@ public class RandomWorkIdChoose extends AbstractWorkIdChooseTemplate implements 
     @Override
     public void afterPropertiesSet() throws Exception {
         chooseAndInit();
-    }
-
-    private static long getRandom(int start, int end) {
-        long random = (long) (Math.random() * (end - start + 1) + start);
-        return random;
     }
 }

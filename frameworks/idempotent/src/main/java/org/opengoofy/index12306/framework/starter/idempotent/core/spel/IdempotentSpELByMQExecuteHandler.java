@@ -36,17 +36,14 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 基于 SpEL 方法验证请求幂等性，适用于 MQ 场景
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 基于 SpEL 方法验证请求幂等性，适用于 MQ 场景
  */
 @RequiredArgsConstructor
 public final class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService {
 
-    private final DistributedCache distributedCache;
-
     private final static int TIMEOUT = 600;
     private final static String WRAPPER = "wrapper:spEL:MQ";
+    private final DistributedCache distributedCache;
 
     @SneakyThrows
     @Override

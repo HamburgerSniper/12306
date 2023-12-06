@@ -22,9 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * WorkId 包装器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description WorkId 包装器
  */
 @Data
 @NoArgsConstructor
@@ -32,12 +30,12 @@ import lombok.NoArgsConstructor;
 public class WorkIdWrapper {
 
     /**
-     * 工作ID
+     * @description 工作ID
      */
     private Long workId;
 
     /**
-     * 数据中心ID
+     * @description 数据中心ID
      */
     private Long dataCenterId;
 }

@@ -30,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 线程池 {@link ThreadPoolExecutor} 构建器, 构建者模式
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public final class ThreadPoolBuilder implements Builder<ThreadPoolExecutor> {
 
@@ -52,6 +50,10 @@ public final class ThreadPoolBuilder implements Builder<ThreadPoolExecutor> {
     private String threadNamePrefix;
 
     private ThreadFactory threadFactory;
+
+    public static ThreadPoolBuilder builder() {
+        return new ThreadPoolBuilder();
+    }
 
     private Integer calculateCoreNum() {
         int cpuCoreNum = Runtime.getRuntime().availableProcessors();
@@ -101,10 +103,6 @@ public final class ThreadPoolBuilder implements Builder<ThreadPoolExecutor> {
     public ThreadPoolBuilder workQueue(BlockingQueue workQueue) {
         this.workQueue = workQueue;
         return this;
-    }
-
-    public static ThreadPoolBuilder builder() {
-        return new ThreadPoolBuilder();
     }
 
     @Override

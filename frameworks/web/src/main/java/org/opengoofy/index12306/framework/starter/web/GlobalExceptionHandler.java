@@ -35,16 +35,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Optional;
 
 /**
- * 全局异常处理器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 全局异常处理器
  */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
-     * 拦截参数验证异常
+     * @description 拦截参数验证异常
      */
     @SneakyThrows
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -59,7 +57,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 拦截应用内抛出的异常
+     * @description 拦截应用内抛出的异常
      */
     @ExceptionHandler(value = {AbstractException.class})
     public Result abstractException(HttpServletRequest request, AbstractException ex) {
@@ -72,7 +70,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 拦截未捕获异常
+     * @description 拦截未捕获异常
      */
     @ExceptionHandler(value = Throwable.class)
     public Result defaultErrorHandler(HttpServletRequest request, Throwable throwable) {

@@ -29,12 +29,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 分页返回对象
+ * @description 分页返回对象
  *
  * <p> {@link PageRequest}、{@link PageResponse}
  * 可以理解是防腐层的一种实现，不论底层 ORM 框架，对外分页参数属性不变
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Data
 @Builder
@@ -45,22 +43,22 @@ public class PageResponse<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 当前页
+     * @description 当前页
      */
     private Long current;
 
     /**
-     * 每页显示条数
+     * @description 每页显示条数
      */
     private Long size = 10L;
 
     /**
-     * 总数
+     * @description 总数
      */
     private Long total;
 
     /**
-     * 查询数据列表
+     * @description 查询数据列表
      */
     private List<T> records = Collections.emptyList();
 

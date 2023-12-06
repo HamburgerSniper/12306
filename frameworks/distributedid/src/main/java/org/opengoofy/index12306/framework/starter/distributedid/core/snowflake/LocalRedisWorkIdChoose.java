@@ -31,9 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 使用 Redis 获取雪花 WorkId
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 使用 Redis 获取雪花 WorkId
  */
 @Slf4j
 public class LocalRedisWorkIdChoose extends AbstractWorkIdChooseTemplate implements InitializingBean {

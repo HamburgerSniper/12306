@@ -25,8 +25,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 线程工厂 {@link ThreadFactory} 构建器, 构建者模式
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 public final class ThreadFactoryBuilder implements Builder<ThreadFactory> {
 
@@ -41,6 +39,37 @@ public final class ThreadFactoryBuilder implements Builder<ThreadFactory> {
     private Integer priority;
 
     private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
+
+    public static ThreadFactoryBuilder builder() {
+        return new ThreadFactoryBuilder();
+    }
+
+    private static ThreadFactory build(ThreadFactoryBuilder builder) {
+        final ThreadFactory backingThreadFactory = (null != builder.backingThreadFactory)
+                ? builder.backingThreadFactory
+                : Executors.defaultThreadFactory();
+        final String namePrefix = builder.namePrefix;
+        final Boolean daemon = builder.daemon;
+        final Integer priority = builder.priority;
+        final Thread.UncaughtExceptionHandler handler = builder.uncaughtExceptionHandler;
+        final AtomicLong count = (null == namePrefix) ? null : new AtomicLong();
+        return r -> {
+            final Thread thread = backingThreadFactory.newThread(r);
+            if (null != namePrefix) {
+                thread.setName(namePrefix + "_" + count.getAndIncrement());
+            }
+            if (null != daemon) {
+                thread.setDaemon(daemon);
+            }
+            if (null != priority) {
+                thread.setPriority(priority);
+            }
+            if (null != handler) {
+                thread.setUncaughtExceptionHandler(handler);
+            }
+            return thread;
+        };
+    }
 
     public ThreadFactoryBuilder threadFactory(ThreadFactory backingThreadFactory) {
         this.backingThreadFactory = backingThreadFactory;
@@ -72,39 +101,8 @@ public final class ThreadFactoryBuilder implements Builder<ThreadFactory> {
         this.uncaughtExceptionHandler = uncaughtExceptionHandler;
     }
 
-    public static ThreadFactoryBuilder builder() {
-        return new ThreadFactoryBuilder();
-    }
-
     @Override
     public ThreadFactory build() {
         return build(this);
-    }
-
-    private static ThreadFactory build(ThreadFactoryBuilder builder) {
-        final ThreadFactory backingThreadFactory = (null != builder.backingThreadFactory)
-                ? builder.backingThreadFactory
-                : Executors.defaultThreadFactory();
-        final String namePrefix = builder.namePrefix;
-        final Boolean daemon = builder.daemon;
-        final Integer priority = builder.priority;
-        final Thread.UncaughtExceptionHandler handler = builder.uncaughtExceptionHandler;
-        final AtomicLong count = (null == namePrefix) ? null : new AtomicLong();
-        return r -> {
-            final Thread thread = backingThreadFactory.newThread(r);
-            if (null != namePrefix) {
-                thread.setName(namePrefix + "_" + count.getAndIncrement());
-            }
-            if (null != daemon) {
-                thread.setDaemon(daemon);
-            }
-            if (null != priority) {
-                thread.setPriority(priority);
-            }
-            if (null != handler) {
-                thread.setUncaughtExceptionHandler(handler);
-            }
-            return thread;
-        };
     }
 }

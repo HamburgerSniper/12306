@@ -35,19 +35,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * 基于 Token 验证请求幂等性, 通常应用于 RestAPI 方法
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 基于 Token 验证请求幂等性, 通常应用于 RestAPI 方法
  */
 @RequiredArgsConstructor
 public final class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentTokenService {
 
-    private final DistributedCache distributedCache;
-    private final IdempotentProperties idempotentProperties;
-
     private static final String TOKEN_KEY = "token";
     private static final String TOKEN_PREFIX_KEY = "idempotent:token:";
     private static final long TOKEN_EXPIRED_TIME = 6000;
+    private final DistributedCache distributedCache;
+    private final IdempotentProperties idempotentProperties;
 
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {

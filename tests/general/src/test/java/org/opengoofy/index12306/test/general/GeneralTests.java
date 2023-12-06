@@ -19,7 +19,7 @@ package org.opengoofy.index12306.test.general;
 
 import org.junit.jupiter.api.Test;
 
-/**
+/**@description
  * 通用测试
  *
  * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料

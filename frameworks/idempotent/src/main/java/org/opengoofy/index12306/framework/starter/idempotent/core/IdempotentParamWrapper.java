@@ -27,9 +27,7 @@ import org.opengoofy.index12306.framework.starter.idempotent.annotation.Idempote
 import org.opengoofy.index12306.framework.starter.idempotent.enums.IdempotentTypeEnum;
 
 /**
- * 幂等参数包装
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 幂等参数包装
  */
 @Data
 @Builder
@@ -39,17 +37,17 @@ import org.opengoofy.index12306.framework.starter.idempotent.enums.IdempotentTyp
 public final class IdempotentParamWrapper {
 
     /**
-     * 幂等注解
+     * @description 幂等注解
      */
     private Idempotent idempotent;
 
     /**
-     * AOP 处理连接点
+     * @description AOP 处理连接点
      */
     private ProceedingJoinPoint joinPoint;
 
     /**
-     * 锁标识，{@link IdempotentTypeEnum#PARAM}
+     * @description 锁标识，{@link IdempotentTypeEnum#PARAM}
      */
     private String lockKey;
 }

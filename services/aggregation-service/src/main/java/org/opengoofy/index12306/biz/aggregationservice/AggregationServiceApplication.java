@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
 
-/**
+/**@description
  * 12306 聚合服务应用启动器
  */
 @EnableDynamicThreadPool

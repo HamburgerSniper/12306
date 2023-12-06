@@ -18,19 +18,17 @@
 package org.opengoofy.index12306.framework.starter.convention.errorcode;
 
 /**
- * 平台错误码
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description 平台错误码
  */
 public interface IErrorCode {
 
     /**
-     * 错误码
+     * @description 错误码
      */
     String code();
 
     /**
-     * 错误信息
+     * @description 错误信息
      */
     String message();
 }
