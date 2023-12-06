@@ -35,21 +35,19 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * SpringCloud Gateway Token 拦截器
- *
- * @公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * @description SpringCloud Gateway Token 拦截器
  */
 @Component
 public class TokenValidateGatewayFilterFactory extends AbstractGatewayFilterFactory<Config> {
 
+    /**
+     * @description 注销用户时需要传递 Token
+     */
+    public static final String DELETION_PATH = "/api/user-service/deletion";
+
     public TokenValidateGatewayFilterFactory() {
         super(Config.class);
     }
-
-    /**
-     * 注销用户时需要传递 Token
-     */
-    public static final String DELETION_PATH = "/api/user-service/deletion";
 
     @Override
     public GatewayFilter apply(Config config) {
