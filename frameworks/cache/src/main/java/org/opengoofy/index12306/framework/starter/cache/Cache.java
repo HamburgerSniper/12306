@@ -22,43 +22,43 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Collection;
 
-/**
- * @description 缓存接口
+/**@description
+ * 缓存接口
  */
 public interface Cache {
 
-    /**
-     * @description 获取缓存
+    /**@description
+     * 获取缓存
      */
     <T> T get(@NotBlank String key, Class<T> clazz);
 
-    /**
-     * @description 放入缓存
+    /**@description
+     * 放入缓存
      */
     void put(@NotBlank String key, Object value);
 
-    /**
-     * @description 如果 keys 全部不存在，则新增，返回 true，反之 false
+    /**@description
+     * 如果 keys 全部不存在，则新增，返回 true，反之 false
      */
     Boolean putIfAllAbsent(@NotNull Collection<String> keys);
 
-    /**
-     * @description 删除缓存
+    /**@description
+     * 删除缓存
      */
     Boolean delete(@NotBlank String key);
 
-    /**
-     * @description 删除 keys，返回删除数量
+    /**@description
+     * 删除 keys，返回删除数量
      */
     Long delete(@NotNull Collection<String> keys);
 
-    /**
-     * @description 判断 key 是否存在
+    /**@description
+     * 判断 key 是否存在
      */
     Boolean hasKey(@NotBlank String key);
 
-    /**
-     * @description 获取缓存组件实例
+    /**@description
+     * 获取缓存组件实例
      */
     Object getInstance();
 }

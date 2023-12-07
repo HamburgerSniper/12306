@@ -17,16 +17,17 @@
 
 package org.opengoofy.index12306.framework.starter.cache.core;
 
-/**
- * @description 缓存过滤
+/**@description
+ * 缓存过滤
  */
 @FunctionalInterface
 public interface CacheGetFilter<T> {
 
-    /**
+    /**@description
+     * 缓存过滤
+     *
      * @param param 输出参数
      * @return {@code true} 如果输入参数匹配，否则 {@link Boolean#TRUE}
-     * @description 缓存过滤
      */
     boolean filter(T param);
 }

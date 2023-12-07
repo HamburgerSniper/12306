@@ -68,13 +68,20 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public List<PassengerRespDTO> listPassengerQueryByUsername(String username) {
+        // username-passenger是一对多的关系，一个用户可以选择为多个乘车人买票；返回的是个json串
         String actualUserPassengerListStr = getActualUserPassengerListStr(username);
+        // 解析json串为passengerList
         return Optional.ofNullable(actualUserPassengerListStr)
                 .map(each -> JSON.parseArray(each, PassengerDO.class))
                 .map(each -> BeanUtil.convert(each, PassengerRespDTO.class))
                 .orElse(null);
     }
 
+    /**
+     * @param username 用户名
+     * @return 用户对应的乘车人信息
+     * @description 通过username获取passenger信息
+     */
     private String getActualUserPassengerListStr(String username) {
         return distributedCache.safeGet(
                 USER_PASSENGER_LIST + username,
@@ -104,8 +111,10 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public void savePassenger(PassengerReqDTO requestParam) {
+        // 编程式事务
         TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus transactionStatus = transactionManager.getTransaction(transactionDefinition);
+
         String username = UserContext.getUsername();
         try {
             PassengerDO passengerDO = BeanUtil.convert(requestParam, PassengerDO.class);
@@ -114,8 +123,10 @@ public class PassengerServiceImpl implements PassengerService {
             passengerDO.setVerifyStatus(VerifyStatusEnum.REVIEWED.getCode());
             int inserted = passengerMapper.insert(passengerDO);
             if (!SqlHelper.retBool(inserted)) {
+                // 数据库插入操作未成功 抛出异常
                 throw new ServiceException(String.format("[%s] 新增乘车人失败", username));
             }
+            // 业务逻辑完成则提交事务
             transactionManager.commit(transactionStatus);
         } catch (Exception ex) {
             if (ex instanceof ServiceException) {
@@ -123,6 +134,7 @@ public class PassengerServiceImpl implements PassengerService {
             } else {
                 log.error("[{}] 新增乘车人失败，请求参数：{}", username, JSON.toJSONString(requestParam), ex);
             }
+            // 捕获到异常则手动回滚
             transactionManager.rollback(transactionStatus);
             throw ex;
         }
@@ -131,8 +143,10 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public void updatePassenger(PassengerReqDTO requestParam) {
+        // 编程式事务
         TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus transactionStatus = transactionManager.getTransaction(transactionDefinition);
+
         String username = UserContext.getUsername();
         try {
             PassengerDO passengerDO = BeanUtil.convert(requestParam, PassengerDO.class);
@@ -195,6 +209,9 @@ public class PassengerServiceImpl implements PassengerService {
         return passengerMapper.selectOne(queryWrapper);
     }
 
+    /**
+     * @description 删除passenger-username缓存
+     */
     private void delUserPassengerCache(String username) {
         distributedCache.delete(USER_PASSENGER_LIST + username);
     }

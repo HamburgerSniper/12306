@@ -50,12 +50,14 @@ public class UserQueryRespDTO {
 
     /**
      * @description 证件号
+     * @see IdCardDesensitizationSerializer
      */
     @JsonSerialize(using = IdCardDesensitizationSerializer.class)
     private String idCard;
 
     /**
      * @description 手机号
+     * @see PhoneDesensitizationSerializer
      */
     @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
