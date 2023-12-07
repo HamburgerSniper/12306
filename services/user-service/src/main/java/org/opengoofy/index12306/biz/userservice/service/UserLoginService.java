@@ -50,7 +50,7 @@ public interface UserLoginService {
 
     /**
      * @param username 用户名
-     * @return 用户名是否存在返回结果
+     * @return 用户名是否存在返回结果(username能用则返回true, username不能用则返回false)
      * @description 用户名是否存在
      */
     Boolean hasUsername(String username);

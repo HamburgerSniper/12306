@@ -95,7 +95,7 @@ public class PassengerController {
     }
 
     /**
-     * @description 移除乘车人
+     * @description 移除单个乘车人
      */
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",

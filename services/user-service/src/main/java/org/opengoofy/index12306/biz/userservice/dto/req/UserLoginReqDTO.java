@@ -31,6 +31,7 @@ public class UserLoginReqDTO {
 
     /**
      * @description 用户名
+     * @description 两种注册方式, 邮箱or电话
      */
     private String usernameOrMailOrPhone;
 

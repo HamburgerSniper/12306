@@ -26,6 +26,7 @@ public final class UserReuseUtil {
 
     /**
      * @description 计算分片位置
+     * @description 分片位置：username的hashCode模1024取余
      */
     public static int hashShardingIdx(String username) {
         return Math.abs(username.hashCode() % USER_REGISTER_REUSE_SHARDING_COUNT);

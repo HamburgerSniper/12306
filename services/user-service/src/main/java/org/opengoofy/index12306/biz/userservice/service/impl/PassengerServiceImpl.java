@@ -173,8 +173,10 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public void removePassenger(PassengerRemoveReqDTO requestParam) {
+        // 编程式事务
         TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus transactionStatus = transactionManager.getTransaction(transactionDefinition);
+
         String username = UserContext.getUsername();
         PassengerDO passengerDO = selectPassenger(username, requestParam.getId());
         if (Objects.isNull(passengerDO)) {
@@ -202,6 +204,12 @@ public class PassengerServiceImpl implements PassengerService {
         delUserPassengerCache(username);
     }
 
+    /**
+     * @param username    username
+     * @param passengerId passenger
+     * @return 筛选结果
+     * @description 筛选username对应的passenger信息
+     */
     private PassengerDO selectPassenger(String username, String passengerId) {
         LambdaQueryWrapper<PassengerDO> queryWrapper = Wrappers.lambdaQuery(PassengerDO.class)
                 .eq(PassengerDO::getUsername, username)

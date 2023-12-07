@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         LambdaQueryWrapper<UserDeletionDO> queryWrapper = Wrappers.lambdaQuery(UserDeletionDO.class)
                 .eq(UserDeletionDO::getIdType, idType)
                 .eq(UserDeletionDO::getIdCard, idCard);
-        // TODO 此处应该先查缓存
+        // 每一次删除都记录为一条数据，因此在统计删除总数时使用count
         Long deletionCount = userDeletionMapper.selectCount(queryWrapper);
         return Optional.ofNullable(deletionCount).map(Long::intValue).orElse(0);
     }
