@@ -24,13 +24,13 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * 设计模式自动装配
+ * @description 设计模式自动装配
  */
 @ImportAutoConfiguration(ApplicationBaseAutoConfiguration.class)
 public class DesignPatternAutoConfiguration {
 
     /**
-     * 策略模式选择器
+     * @description 策略模式选择器
      */
     @Bean
     public AbstractStrategyChoose abstractStrategyChoose() {
@@ -38,7 +38,7 @@ public class DesignPatternAutoConfiguration {
     }
 
     /**
-     * 责任链上下文
+     * @description 责任链上下文
      */
     @Bean
     public AbstractChainContext abstractChainContext() {

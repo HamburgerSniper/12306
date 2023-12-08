@@ -29,21 +29,20 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
- * 策略选择器
+ * @description 策略选择器
  */
 public class AbstractStrategyChoose implements ApplicationListener<ApplicationInitializingEvent> {
 
     /**
-     * 执行策略集合
+     * @description 执行策略集合
      */
     private final Map<String, AbstractExecuteStrategy> abstractExecuteStrategyMap = new HashMap<>();
 
     /**
-     * 根据 mark 查询具体策略
-     *
      * @param mark          策略标识
      * @param predicateFlag 匹配范解析标识
      * @return 实际执行策略
+     * @description 根据 mark 查询具体策略
      */
     public AbstractExecuteStrategy choose(String mark, Boolean predicateFlag) {
         if (predicateFlag != null && predicateFlag) {
@@ -58,11 +57,10 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     }
 
     /**
-     * 根据 mark 查询具体策略并执行
-     *
      * @param mark         策略标识
      * @param requestParam 执行策略入参
      * @param <REQUEST>    执行策略入参范型
+     * @description 根据 mark 查询具体策略并执行
      */
     public <REQUEST> void chooseAndExecute(String mark, REQUEST requestParam) {
         AbstractExecuteStrategy executeStrategy = choose(mark, null);
@@ -70,12 +68,11 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     }
 
     /**
-     * 根据 mark 查询具体策略并执行
-     *
      * @param mark          策略标识
      * @param requestParam  执行策略入参
      * @param predicateFlag 匹配范解析标识
      * @param <REQUEST>     执行策略入参范型
+     * @description 根据 mark 查询具体策略并执行
      */
     public <REQUEST> void chooseAndExecute(String mark, REQUEST requestParam, Boolean predicateFlag) {
         AbstractExecuteStrategy executeStrategy = choose(mark, predicateFlag);
@@ -83,13 +80,12 @@ public class AbstractStrategyChoose implements ApplicationListener<ApplicationIn
     }
 
     /**
-     * 根据 mark 查询具体策略并执行，带返回结果
-     *
      * @param mark         策略标识
      * @param requestParam 执行策略入参
      * @param <REQUEST>    执行策略入参范型
      * @param <RESPONSE>   执行策略出参范型
      * @return
+     * @description 根据 mark 查询具体策略并执行，带返回结果
      */
     public <REQUEST, RESPONSE> RESPONSE chooseAndExecuteResp(String mark, REQUEST requestParam) {
         AbstractExecuteStrategy executeStrategy = choose(mark, null);
