@@ -30,17 +30,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 抽象责任链上下文
+ * @description 抽象责任链上下文
+ * @description 实现 {@link CommandLineRunner} 接口，会在SpringBoot应用启动并处理完所有的命令行参数后被执行，通常用于执行一些需要在应用
+ * 启动后进行的一次性任务，比如数据导入、数据初始化等
  */
 public final class AbstractChainContext<T> implements CommandLineRunner {
 
+    /**
+     * @description (beanName, bean)
+     */
     private final Map<String, List<AbstractChainHandler>> abstractChainHandlerContainer = new HashMap<>();
 
     /**
-     * 责任链组件执行
-     *
      * @param mark         责任链组件标识
      * @param requestParam 请求参数
+     * @description 责任链组件执行
      */
     public void handler(String mark, T requestParam) {
         List<AbstractChainHandler> abstractChainHandlers = abstractChainHandlerContainer.get(mark);
@@ -54,16 +58,18 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Map<String, AbstractChainHandler> chainFilterMap = ApplicationContextHolder
                 .getBeansOfType(AbstractChainHandler.class);
-        chainFilterMap.forEach((beanName, bean) -> {
-            List<AbstractChainHandler> abstractChainHandlers = abstractChainHandlerContainer.get(bean.mark());
-            if (CollectionUtils.isEmpty(abstractChainHandlers)) {
-                abstractChainHandlers = new ArrayList();
-            }
-            abstractChainHandlers.add(bean);
-            List<AbstractChainHandler> actualAbstractChainHandlers = abstractChainHandlers.stream()
-                    .sorted(Comparator.comparing(Ordered::getOrder))
-                    .collect(Collectors.toList());
-            abstractChainHandlerContainer.put(bean.mark(), actualAbstractChainHandlers);
-        });
+        chainFilterMap.forEach(
+                (beanName, bean) -> {
+                    List<AbstractChainHandler> abstractChainHandlers = abstractChainHandlerContainer.get(bean.mark());
+                    if (CollectionUtils.isEmpty(abstractChainHandlers)) {
+                        abstractChainHandlers = new ArrayList();
+                    }
+                    abstractChainHandlers.add(bean);
+                    List<AbstractChainHandler> actualAbstractChainHandlers = abstractChainHandlers.stream()
+                            .sorted(Comparator.comparing(Ordered::getOrder))
+                            .collect(Collectors.toList());
+                    abstractChainHandlerContainer.put(bean.mark(), actualAbstractChainHandlers);
+                }
+        );
     }
 }
