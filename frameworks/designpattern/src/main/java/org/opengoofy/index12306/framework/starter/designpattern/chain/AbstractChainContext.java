@@ -56,8 +56,7 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Map<String, AbstractChainHandler> chainFilterMap = ApplicationContextHolder
-                .getBeansOfType(AbstractChainHandler.class);
+        Map<String, AbstractChainHandler> chainFilterMap = ApplicationContextHolder.getBeansOfType(AbstractChainHandler.class);
         chainFilterMap.forEach(
                 (beanName, bean) -> {
                     List<AbstractChainHandler> abstractChainHandlers = abstractChainHandlerContainer.get(bean.mark());

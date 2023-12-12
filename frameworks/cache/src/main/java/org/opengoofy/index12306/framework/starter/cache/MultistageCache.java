@@ -17,8 +17,8 @@
 
 package org.opengoofy.index12306.framework.starter.cache;
 
-/**@description
- * 多级缓存
+/**
+ * @description 多级缓存
  */
 public interface MultistageCache extends Cache {
 }

@@ -21,16 +21,15 @@ import com.alibaba.fastjson2.util.ParameterizedTypeImpl;
 
 import java.lang.reflect.Type;
 
-/**@description
- * FastJson2 工具类
+/**
+ * @description FastJson2 工具类
  */
 public final class FastJson2Util {
 
-    /**@description
-     * 构建类型
-     *
+    /**
      * @param types
      * @return
+     * @description 构建类型
      */
     public static Type buildType(Type... types) {
         ParameterizedTypeImpl beforeType = null;

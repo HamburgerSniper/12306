@@ -41,8 +41,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-/**@description
- * 分布式缓存之操作 Redis 模版代理
+/**
+ * @description 分布式缓存之操作 Redis 模版代理
  * 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
  */
 @RequiredArgsConstructor

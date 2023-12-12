@@ -17,14 +17,14 @@
 
 package org.opengoofy.index12306.framework.starter.cache.core;
 
-/**@description
- * 缓存查询为空
+/**
+ * @description 缓存查询为空
  */
 @FunctionalInterface
 public interface CacheGetIfAbsent<T> {
 
-    /**@description
-     * 如果查询结果为空，执行逻辑
+    /**
+     * @description 如果查询结果为空，执行逻辑
      */
     void execute(T param);
 }
