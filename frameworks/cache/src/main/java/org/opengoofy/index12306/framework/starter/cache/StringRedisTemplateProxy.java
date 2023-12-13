@@ -43,7 +43,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @description 分布式缓存之操作 Redis 模版代理
- * 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
+ * @description 底层通过 {@link RedissonClient}、{@link StringRedisTemplate} 完成外观接口行为
+ * @description 分布式缓存 --> 通过StringRedisTemplate代理类实现
  */
 @RequiredArgsConstructor
 public class StringRedisTemplateProxy implements DistributedCache {
@@ -57,9 +58,12 @@ public class StringRedisTemplateProxy implements DistributedCache {
     @Override
     public <T> T get(String key, Class<T> clazz) {
         String value = stringRedisTemplate.opsForValue().get(key);
+        // 判断一个类是否可以通过类型转换赋给另一个对象
+        // 检查clazz是否为String
         if (String.class.isAssignableFrom(clazz)) {
             return (T) value;
         }
+        // 不是则转成json返回
         return JSON.parseObject(value, FastJson2Util.buildType(clazz));
     }
 
