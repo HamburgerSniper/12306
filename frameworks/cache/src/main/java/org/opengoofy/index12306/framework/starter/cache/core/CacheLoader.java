@@ -19,6 +19,7 @@ package org.opengoofy.index12306.framework.starter.cache.core;
 
 /**
  * @description 缓存加载器
+ * @description CacheLoader的本质其实是数据库的操作器 因此在使用过程中基本上都为数据库操作
  */
 @FunctionalInterface
 public interface CacheLoader<T> {
