@@ -27,6 +27,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.resp.RefundTicketRespDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.TicketPageQueryRespDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.TicketPurchaseRespDTO;
 import org.opengoofy.index12306.biz.ticketservice.remote.dto.PayInfoRespDTO;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -39,6 +40,7 @@ public interface TicketService extends IService<TicketDO> {
      * @return 查询车票返回结果
      * @description 根据条件分页查询车票
      */
+    @FinishStudy(status = FinishStudy.FinishStudyEnum.TRUE)
     TicketPageQueryRespDTO pageListTicketQueryV1(TicketPageQueryReqDTO requestParam);
 
     /**
@@ -52,6 +54,7 @@ public interface TicketService extends IService<TicketDO> {
      * @param requestParam 车票购买请求参数
      * @return 订单号
      * @description 购买车票
+     * @description 分布式锁版本
      */
     TicketPurchaseRespDTO purchaseTicketsV1(@RequestBody PurchaseTicketReqDTO requestParam);
 
@@ -59,6 +62,7 @@ public interface TicketService extends IService<TicketDO> {
      * @param requestParam 车票购买请求参数
      * @return 订单号
      * @description 购买车票V2高性能版本
+     * @description 令牌限流算法 + 分布式锁版本
      */
     TicketPurchaseRespDTO purchaseTicketsV2(@RequestBody PurchaseTicketReqDTO requestParam);
 
@@ -66,7 +70,7 @@ public interface TicketService extends IService<TicketDO> {
      * @param requestParam 车票购买请求参数
      * @return 订单号
      * @description 执行购买车票
-     * 被对应购票版本号接口调用 {@link TicketService#purchaseTicketsV1(PurchaseTicketReqDTO)} and {@link TicketService#purchaseTicketsV2(PurchaseTicketReqDTO)}
+     * @description 被对应购票版本号接口调用 {@link TicketService#purchaseTicketsV1(PurchaseTicketReqDTO)} and {@link TicketService#purchaseTicketsV2(PurchaseTicketReqDTO)}
      */
     TicketPurchaseRespDTO executePurchaseTickets(@RequestBody PurchaseTicketReqDTO requestParam);
 

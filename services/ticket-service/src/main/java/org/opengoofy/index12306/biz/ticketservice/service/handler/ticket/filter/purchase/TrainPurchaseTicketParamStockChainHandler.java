@@ -50,19 +50,30 @@ public class TrainPurchaseTicketParamStockChainHandler implements TrainPurchaseT
         String keySuffix = StrUtil.join("_", requestParam.getTrainId(), requestParam.getDeparture(), requestParam.getArrival());
         StringRedisTemplate stringRedisTemplate = (StringRedisTemplate) distributedCache.getInstance();
         List<PurchaseTicketPassengerDetailDTO> passengerDetails = requestParam.getPassengers();
+        // 通过座位将乘车人进行分组
         Map<Integer, List<PurchaseTicketPassengerDetailDTO>> seatTypeMap = passengerDetails.stream()
                 .collect(Collectors.groupingBy(PurchaseTicketPassengerDetailDTO::getSeatType));
-        seatTypeMap.forEach((seatType, passengerSeatDetails) -> {
-            Object stockObj = stringRedisTemplate.opsForHash().get(TRAIN_STATION_REMAINING_TICKET + keySuffix, String.valueOf(seatType));
-            int stock = Optional.ofNullable(stockObj).map(each -> Integer.parseInt(each.toString())).orElseGet(() -> {
-                Map<String, String> seatMarginMap = seatMarginCacheLoader.load(String.valueOf(requestParam.getTrainId()), String.valueOf(seatType), requestParam.getDeparture(), requestParam.getArrival());
-                return Optional.ofNullable(seatMarginMap.get(String.valueOf(seatType))).map(Integer::parseInt).orElse(0);
-            });
-            if (stock >= passengerSeatDetails.size()) {
-                return;
-            }
-            throw new ClientException("列车站点已无余票");
-        });
+        seatTypeMap.forEach(
+                (seatType, passengerSeatDetails) -> {
+                    Object stockObj = stringRedisTemplate.opsForHash().get(TRAIN_STATION_REMAINING_TICKET + keySuffix, String.valueOf(seatType));
+                    // 查询余票数量
+                    int stock = Optional.ofNullable(stockObj)
+                            .map(each -> Integer.parseInt(each.toString()))
+                            .orElseGet(
+                                    () -> {
+                                        // 如果缓存中没查到，则调用座位余量缓存加载器，加载出对应的车次/座位/始发终点站的余票
+                                        Map<String, String> seatMarginMap = seatMarginCacheLoader.load(String.valueOf(requestParam.getTrainId()), String.valueOf(seatType), requestParam.getDeparture(), requestParam.getArrival());
+                                        return Optional.ofNullable(seatMarginMap.get(String.valueOf(seatType))).map(Integer::parseInt).orElse(0);
+                                    }
+                            );
+                    // 余票充足
+                    if (stock >= passengerSeatDetails.size()) {
+                        return;
+                    }
+                    // 余票不足
+                    throw new ClientException("列车站点已无余票");
+                }
+        );
     }
 
     @Override

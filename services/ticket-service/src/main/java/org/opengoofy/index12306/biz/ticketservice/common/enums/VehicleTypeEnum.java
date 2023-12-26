@@ -39,6 +39,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.enums.VehicleSea
 /**
  * @description 交通工具类型
  */
+@Getter
 @RequiredArgsConstructor
 public enum VehicleTypeEnum {
 
@@ -67,16 +68,12 @@ public enum VehicleTypeEnum {
      */
     AIRPLANE(4, "AIRPLANE", "飞机", null);
 
-    @Getter
     private final Integer code;
 
-    @Getter
     private final String name;
 
-    @Getter
     private final String value;
 
-    @Getter
     private final List<Integer> seatTypes;
 
     /**

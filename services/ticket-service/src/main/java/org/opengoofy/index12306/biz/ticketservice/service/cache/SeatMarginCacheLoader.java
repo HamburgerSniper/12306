@@ -60,6 +60,14 @@ public class SeatMarginCacheLoader {
     private final RedissonClient redissonClient;
     private final TrainStationService trainStationService;
 
+    /**
+     * @description 将余票信息加载到缓存中
+     * @param trainId 车次id
+     * @param seatType 座位等级
+     * @param departure 始发站
+     * @param arrival 终点站
+     * @return (车次id_)
+     */
     public Map<String, String> load(String trainId, String seatType, String departure, String arrival) {
         Map<String, Map<String, String>> trainStationRemainingTicketMaps = new LinkedHashMap<>();
         String keySuffix = CacheUtil.buildKey(trainId, departure, arrival);

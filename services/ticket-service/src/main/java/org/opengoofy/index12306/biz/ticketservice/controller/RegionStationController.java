@@ -23,17 +23,21 @@ import org.opengoofy.index12306.biz.ticketservice.dto.resp.RegionStationQueryRes
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.StationQueryRespDTO;
 import org.opengoofy.index12306.biz.ticketservice.service.RegionStationService;
 import org.opengoofy.index12306.framework.starter.convention.result.Result;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.opengoofy.index12306.framework.starter.web.Results;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 地区以及车站查询控制层
  */
 @RestController
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class RegionStationController {
 
     private final RegionStationService regionStationService;
@@ -41,6 +45,7 @@ public class RegionStationController {
     /**
      * @description 查询车站&城市站点集合信息
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/ticket-service/region-station/query")
     public Result<List<RegionStationQueryRespDTO>> listRegionStation(RegionStationQueryReqDTO requestParam) {
         return Results.success(regionStationService.listRegionStation(requestParam));
@@ -48,7 +53,9 @@ public class RegionStationController {
 
     /**
      * @description 查询车站站点集合信息
+     * @description 首页-车票站点查询(出发地 & 目的地下拉列表)
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/ticket-service/station/all")
     public Result<List<StationQueryRespDTO>> listAllStation() {
         return Results.success(regionStationService.listAllStation());

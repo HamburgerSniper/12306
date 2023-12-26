@@ -38,6 +38,7 @@ import org.opengoofy.index12306.framework.starter.cache.toolkit.CacheUtil;
 import org.opengoofy.index12306.framework.starter.common.enums.FlagEnum;
 import org.opengoofy.index12306.framework.starter.common.toolkit.BeanUtil;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.LOCK_QUERY_REGION_STATION_LIST;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.REGION_STATION;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.STATION_ALL;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 地区以及车站接口实现层
@@ -64,6 +66,7 @@ public class RegionStationImpl implements RegionStationService {
     private final RedissonClient redissonClient;
 
     @Override
+    @FinishStudy(status = TRUE)
     public List<RegionStationQueryRespDTO> listRegionStation(RegionStationQueryReqDTO requestParam) {
         String key;
         if (StrUtil.isNotBlank(requestParam.getName())) {
@@ -107,8 +110,10 @@ public class RegionStationImpl implements RegionStationService {
         );
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<StationQueryRespDTO> listAllStation() {
+        // 12306买票窗口期为前15天 因此在初次登录展示时，返回15天内的信息数据
         return distributedCache.safeGet(
                 STATION_ALL,
                 List.class,
@@ -118,6 +123,15 @@ public class RegionStationImpl implements RegionStationService {
         );
     }
 
+
+    /**
+     * @param key    查询键
+     * @param loader 数据库->缓存 加载器
+     * @param param  名称
+     * @return 地区&站点分页查询响应参数 列表
+     * @description 以一种安全的方式获取到地点车站信息
+     */
+    @FinishStudy(status = TRUE)
     private List<RegionStationQueryRespDTO> safeGetRegionStation(final String key, CacheLoader<String> loader, String param) {
         List<RegionStationQueryRespDTO> result;
         if (CollUtil.isNotEmpty(result = JSON.parseArray(distributedCache.get(key, String.class), RegionStationQueryRespDTO.class))) {
@@ -128,6 +142,8 @@ public class RegionStationImpl implements RegionStationService {
         lock.lock();
         try {
             if (CollUtil.isEmpty(result = JSON.parseArray(distributedCache.get(key, String.class), RegionStationQueryRespDTO.class))) {
+                // 双重判定锁：首先检查数据是否存在，如果不存在，则加锁，然后再检查一次数据是否存在，如果还不存在，则创建或获取数据，最后解锁。目的是避免在多线程环境下，多个线程同时进入创建或获取数据的代码块。
+                // 因为在多线程环境下，如果一个线程在创建或获取数据的过程中被阻塞（例如，等待数据库响应），其他线程可能会认为数据还没有被创建或获取，从而进入创建或获取数据的代码块，导致不必要的数据库访问和计算开销。
                 if (CollUtil.isEmpty(result = loadAndSet(key, loader))) {
                     return Collections.emptyList();
                 }
@@ -138,6 +154,7 @@ public class RegionStationImpl implements RegionStationService {
         return result;
     }
 
+    @FinishStudy(status = TRUE)
     private List<RegionStationQueryRespDTO> loadAndSet(final String key, CacheLoader<String> loader) {
         String result = loader.load();
         if (CacheUtil.isNullOrBlank(result)) {

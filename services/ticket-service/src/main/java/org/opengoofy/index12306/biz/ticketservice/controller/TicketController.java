@@ -31,6 +31,7 @@ import org.opengoofy.index12306.framework.starter.convention.result.Result;
 import org.opengoofy.index12306.framework.starter.idempotent.annotation.Idempotent;
 import org.opengoofy.index12306.framework.starter.idempotent.enums.IdempotentSceneEnum;
 import org.opengoofy.index12306.framework.starter.idempotent.enums.IdempotentTypeEnum;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.opengoofy.index12306.framework.starter.log.annotation.ILog;
 import org.opengoofy.index12306.framework.starter.web.Results;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 车票控制层
@@ -51,10 +54,21 @@ public class TicketController {
     /**
      * @description 根据条件查询车票
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/ticket-service/ticket/query")
     public Result<TicketPageQueryRespDTO> pageListTicketQuery(TicketPageQueryReqDTO requestParam) {
         return Results.success(ticketService.pageListTicketQueryV1(requestParam));
     }
+
+    /*
+     * 防重复提交：接口幂等性 确保每个请求只被处理一次
+     *  scene: HTTP/消息队列的幂等性 这里为请求，因此选择HTTP
+     *  type:  HTTP防重复提交有多种实现方案，SPEL方式通过key餐宿运行时生成
+     *  key:   填写SPEL表达式，运行时通过填写的SPEL表达式构建唯一的锁标识
+     *  uniqueKeyPrefix: 区分业务的前缀，拼接上key参数用来生成唯一的锁标识，可不指定
+     *  message: 满足防重复提交条件后，开始触发异常行为，异常中的提示信息，可不指定
+     */
+
 
     /**
      * @description 购买车票

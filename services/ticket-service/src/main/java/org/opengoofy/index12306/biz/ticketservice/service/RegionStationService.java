@@ -20,12 +20,16 @@ package org.opengoofy.index12306.biz.ticketservice.service;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.RegionStationQueryReqDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.RegionStationQueryRespDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.StationQueryRespDTO;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 
 import java.util.List;
+
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 地区以及车站接口层
  */
+@FinishStudy(status = TRUE)
 public interface RegionStationService {
 
     /**
@@ -33,11 +37,13 @@ public interface RegionStationService {
      * @return 车站&站点返回数据集合
      * @description 查询车站&城市站点集合信息
      */
+    @FinishStudy(status = TRUE)
     List<RegionStationQueryRespDTO> listRegionStation(RegionStationQueryReqDTO requestParam);
 
     /**
      * @return 车站返回数据集合
      * @description 查询所有车站&城市站点集合信息
      */
+    @FinishStudy(status = TRUE)
     List<StationQueryRespDTO> listAllStation();
 }

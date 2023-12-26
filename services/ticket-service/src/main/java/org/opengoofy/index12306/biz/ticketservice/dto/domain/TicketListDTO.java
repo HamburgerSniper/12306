@@ -17,7 +17,10 @@
 
 package org.opengoofy.index12306.biz.ticketservice.dto.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -25,6 +28,9 @@ import java.util.List;
  * @description 车次集合实体
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TicketListDTO {
 
     /**
