@@ -23,6 +23,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy;
 import org.opengoofy.index12306.frameworks.starter.user.core.UserInfoDTO;
 import org.springframework.util.StringUtils;
 
@@ -33,11 +34,13 @@ import java.util.Map;
 import static org.opengoofy.index12306.framework.starter.bases.constant.UserConstant.REAL_NAME_KEY;
 import static org.opengoofy.index12306.framework.starter.bases.constant.UserConstant.USER_ID_KEY;
 import static org.opengoofy.index12306.framework.starter.bases.constant.UserConstant.USER_NAME_KEY;
+import static org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description JWT 工具类
  */
 @Slf4j
+@FinishStudy(status = TRUE)
 public final class JWTUtil {
 
     public static final String TOKEN_PREFIX = "Bearer ";
@@ -50,6 +53,7 @@ public final class JWTUtil {
      * @return 用户访问 Token
      * @description 生成用户 Token
      */
+    @FinishStudy(status = TRUE)
     public static String generateAccessToken(UserInfoDTO userInfo) {
         Map<String, Object> customerUserMap = new HashMap<>();
         customerUserMap.put(USER_ID_KEY, userInfo.getUserId());
@@ -70,6 +74,7 @@ public final class JWTUtil {
      * @return 用户信息
      * @description 解析用户 Token
      */
+    @FinishStudy(status = TRUE)
     public static UserInfoDTO parseJwtToken(String jwtToken) {
         if (StringUtils.hasText(jwtToken)) {
             String actualJwtToken = jwtToken.replace(TOKEN_PREFIX, "");
