@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.dao.entity.UserDO;
 import org.opengoofy.index12306.biz.userservice.dao.entity.UserDeletionDO;
 import org.opengoofy.index12306.biz.userservice.dao.entity.UserMailDO;
@@ -39,17 +40,21 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 用户信息接口实现层
  */
 @Service
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserDeletionMapper userDeletionMapper;
     private final UserMailMapper userMailMapper;
 
+    @FinishStudy(status = TRUE)
     @Override
     public UserQueryRespDTO queryUserByUserId(String userId) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
@@ -61,6 +66,7 @@ public class UserServiceImpl implements UserService {
         return BeanUtil.convert(userDO, UserQueryRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public UserQueryRespDTO queryUserByUsername(String username) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
@@ -72,11 +78,13 @@ public class UserServiceImpl implements UserService {
         return BeanUtil.convert(userDO, UserQueryRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public UserQueryActualRespDTO queryActualUserByUsername(String username) {
         return BeanUtil.convert(queryUserByUsername(username), UserQueryActualRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public Integer queryUserDeletionNum(Integer idType, String idCard) {
         LambdaQueryWrapper<UserDeletionDO> queryWrapper = Wrappers.lambdaQuery(UserDeletionDO.class)
@@ -87,6 +95,8 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(deletionCount).map(Long::intValue).orElse(0);
     }
 
+
+    @FinishStudy(status = TRUE)
     @Override
     public void update(UserUpdateReqDTO requestParam) {
         UserQueryRespDTO userQueryRespDTO = queryUserByUsername(requestParam.getUsername());

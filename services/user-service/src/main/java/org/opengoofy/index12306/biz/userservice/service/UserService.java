@@ -18,13 +18,17 @@
 package org.opengoofy.index12306.biz.userservice.service;
 
 import jakarta.validation.constraints.NotEmpty;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserUpdateReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.resp.UserQueryActualRespDTO;
 import org.opengoofy.index12306.biz.userservice.dto.resp.UserQueryRespDTO;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 用户信息接口层
  */
+@FinishStudy(status = TRUE)
 public interface UserService {
 
     /**
@@ -32,6 +36,7 @@ public interface UserService {
      * @return 用户详细信息
      * @description 根据用户 ID 查询用户信息
      */
+    @FinishStudy(status = TRUE)
     UserQueryRespDTO queryUserByUserId(@NotEmpty String userId);
 
     /**
@@ -39,6 +44,7 @@ public interface UserService {
      * @return 用户详细信息
      * @description 根据用户名查询用户信息
      */
+    @FinishStudy(status = TRUE)
     UserQueryRespDTO queryUserByUsername(@NotEmpty String username);
 
     /**
@@ -46,6 +52,7 @@ public interface UserService {
      * @return 用户详细信息
      * @description 根据用户名查询用户无脱敏信息
      */
+    @FinishStudy(status = TRUE)
     UserQueryActualRespDTO queryActualUserByUsername(@NotEmpty String username);
 
     /**
@@ -54,11 +61,13 @@ public interface UserService {
      * @return 注销次数
      * @description 根据证件类型和证件号查询注销次数
      */
+    @FinishStudy(status = TRUE)
     Integer queryUserDeletionNum(Integer idType, String idCard);
 
     /**
      * @param requestParam 用户信息入参
      * @description 根据用户 ID 修改用户信息
      */
+    @FinishStudy(status = TRUE)
     void update(UserUpdateReqDTO requestParam);
 }
