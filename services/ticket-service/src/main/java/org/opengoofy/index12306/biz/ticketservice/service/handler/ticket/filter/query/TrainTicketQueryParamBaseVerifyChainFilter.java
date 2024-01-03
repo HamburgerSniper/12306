@@ -20,19 +20,24 @@ package org.opengoofy.index12306.biz.ticketservice.service.handler.ticket.filter
 import lombok.RequiredArgsConstructor;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.TicketPageQueryReqDTO;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Objects;
 
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 查询列车车票流程过滤器之基础数据验证
  */
+@FinishStudy(status = TRUE)
 @Component
 @RequiredArgsConstructor
 public class TrainTicketQueryParamBaseVerifyChainFilter implements TrainTicketQueryChainFilter<TicketPageQueryReqDTO> {
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(TicketPageQueryReqDTO requestParam) {
         if (requestParam.getDepartureDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(LocalDate.now())) {
@@ -43,6 +48,7 @@ public class TrainTicketQueryParamBaseVerifyChainFilter implements TrainTicketQu
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 10;

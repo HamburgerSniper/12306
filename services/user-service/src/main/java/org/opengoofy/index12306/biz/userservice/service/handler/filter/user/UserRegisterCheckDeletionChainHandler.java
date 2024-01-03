@@ -18,21 +18,26 @@
 package org.opengoofy.index12306.biz.userservice.service.handler.filter.user;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterChainHandlerEnum;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserRegisterReqDTO;
 import org.opengoofy.index12306.biz.userservice.service.UserService;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
 import org.springframework.stereotype.Component;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 用户注册检查证件号是否多次注销
  */
+@FinishStudy(status = TRUE)
 @Component
 @RequiredArgsConstructor
 public final class UserRegisterCheckDeletionChainHandler implements UserRegisterCreateChainFilter<UserRegisterReqDTO> {
 
     private final UserService userService;
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(UserRegisterReqDTO requestParam) {
         Integer userDeletionNum = userService.queryUserDeletionNum(requestParam.getIdType(), requestParam.getIdCard());
@@ -41,6 +46,7 @@ public final class UserRegisterCheckDeletionChainHandler implements UserRegister
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return UserRegisterChainHandlerEnum.CHECK_DELETION.getCode();

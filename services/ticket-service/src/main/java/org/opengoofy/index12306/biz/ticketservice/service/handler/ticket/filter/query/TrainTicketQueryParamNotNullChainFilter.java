@@ -20,11 +20,15 @@ package org.opengoofy.index12306.biz.ticketservice.service.handler.ticket.filter
 import cn.hutool.core.util.StrUtil;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.TicketPageQueryReqDTO;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.stereotype.Component;
+
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 查询列车车票流程过滤器之验证数据是否为空或空的字符串
  */
+@FinishStudy(status = TRUE)
 @Component
 public class TrainTicketQueryParamNotNullChainFilter implements TrainTicketQueryChainFilter<TicketPageQueryReqDTO> {
 
@@ -41,6 +45,7 @@ public class TrainTicketQueryParamNotNullChainFilter implements TrainTicketQuery
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 0;

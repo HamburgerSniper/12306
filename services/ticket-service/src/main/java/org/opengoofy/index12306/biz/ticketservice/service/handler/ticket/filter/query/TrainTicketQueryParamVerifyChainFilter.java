@@ -29,6 +29,7 @@ import org.opengoofy.index12306.biz.ticketservice.dao.mapper.StationMapper;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.TicketPageQueryReqDTO;
 import org.opengoofy.index12306.framework.starter.cache.DistributedCache;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.HashOperations;
@@ -41,10 +42,12 @@ import java.util.Objects;
 
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.LOCK_QUERY_ALL_REGION_LIST;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.QUERY_ALL_REGION_LIST;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 查询列车车票流程过滤器之验证数据是否正确
  */
+@FinishStudy(status = TRUE)
 @Component
 @RequiredArgsConstructor
 public class TrainTicketQueryParamVerifyChainFilter implements TrainTicketQueryChainFilter<TicketPageQueryReqDTO> {
@@ -58,6 +61,7 @@ public class TrainTicketQueryParamVerifyChainFilter implements TrainTicketQueryC
     private final DistributedCache distributedCache;
     private final RedissonClient redissonClient;
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(TicketPageQueryReqDTO requestParam) {
         // 验证出发地和目的地是否存在
@@ -126,6 +130,7 @@ public class TrainTicketQueryParamVerifyChainFilter implements TrainTicketQueryC
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 20;

@@ -17,6 +17,7 @@
 
 package org.opengoofy.index12306.biz.userservice.service.handler.filter.user;
 
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterChainHandlerEnum;
 import org.opengoofy.index12306.biz.userservice.common.enums.UserRegisterErrorCodeEnum;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserRegisterReqDTO;
@@ -25,12 +26,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 用户注册参数必填检验
  */
+@FinishStudy(status = TRUE)
 @Component
 public final class UserRegisterParamNotNullChainHandler implements UserRegisterCreateChainFilter<UserRegisterReqDTO> {
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(UserRegisterReqDTO requestParam) {
         if (Objects.isNull(requestParam.getUsername())) {
@@ -50,6 +55,7 @@ public final class UserRegisterParamNotNullChainHandler implements UserRegisterC
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return UserRegisterChainHandlerEnum.PARAM_NOTNULL.getCode();
