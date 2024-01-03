@@ -27,20 +27,25 @@ import org.opengoofy.index12306.biz.ticketservice.dto.resp.TrainStationQueryResp
 import org.opengoofy.index12306.biz.ticketservice.service.TrainStationService;
 import org.opengoofy.index12306.biz.ticketservice.toolkit.StationCalculateUtil;
 import org.opengoofy.index12306.framework.starter.common.toolkit.BeanUtil;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 列车站点接口实现层
  */
+@FinishStudy(status = TRUE)
 @Service
 @RequiredArgsConstructor
 public class TrainStationServiceImpl implements TrainStationService {
 
     private final TrainStationMapper trainStationMapper;
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<TrainStationQueryRespDTO> listTrainStationQuery(String trainId) {
         LambdaQueryWrapper<TrainStationDO> queryWrapper = Wrappers.lambdaQuery(TrainStationDO.class)
@@ -49,6 +54,7 @@ public class TrainStationServiceImpl implements TrainStationService {
         return BeanUtil.convert(trainStationDOList, TrainStationQueryRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<RouteDTO> listTrainStationRoute(String trainId, String departure, String arrival) {
         LambdaQueryWrapper<TrainStationDO> queryWrapper = Wrappers.lambdaQuery(TrainStationDO.class)
@@ -59,6 +65,7 @@ public class TrainStationServiceImpl implements TrainStationService {
         return StationCalculateUtil.throughStation(trainStationAllList, departure, arrival);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<RouteDTO> listTakeoutTrainStationRoute(String trainId, String departure, String arrival) {
         LambdaQueryWrapper<TrainStationDO> queryWrapper = Wrappers.lambdaQuery(TrainStationDO.class)

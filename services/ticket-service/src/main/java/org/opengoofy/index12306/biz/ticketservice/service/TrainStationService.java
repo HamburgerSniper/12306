@@ -19,12 +19,16 @@ package org.opengoofy.index12306.biz.ticketservice.service;
 
 import org.opengoofy.index12306.biz.ticketservice.dto.domain.RouteDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.resp.TrainStationQueryRespDTO;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 
 import java.util.List;
+
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 列车站点接口层
  */
+@FinishStudy(status = TRUE)
 public interface TrainStationService {
 
     /**
@@ -32,6 +36,7 @@ public interface TrainStationService {
      * @return 列车经停站信息
      * @description 根据列车 ID 查询站点信息
      */
+    @FinishStudy(status = TRUE)
     List<TrainStationQueryRespDTO> listTrainStationQuery(String trainId);
 
     /**
@@ -42,6 +47,7 @@ public interface TrainStationService {
      * @description 计算列车站点路线关系
      * @description 获取开始站点和目的站点及中间站点信息
      */
+    @FinishStudy(status = TRUE)
     List<RouteDTO> listTrainStationRoute(String trainId, String departure, String arrival);
 
     /**
@@ -52,5 +58,6 @@ public interface TrainStationService {
      * @description 获取需列车站点扣减路线关系
      * @description 获取开始站点和目的站点、中间站点以及关联站点信息
      */
+    @FinishStudy(status = TRUE)
     List<RouteDTO> listTakeoutTrainStationRoute(String trainId, String departure, String arrival);
 }

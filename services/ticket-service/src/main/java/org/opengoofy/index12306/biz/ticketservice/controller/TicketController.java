@@ -45,6 +45,7 @@ import static org.opengoofy.index12306.framework.starter.log.annotation.FinishSt
 /**
  * @description 车票控制层
  */
+@FinishStudy(status = TRUE)
 @RestController
 @RequiredArgsConstructor
 public class TicketController {
@@ -73,6 +74,7 @@ public class TicketController {
     /**
      * @description 购买车票
      */
+    @FinishStudy(status = TRUE)
     @ILog
     @Idempotent(
             uniqueKeyPrefix = "index12306-ticket:lock_purchase-tickets:",
@@ -91,6 +93,7 @@ public class TicketController {
     /**
      * @description 购买车票v2
      */
+    @FinishStudy(status = TRUE)
     @ILog
     @Idempotent(
             uniqueKeyPrefix = "index12306-ticket:lock_purchase-tickets:",
@@ -109,6 +112,7 @@ public class TicketController {
     /**
      * @description 取消车票订单
      */
+    @FinishStudy(status = TRUE)
     @ILog
     @PostMapping("/api/ticket-service/ticket/cancel")
     public Result<Void> cancelTicketOrder(@RequestBody CancelTicketOrderReqDTO requestParam) {
@@ -119,6 +123,7 @@ public class TicketController {
     /**
      * @description 支付单详情查询
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/ticket-service/ticket/pay/query")
     public Result<PayInfoRespDTO> getPayInfo(@RequestParam(value = "orderSn") String orderSn) {
         return Results.success(ticketService.getPayInfo(orderSn));
@@ -127,6 +132,7 @@ public class TicketController {
     /**
      * @description 公共退款接口
      */
+    @FinishStudy(status = TRUE)
     @PostMapping("/api/ticket-service/ticket/refund")
     public Result<RefundTicketRespDTO> commonTicketRefund(@RequestBody RefundTicketReqDTO requestParam) {
         return Results.success(ticketService.commonTicketRefund(requestParam));

@@ -18,14 +18,18 @@
 package org.opengoofy.index12306.biz.ticketservice.toolkit;
 
 import org.opengoofy.index12306.biz.ticketservice.dto.domain.RouteDTO;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 站点计算工具
  */
+@FinishStudy(status = TRUE)
 public final class StationCalculateUtil {
 
     /**
@@ -35,6 +39,7 @@ public final class StationCalculateUtil {
      * @return 出发站和终点站中间的站点（包含出发站和终点站）
      * @description 计算出发站和终点站中间的站点（包含出发站和终点站）
      */
+    @FinishStudy(status = TRUE)
     public static List<RouteDTO> throughStation(List<String> stations, String startStation, String endStation) {
         List<RouteDTO> routesToDeduct = new ArrayList<>();
         int startIndex = stations.indexOf(startStation);
@@ -60,6 +65,7 @@ public final class StationCalculateUtil {
      * @return 出发站和终点站需要扣减余票的站点（包含出发站和终点站）
      * @description 计算出发站和终点站需要扣减余票的站点（包含出发站和终点站）
      */
+    @FinishStudy(status = TRUE)
     public static List<RouteDTO> takeoutStation(List<String> stations, String startStation, String endStation) {
         List<RouteDTO> takeoutStationList = new ArrayList<>();
         int startIndex = stations.indexOf(startStation);
