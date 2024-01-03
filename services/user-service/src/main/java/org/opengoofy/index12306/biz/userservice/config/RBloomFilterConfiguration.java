@@ -17,15 +17,19 @@
 
 package org.opengoofy.index12306.biz.userservice.config;
 
+import org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * 布隆过滤器配置
  */
+@FinishStudy(status = TRUE)
 @Configuration
 @EnableConfigurationProperties(UserRegisterBloomFilterProperties.class)
 public class RBloomFilterConfiguration {
@@ -33,6 +37,7 @@ public class RBloomFilterConfiguration {
     /**
      * 防止用户注册缓存穿透的布隆过滤器
      */
+    @FinishStudy(status = TRUE)
     @Bean
     public RBloomFilter<String> userRegisterCachePenetrationBloomFilter(RedissonClient redissonClient, UserRegisterBloomFilterProperties userRegisterBloomFilterProperties) {
         RBloomFilter<String> cachePenetrationBloomFilter = redissonClient.getBloomFilter(userRegisterBloomFilterProperties.getName());

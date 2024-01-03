@@ -17,17 +17,22 @@
 
 package org.opengoofy.index12306.biz.userservice.toolkit;
 
+import org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy;
+
 import static org.opengoofy.index12306.biz.userservice.common.constant.Index12306Constant.USER_REGISTER_REUSE_SHARDING_COUNT;
+import static org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 用户名可复用工具类
  */
+@FinishStudy(status = TRUE)
 public final class UserReuseUtil {
 
     /**
      * @description 计算分片位置
      * @description 分片位置：username的hashCode模1024取余
      */
+    @FinishStudy(status = TRUE)
     public static int hashShardingIdx(String username) {
         return Math.abs(username.hashCode() % USER_REGISTER_REUSE_SHARDING_COUNT);
     }

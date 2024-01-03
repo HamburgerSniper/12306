@@ -21,12 +21,16 @@ import cn.hutool.core.util.DesensitizedUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 
 import java.io.IOException;
+
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 手机号脱敏反序列化
  */
+@FinishStudy(status = TRUE)
 public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
 
     /**
@@ -36,6 +40,7 @@ public class PhoneDesensitizationSerializer extends JsonSerializer<String> {
      * @throws IOException 异常
      * @description 手机号前3位, 后4位, 其余隐藏
      */
+    @FinishStudy(status = TRUE)
     @Override
     public void serialize(String phone, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         String phoneDesensitization = DesensitizedUtil.mobilePhone(phone);

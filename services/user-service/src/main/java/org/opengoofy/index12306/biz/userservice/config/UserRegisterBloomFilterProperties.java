@@ -18,11 +18,15 @@
 package org.opengoofy.index12306.biz.userservice.config;
 
 import lombok.Data;
+import org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import static org.opengoofy.index12306.frameworks.starter.user.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * 用户注册布隆过滤器属性配置
  */
+@FinishStudy(status = TRUE)
 @Data
 @ConfigurationProperties(prefix = UserRegisterBloomFilterProperties.PREFIX)
 public final class UserRegisterBloomFilterProperties {

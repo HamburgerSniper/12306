@@ -21,12 +21,17 @@ import cn.hutool.core.util.DesensitizedUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 
 import java.io.IOException;
+
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 
 /**
  * @description 身份证号脱敏反序列化
  */
+@FinishStudy(status = TRUE)
 public class IdCardDesensitizationSerializer extends JsonSerializer<String> {
 
     /**
@@ -36,6 +41,7 @@ public class IdCardDesensitizationSerializer extends JsonSerializer<String> {
      * @throws IOException 异常
      * @description 身份证号前4位后4位保留, 其余隐藏
      */
+    @FinishStudy(status = TRUE)
     @Override
     public void serialize(String idCard, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         String idCardDesensitization = DesensitizedUtil.idCardNum(idCard, 4, 4);

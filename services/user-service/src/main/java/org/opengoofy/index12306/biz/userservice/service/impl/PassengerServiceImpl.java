@@ -62,6 +62,7 @@ import static org.opengoofy.index12306.biz.userservice.common.constant.RedisKeyC
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerMapper passengerMapper;
