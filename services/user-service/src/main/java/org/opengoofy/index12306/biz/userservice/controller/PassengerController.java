@@ -18,6 +18,7 @@
 package org.opengoofy.index12306.biz.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.dto.req.PassengerRemoveReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.req.PassengerReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.resp.PassengerActualRespDTO;
@@ -37,11 +38,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 乘车人控制层
  */
 @RestController
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class PassengerController {
 
     private final PassengerService passengerService;
@@ -49,6 +53,7 @@ public class PassengerController {
     /**
      * @description 根据用户名查询乘车人列表
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/user-service/passenger/query")
     public Result<List<PassengerRespDTO>> listPassengerQueryByUsername() {
         return Results.success(passengerService.listPassengerQueryByUsername(UserContext.getUsername()));
@@ -57,6 +62,7 @@ public class PassengerController {
     /**
      * @description 根据乘车人 ID 集合查询乘车人列表
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/user-service/inner/passenger/actual/query/ids")
     public Result<List<PassengerActualRespDTO>> listPassengerQueryByIds(@RequestParam("username") String username, @RequestParam("ids") List<Long> ids) {
         return Results.success(passengerService.listPassengerQueryByIds(username, ids));
@@ -65,6 +71,7 @@ public class PassengerController {
     /**
      * @description 新增乘车人
      */
+    @FinishStudy(status = TRUE)
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",
             key = "T(org.opengoofy.index12306.frameworks.starter.user.core.UserContext).getUsername()",
@@ -81,6 +88,7 @@ public class PassengerController {
     /**
      * @description 修改乘车人
      */
+    @FinishStudy(status = TRUE)
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",
             key = "T(org.opengoofy.index12306.frameworks.starter.user.core.UserContext).getUsername()",
@@ -97,6 +105,7 @@ public class PassengerController {
     /**
      * @description 移除单个乘车人
      */
+    @FinishStudy(status = TRUE)
     @Idempotent(
             uniqueKeyPrefix = "index12306-user:lock_passenger-alter:",
             key = "T(org.opengoofy.index12306.frameworks.starter.user.core.UserContext).getUsername()",

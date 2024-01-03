@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.common.enums.UserChainMarkEnum;
 import org.opengoofy.index12306.biz.userservice.dao.entity.UserDO;
 import org.opengoofy.index12306.biz.userservice.dao.entity.UserDeletionDO;
@@ -62,6 +63,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
 import static org.opengoofy.index12306.biz.userservice.common.constant.RedisKeyConstant.LOCK_USER_REGISTER;
 import static org.opengoofy.index12306.biz.userservice.common.constant.RedisKeyConstant.USER_DELETION;
 import static org.opengoofy.index12306.biz.userservice.common.constant.RedisKeyConstant.USER_REGISTER_REUSE_SHARDING;
@@ -77,6 +79,7 @@ import static org.opengoofy.index12306.biz.userservice.toolkit.UserReuseUtil.has
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class UserLoginServiceImpl implements UserLoginService {
 
     private final UserService userService;
@@ -128,6 +131,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      *         时，通过后台任务重建BloomFilter
      */
 
+    @FinishStudy(status = TRUE)
     @Override
     public UserLoginRespDTO login(UserLoginReqDTO requestParam) {
         String usernameOrMailOrPhone = requestParam.getUsernameOrMailOrPhone();
@@ -184,6 +188,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         throw new ServiceException("账号不存在或密码错误");
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public UserLoginRespDTO checkLogin(String accessToken) {
         // 校验用户是否登录时，因在登录时已经将通过userInfo生成的accessToken放入了缓存
@@ -191,6 +196,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         return distributedCache.get(accessToken, UserLoginRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void logout(String accessToken) {
         // 同样，用户登出时，只需要在缓存中删除accessToken即可
@@ -241,7 +247,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      *      通过定期清理过期数据，可以避免大key问题。
      *      这种方法适用于数据有过期时间的场景，例如缓存数据、统计数据等。
      */
-
+    @FinishStudy(status = TRUE)
     @Override
     public Boolean hasUsername(String username) {
         boolean hasUsername = userRegisterCachePenetrationBloomFilter.contains(username);
@@ -256,6 +262,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         return true;
     }
 
+    @FinishStudy(status = TRUE)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserRegisterRespDTO register(UserRegisterReqDTO requestParam) {
@@ -328,6 +335,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         return BeanUtil.convert(requestParam, UserRegisterRespDTO.class);
     }
 
+    @FinishStudy(status = TRUE)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deletion(UserDeletionReqDTO requestParam) {

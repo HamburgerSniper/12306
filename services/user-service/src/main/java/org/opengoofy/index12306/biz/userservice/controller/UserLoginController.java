@@ -18,6 +18,7 @@
 package org.opengoofy.index12306.biz.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.dto.req.UserLoginReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.resp.UserLoginRespDTO;
 import org.opengoofy.index12306.biz.userservice.service.UserLoginService;
@@ -29,11 +30,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 用户登录控制层
  */
 @RestController
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class UserLoginController {
 
     private final UserLoginService userLoginService;
@@ -41,6 +45,7 @@ public class UserLoginController {
     /**
      * @description 用户登录
      */
+    @FinishStudy(status = TRUE)
     @PostMapping("/api/user-service/v1/login")
     public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO requestParam) {
         return Results.success(userLoginService.login(requestParam));
@@ -49,6 +54,7 @@ public class UserLoginController {
     /**
      * @description 通过 Token 检查用户是否登录
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/user-service/check-login")
     public Result<UserLoginRespDTO> checkLogin(@RequestParam("accessToken") String accessToken) {
         UserLoginRespDTO result = userLoginService.checkLogin(accessToken);
@@ -58,6 +64,7 @@ public class UserLoginController {
     /**
      * @description 用户退出登录
      */
+    @FinishStudy(status = TRUE)
     @GetMapping("/api/user-service/logout")
     public Result<Void> logout(@RequestParam(required = false) String accessToken) {
         userLoginService.logout(accessToken);

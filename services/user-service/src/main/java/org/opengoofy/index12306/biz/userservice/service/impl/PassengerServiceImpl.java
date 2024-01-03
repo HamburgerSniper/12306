@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.common.enums.VerifyStatusEnum;
 import org.opengoofy.index12306.biz.userservice.dao.entity.PassengerDO;
 import org.opengoofy.index12306.biz.userservice.dao.mapper.PassengerMapper;
@@ -52,6 +53,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
 import static org.opengoofy.index12306.biz.userservice.common.constant.RedisKeyConstant.USER_PASSENGER_LIST;
 
 /**
@@ -66,6 +68,7 @@ public class PassengerServiceImpl implements PassengerService {
     private final PlatformTransactionManager transactionManager;
     private final DistributedCache distributedCache;
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<PassengerRespDTO> listPassengerQueryByUsername(String username) {
         // username-passenger是一对多的关系，一个用户可以选择为多个乘车人买票；返回的是个json串
@@ -82,6 +85,7 @@ public class PassengerServiceImpl implements PassengerService {
      * @return 用户对应的乘车人信息
      * @description 通过username获取passenger信息
      */
+    @FinishStudy(status = TRUE)
     private String getActualUserPassengerListStr(String username) {
         return distributedCache.safeGet(
                 USER_PASSENGER_LIST + username,
@@ -97,6 +101,7 @@ public class PassengerServiceImpl implements PassengerService {
         );
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public List<PassengerActualRespDTO> listPassengerQueryByIds(String username, List<Long> ids) {
         String actualUserPassengerListStr = getActualUserPassengerListStr(username);
@@ -109,6 +114,7 @@ public class PassengerServiceImpl implements PassengerService {
                 .collect(Collectors.toList());
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void savePassenger(PassengerReqDTO requestParam) {
         // 编程式事务
@@ -141,6 +147,7 @@ public class PassengerServiceImpl implements PassengerService {
         delUserPassengerCache(username);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void updatePassenger(PassengerReqDTO requestParam) {
         // 编程式事务
@@ -171,6 +178,7 @@ public class PassengerServiceImpl implements PassengerService {
         delUserPassengerCache(username);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void removePassenger(PassengerRemoveReqDTO requestParam) {
         // 编程式事务
@@ -210,6 +218,7 @@ public class PassengerServiceImpl implements PassengerService {
      * @return 筛选结果
      * @description 筛选username对应的passenger信息
      */
+    @FinishStudy(status = TRUE)
     private PassengerDO selectPassenger(String username, String passengerId) {
         LambdaQueryWrapper<PassengerDO> queryWrapper = Wrappers.lambdaQuery(PassengerDO.class)
                 .eq(PassengerDO::getUsername, username)
@@ -220,6 +229,7 @@ public class PassengerServiceImpl implements PassengerService {
     /**
      * @description 删除passenger-username缓存
      */
+    @FinishStudy(status = TRUE)
     private void delUserPassengerCache(String username) {
         distributedCache.delete(USER_PASSENGER_LIST + username);
     }

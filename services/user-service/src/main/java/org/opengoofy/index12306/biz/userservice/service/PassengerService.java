@@ -17,6 +17,7 @@
 
 package org.opengoofy.index12306.biz.userservice.service;
 
+import org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy;
 import org.opengoofy.index12306.biz.userservice.dto.req.PassengerRemoveReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.req.PassengerReqDTO;
 import org.opengoofy.index12306.biz.userservice.dto.resp.PassengerActualRespDTO;
@@ -24,9 +25,12 @@ import org.opengoofy.index12306.biz.userservice.dto.resp.PassengerRespDTO;
 
 import java.util.List;
 
+import static org.opengoofy.index12306.biz.userservice.common.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 乘车人接口层
  */
+@FinishStudy(status = TRUE)
 public interface PassengerService {
 
     /**
@@ -34,6 +38,7 @@ public interface PassengerService {
      * @return 乘车人返回列表
      * @description 根据用户名查询乘车人列表
      */
+    @FinishStudy(status = TRUE)
     List<PassengerRespDTO> listPassengerQueryByUsername(String username);
 
     /**
@@ -42,23 +47,27 @@ public interface PassengerService {
      * @return 乘车人返回列表
      * @description 根据乘车人 ID 集合查询乘车人列表
      */
+    @FinishStudy(status = TRUE)
     List<PassengerActualRespDTO> listPassengerQueryByIds(String username, List<Long> ids);
 
     /**
      * @param requestParam 乘车人信息
      * @description 新增乘车人
      */
+    @FinishStudy(status = TRUE)
     void savePassenger(PassengerReqDTO requestParam);
 
     /**
      * @param requestParam 乘车人信息
      * @description 修改乘车人
      */
+    @FinishStudy(status = TRUE)
     void updatePassenger(PassengerReqDTO requestParam);
 
     /**
      * @param requestParam 移除乘车人信息
      * @description 移除乘车人
      */
+    @FinishStudy(status = TRUE)
     void removePassenger(PassengerRemoveReqDTO requestParam);
 }
