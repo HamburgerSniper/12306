@@ -54,10 +54,12 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
 import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
+ * @author Administrator
  * @description 地区以及车站接口实现层
  */
 @Service
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class RegionStationImpl implements RegionStationService {
 
     private final RegionMapper regionMapper;
