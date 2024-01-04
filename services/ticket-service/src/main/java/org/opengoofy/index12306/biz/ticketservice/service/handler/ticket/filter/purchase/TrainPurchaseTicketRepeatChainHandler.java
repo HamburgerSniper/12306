@@ -18,8 +18,17 @@
 package org.opengoofy.index12306.biz.ticketservice.service.handler.ticket.filter.purchase;
 
 import lombok.RequiredArgsConstructor;
+import org.opengoofy.index12306.biz.ticketservice.dao.entity.TrainDO;
+import org.opengoofy.index12306.biz.ticketservice.dao.mapper.TicketMapper;
+import org.opengoofy.index12306.biz.ticketservice.dao.mapper.TrainMapper;
+import org.opengoofy.index12306.biz.ticketservice.dao.mapper.TrainStationMapper;
+import org.opengoofy.index12306.biz.ticketservice.dao.mapper.TrainStationRelationMapper;
+import org.opengoofy.index12306.biz.ticketservice.dto.domain.PurchaseTicketPassengerDetailDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.PurchaseTicketReqDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @description 购票流程过滤器之验证乘客是否重复购买
@@ -28,9 +37,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TrainPurchaseTicketRepeatChainHandler implements TrainPurchaseTicketChainFilter<PurchaseTicketReqDTO> {
 
+    private TrainMapper trainMapper;
+    private TrainStationMapper trainStationMapper;
+    private TrainStationRelationMapper trainStationRelationMapper;
+    private TicketMapper ticketMapper;
+
     @Override
     public void handler(PurchaseTicketReqDTO requestParam) {
         // TODO 重复购买验证后续实现
+        TrainDO trainDO = trainMapper.selectById(requestParam.getTrainId());
+        List<String> passengerIds = requestParam.getPassengers().stream().map(PurchaseTicketPassengerDetailDTO::getPassengerId).toList();
+        ticketMapper.selectByPassengerIds(passengerIds);
     }
 
     @Override

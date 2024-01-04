@@ -24,6 +24,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.req.PurchaseTicketReqDTO;
 import org.opengoofy.index12306.biz.ticketservice.service.cache.SeatMarginCacheLoader;
 import org.opengoofy.index12306.framework.starter.cache.DistributedCache;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -33,17 +34,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_REMAINING_TICKET;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 购票流程过滤器之验证列车站点库存是否充足
  */
 @Component
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class TrainPurchaseTicketParamStockChainHandler implements TrainPurchaseTicketChainFilter<PurchaseTicketReqDTO> {
 
     private final SeatMarginCacheLoader seatMarginCacheLoader;
     private final DistributedCache distributedCache;
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(PurchaseTicketReqDTO requestParam) {
         // 车次站点是否还有余票。如果用户提交多个乘车人非同一座位类型，拆分验证
@@ -76,6 +80,7 @@ public class TrainPurchaseTicketParamStockChainHandler implements TrainPurchaseT
         );
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 20;

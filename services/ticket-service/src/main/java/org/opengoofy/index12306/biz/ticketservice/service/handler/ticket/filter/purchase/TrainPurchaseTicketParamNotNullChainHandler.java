@@ -22,16 +22,21 @@ import cn.hutool.core.util.StrUtil;
 import org.opengoofy.index12306.biz.ticketservice.dto.domain.PurchaseTicketPassengerDetailDTO;
 import org.opengoofy.index12306.biz.ticketservice.dto.req.PurchaseTicketReqDTO;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
+
 /**
  * @description 购票流程过滤器之验证参数必填
  */
+@FinishStudy(status = TRUE)
 @Component
 public class TrainPurchaseTicketParamNotNullChainHandler implements TrainPurchaseTicketChainFilter<PurchaseTicketReqDTO> {
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(PurchaseTicketReqDTO requestParam) {
         if (StrUtil.isBlank(requestParam.getTrainId())) {
@@ -56,6 +61,7 @@ public class TrainPurchaseTicketParamNotNullChainHandler implements TrainPurchas
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 0;

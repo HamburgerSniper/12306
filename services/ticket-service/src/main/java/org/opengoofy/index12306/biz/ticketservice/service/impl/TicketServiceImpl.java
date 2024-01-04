@@ -155,7 +155,6 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
     private String cacheRedisPrefix;
 
     @Override
-    @FinishStudy(status = TRUE)
     public TicketPageQueryRespDTO pageListTicketQueryV1(TicketPageQueryReqDTO requestParam) {
         // 责任链模式 验证城市名称是否存在、不存在加载缓存以及出发日期不能小于当前日期等等
         ticketPageQueryAbstractChainContext.handler(TicketChainMarkEnum.TRAIN_QUERY_FILTER.name(), requestParam);

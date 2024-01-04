@@ -31,6 +31,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.req.PurchaseTicketReqDTO;
 import org.opengoofy.index12306.framework.starter.cache.DistributedCache;
 import org.opengoofy.index12306.framework.starter.common.toolkit.EnvironmentUtil;
 import org.opengoofy.index12306.framework.starter.convention.exception.ClientException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -41,6 +42,7 @@ import java.util.concurrent.TimeUnit;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12306Constant.ADVANCE_TICKET_DAY;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_INFO;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_STOPOVER_DETAIL;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 购票流程过滤器之验证参数是否有效
@@ -48,12 +50,14 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKe
  */
 @Component
 @RequiredArgsConstructor
+@FinishStudy(status = TRUE)
 public class TrainPurchaseTicketParamVerifyChainHandler implements TrainPurchaseTicketChainFilter<PurchaseTicketReqDTO> {
 
     private final TrainMapper trainMapper;
     private final TrainStationMapper trainStationMapper;
     private final DistributedCache distributedCache;
 
+    @FinishStudy(status = TRUE)
     @Override
     public void handler(PurchaseTicketReqDTO requestParam) {
         // 查询会员购票车次是否存在，通过封装后安全的 Get 方法
@@ -104,6 +108,7 @@ public class TrainPurchaseTicketParamVerifyChainHandler implements TrainPurchase
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public int getOrder() {
         return 10;

@@ -31,6 +31,7 @@ import org.opengoofy.index12306.biz.ticketservice.dto.domain.RouteDTO;
 import org.opengoofy.index12306.biz.ticketservice.service.TrainStationService;
 import org.opengoofy.index12306.framework.starter.cache.DistributedCache;
 import org.opengoofy.index12306.framework.starter.cache.toolkit.CacheUtil;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -46,10 +47,12 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.LOCK_SAFE_LOAD_SEAT_MARGIN_GET;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_INFO;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_STATION_REMAINING_TICKET;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 座位余量缓存加载
  */
+@FinishStudy(status = TRUE)
 @Component
 @RequiredArgsConstructor
 public class SeatMarginCacheLoader {
@@ -61,13 +64,14 @@ public class SeatMarginCacheLoader {
     private final TrainStationService trainStationService;
 
     /**
-     * @description 将余票信息加载到缓存中
-     * @param trainId 车次id
-     * @param seatType 座位等级
+     * @param trainId   车次id
+     * @param seatType  座位等级
      * @param departure 始发站
-     * @param arrival 终点站
+     * @param arrival   终点站
      * @return (车次id_)
+     * @description 将余票信息加载到缓存中
      */
+    @FinishStudy(status = TRUE)
     public Map<String, String> load(String trainId, String seatType, String departure, String arrival) {
         Map<String, Map<String, String>> trainStationRemainingTicketMaps = new LinkedHashMap<>();
         String keySuffix = CacheUtil.buildKey(trainId, departure, arrival);
@@ -138,6 +142,7 @@ public class SeatMarginCacheLoader {
                 .orElse(new LinkedHashMap<>());
     }
 
+    @FinishStudy(status = TRUE)
     private String selectSeatMargin(String trainId, Integer type, String departure, String arrival) {
         LambdaQueryWrapper<SeatDO> queryWrapper = Wrappers.lambdaQuery(SeatDO.class)
                 .eq(SeatDO::getTrainId, trainId)
