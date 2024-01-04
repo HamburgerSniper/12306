@@ -125,6 +125,7 @@ import static org.opengoofy.index12306.framework.starter.log.annotation.FinishSt
 /**
  * @description 车票接口实现
  */
+@FinishStudy(status = TRUE)
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -154,6 +155,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
     @Value("${framework.cache.redis.prefix:}")
     private String cacheRedisPrefix;
 
+    @FinishStudy(status = TRUE)
     @Override
     public TicketPageQueryRespDTO pageListTicketQueryV1(TicketPageQueryReqDTO requestParam) {
         // 责任链模式 验证城市名称是否存在、不存在加载缓存以及出发日期不能小于当前日期等等
@@ -285,6 +287,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
                 .build();
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public TicketPageQueryRespDTO pageListTicketQueryV2(TicketPageQueryReqDTO requestParam) {
         // 责任链模式 验证城市名称是否存在、不存在加载缓存以及出发日期不能小于当前日期等等
@@ -335,12 +338,23 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         return TicketPageQueryRespDTO.builder().trainList(seatResults).departureStationList(buildDepartureStationList(seatResults)).arrivalStationList(buildArrivalStationList(seatResults)).trainBrandList(buildTrainBrandList(seatResults)).seatClassTypeList(buildSeatClassList(seatResults)).build();
     }
 
+    /*
+     * V1 版本购票存在 4 个较为严重的问题，v2 版本相比较 v1 版本更具有业务特点以及性能，整体提升较大
+     * V1版本存在的问题：
+     * 1. 瞬时高并发会压垮系统
+     *    原因：大量用户同时下单会导致TPS高，这些请求都卡在获取分布式锁上，会导致系统瞬时压垮。
+     * 2. 先买票不一定有票
+     *    原因：Redission非公平锁(饥饿问题 、 公平性问题)
+     * 3. 分布式锁压力
+     *    原因：几十万人抢票，实际能买到票的可能就几千人，其他都是无效获取分布式锁
+     * 4. 用户购票响应慢
+     *    原因：用户A同时购买二等座和一等座；用户B同时购买一等座和商务座 会出现锁重合互斥的问题
+     */
+    @FinishStudy(status = TRUE)
     @Override
     public TicketPurchaseRespDTO purchaseTicketsV1(PurchaseTicketReqDTO requestParam) {
         // 责任链模式，验证 1：参数必填 2：参数正确性 3：乘客是否已买当前车次等...
         purchaseTicketAbstractChainContext.handler(TicketChainMarkEnum.TRAIN_PURCHASE_TICKET_FILTER.name(), requestParam);
-        // v1 版本购票存在 4 个较为严重的问题，v2 版本相比较 v1 版本更具有业务特点以及性能，整体提升较大
-        // 写了详细的 v2 版本购票升级指南，欢迎查阅 https://nageoffer.com/12306/question
         String lockKey = environment.resolvePlaceholders(String.format(LOCK_PURCHASE_TICKETS, requestParam.getTrainId()));
         // 通过Redisson分布式锁解决"大量用户抢同一个列车车座，导致出现相同座位分配给多个人的情况"
         // 同一列车同一时间下仅有单个用户可以进行座位分配及创建订单行为 配合Redisson分布式锁自动续期等功能，可以很好地保障系统运行和脏数据问题
@@ -353,6 +367,11 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         }
     }
 
+    /*
+     * 为了解决V1版本的问题，使用了令牌桶算法，解决用户下单时，车次无票问题
+     * 与令牌桶不完全相同，令牌桶会以固定频率往桶中放入令牌，当令牌桶中有令牌时，用户可以进行下单操作，当令牌桶中没有令牌时，用户无法进行下单操作，直到有令牌被放入令牌桶中
+     * 而我们的策略则是将没有出售的座位座位一个个令牌放入一个容器中，为了区分令牌桶，称为令牌容器
+     */
     @Override
     public TicketPurchaseRespDTO purchaseTicketsV2(PurchaseTicketReqDTO requestParam) {
         // 责任链模式，验证 1：参数必填 2：参数正确性 3：乘客是否已买当前车次等...
@@ -361,8 +380,6 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         if (!tokenResult) {
             throw new ServiceException("列车站点已无余票");
         }
-        // v1 版本购票存在 4 个较为严重的问题，v2 版本相比较 v1 版本更具有业务特点以及性能，整体提升较大
-        // 写了详细的 v2 版本购票升级指南，欢迎查阅 https://nageoffer.com/12306/question
         List<ReentrantLock> localLockList = new ArrayList<>();
         List<RLock> distributedLockList = new ArrayList<>();
         Map<Integer, List<PurchaseTicketPassengerDetailDTO>> seatTypeMap = requestParam.getPassengers().stream().collect(Collectors.groupingBy(PurchaseTicketPassengerDetailDTO::getSeatType));
@@ -412,6 +429,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
      *  (3)如果搜索了所有车厢还是没有两人并排做的座位，那么执行同车厢不相邻座位。
      *  (4)如果所有车厢都是仅有一个座位，就开始执行最后降级操作，不同车厢分配。
      */
+    @FinishStudy(status = TRUE)
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public TicketPurchaseRespDTO executePurchaseTickets(PurchaseTicketReqDTO requestParam) {
@@ -458,11 +476,13 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         return new TicketPurchaseRespDTO(ticketOrderResult.getData(), ticketOrderDetailResults);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public PayInfoRespDTO getPayInfo(String orderSn) {
         return payRemoteService.getPayInfo(orderSn).getData();
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void cancelTicketOrder(CancelTicketOrderReqDTO requestParam) {
         Result<Void> cancelOrderResult = ticketOrderRemoteService.cancelTicketOrder(requestParam);
@@ -497,6 +517,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         }
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public RefundTicketRespDTO commonTicketRefund(RefundTicketReqDTO requestParam) {
         // 责任链模式，验证 1：参数必填
@@ -535,14 +556,17 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         return null; // 暂时返回空实体
     }
 
+    @FinishStudy(status = TRUE)
     private List<String> buildDepartureStationList(List<TicketListDTO> seatResults) {
         return seatResults.stream().map(TicketListDTO::getDeparture).distinct().collect(Collectors.toList());
     }
 
+    @FinishStudy(status = TRUE)
     private List<String> buildArrivalStationList(List<TicketListDTO> seatResults) {
         return seatResults.stream().map(TicketListDTO::getArrival).distinct().collect(Collectors.toList());
     }
 
+    @FinishStudy(status = TRUE)
     private List<Integer> buildSeatClassList(List<TicketListDTO> seatResults) {
         Set<Integer> resultSeatClassList = new HashSet<>();
         for (TicketListDTO each : seatResults) {
@@ -553,6 +577,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         return new ArrayList<>(resultSeatClassList);
     }
 
+    @FinishStudy(status = TRUE)
     private List<Integer> buildTrainBrandList(List<TicketListDTO> seatResults) {
         Set<Integer> trainBrandSet = new HashSet<>();
         for (TicketListDTO each : seatResults) {
@@ -563,6 +588,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         return new ArrayList<>(trainBrandSet);
     }
 
+    @FinishStudy(status = TRUE)
     @Override
     public void run(String... args) throws Exception {
         ticketService = ApplicationContextHolder.getBean(TicketService.class);

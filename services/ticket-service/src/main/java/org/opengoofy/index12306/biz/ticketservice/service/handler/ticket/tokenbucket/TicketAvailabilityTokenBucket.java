@@ -39,6 +39,7 @@ import org.opengoofy.index12306.framework.starter.bases.Singleton;
 import org.opengoofy.index12306.framework.starter.cache.DistributedCache;
 import org.opengoofy.index12306.framework.starter.common.toolkit.Assert;
 import org.opengoofy.index12306.framework.starter.convention.exception.ServiceException;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.core.io.ClassPathResource;
@@ -58,10 +59,12 @@ import static org.opengoofy.index12306.biz.ticketservice.common.constant.Index12
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.LOCK_TICKET_AVAILABILITY_TOKEN_BUCKET;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TICKET_AVAILABILITY_TOKEN_BUCKET;
 import static org.opengoofy.index12306.biz.ticketservice.common.constant.RedisKeyConstant.TRAIN_INFO;
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 列车车票余量令牌桶，应对海量并发场景下满足并行、限流以及防超卖等场景
  */
+@FinishStudy(status = TRUE)
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -82,6 +85,7 @@ public final class TicketAvailabilityTokenBucket {
      * @description 如果返回 {@link Boolean#TRUE} 代表可以参与接下来的购票下单流程
      * @description 如果返回 {@link Boolean#FALSE} 代表当前访问出发站点和到达站点令牌已被拿完，无法参与购票下单等逻辑
      */
+    @FinishStudy(status = TRUE)
     public boolean takeTokenFromBucket(PurchaseTicketReqDTO requestParam) {
         TrainDO trainDO = distributedCache.safeGet(
                 TRAIN_INFO + requestParam.getTrainId(),
@@ -144,6 +148,7 @@ public final class TicketAvailabilityTokenBucket {
      *
      * @param requestParam 回滚列车余量令牌入参
      */
+    @FinishStudy(status = TRUE)
     public void rollbackInBucket(TicketOrderDetailRespDTO requestParam) {
         DefaultRedisScript<Long> actual = Singleton.get(LUA_TICKET_AVAILABILITY_ROLLBACK_TOKEN_BUCKET_PATH, () -> {
             DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
