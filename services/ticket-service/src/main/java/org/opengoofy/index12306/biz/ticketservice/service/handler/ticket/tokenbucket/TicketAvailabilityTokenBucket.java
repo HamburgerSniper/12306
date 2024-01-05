@@ -78,6 +78,13 @@ public final class TicketAvailabilityTokenBucket {
     private final SeatMapper seatMapper;
     private final TrainMapper trainMapper;
 
+    /*
+     * 12306 限流实现 - 令牌桶算法
+     * 1. 如果令牌容器在缓存中失效，则需要重新读取并放入缓存
+     * 2. 准备执行lua脚本的数据
+     * 3. 最终执行lua脚本获取令牌
+     */
+
     /**
      * @param requestParam 购票请求参数入参
      * @return 是否获取列车车票余量令牌桶中的令牌，{@link Boolean#TRUE} or {@link Boolean#FALSE}
@@ -87,21 +94,29 @@ public final class TicketAvailabilityTokenBucket {
      */
     @FinishStudy(status = TRUE)
     public boolean takeTokenFromBucket(PurchaseTicketReqDTO requestParam) {
+        // 获取列车信息
         TrainDO trainDO = distributedCache.safeGet(
                 TRAIN_INFO + requestParam.getTrainId(),
                 TrainDO.class,
                 () -> trainMapper.selectById(requestParam.getTrainId()),
                 ADVANCE_TICKET_DAY,
                 TimeUnit.DAYS);
-        List<RouteDTO> routeDTOList = trainStationService
-                .listTrainStationRoute(requestParam.getTrainId(), trainDO.getStartStation(), trainDO.getEndStation());
+        // 获取列车经停站之间的数据集合，因为一旦失效要读取整个列车的令牌并重新赋值
+        List<RouteDTO> routeDTOList = trainStationService.listTrainStationRoute(requestParam.getTrainId(), trainDO.getStartStation(), trainDO.getEndStation());
+
+        // 1.如果令牌容器在缓存中失效，则需要重新读取并放入缓存
         StringRedisTemplate stringRedisTemplate = (StringRedisTemplate) distributedCache.getInstance();
+        // 令牌容器是个 Hash 结构，组装令牌 Hash Key
         String actualHashKey = TICKET_AVAILABILITY_TOKEN_BUCKET + requestParam.getTrainId();
+        // 判断令牌容器是否存在
         Boolean hasKey = distributedCache.hasKey(actualHashKey);
+        // 如果令牌容器 Hash 数据结构不存在了，执行加载流程
         if (!hasKey) {
+            // 为了避免出现并发读写问题，所以这里通过分布式锁锁定
             RLock lock = redissonClient.getLock(String.format(LOCK_TICKET_AVAILABILITY_TOKEN_BUCKET, requestParam.getTrainId()));
             lock.lock();
             try {
+                // 双重判定锁，避免加载数据请求多次请求数据库
                 Boolean hasKeyTwo = distributedCache.hasKey(actualHashKey);
                 if (!hasKeyTwo) {
                     List<Integer> seatTypes = VehicleTypeEnum.findSeatTypesByCode(trainDO.getTrainType());
@@ -109,7 +124,9 @@ public final class TicketAvailabilityTokenBucket {
                     for (RouteDTO each : routeDTOList) {
                         List<SeatTypeCountDTO> seatTypeCountDTOList = seatMapper.listSeatTypeCount(Long.parseLong(requestParam.getTrainId()), each.getStartStation(), each.getEndStation(), seatTypes);
                         for (SeatTypeCountDTO eachSeatTypeCountDTO : seatTypeCountDTOList) {
+                            // 组装 Hash 数据结构内部的 Key
                             String buildCacheKey = StrUtil.join("_", each.getStartStation(), each.getEndStation(), eachSeatTypeCountDTO.getSeatType());
+                            // 一个 Hash 结构下有很多 Key，为了避免多次网络 IO，这里组装成一个本地 Map，通过 putAll 方法请求一次 Redis
                             ticketAvailabilityTokenMap.put(buildCacheKey, String.valueOf(eachSeatTypeCountDTO.getSeatCount()));
                         }
                     }
@@ -119,15 +136,21 @@ public final class TicketAvailabilityTokenBucket {
                 lock.unlock();
             }
         }
+
+        // 2. 准备执行lua脚本的数据
+        // 获取到Redis执行的Lua脚本
         DefaultRedisScript<Long> actual = Singleton.get(LUA_TICKET_AVAILABILITY_TOKEN_BUCKET_PATH, () -> {
             DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
             redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(LUA_TICKET_AVAILABILITY_TOKEN_BUCKET_PATH)));
             redisScript.setResultType(Long.class);
             return redisScript;
         });
+        // 判断Lua脚本是不是空的，这一步基本上可以说是永远不会出错，为了避免IDEA的波浪线检查才加的
         Assert.notNull(actual);
+        // 因为购票时，一个用户可以为多个乘车人买票，而多个乘车人又能购买不同的票，所以这里需要根据座位类型进行分组
         Map<Integer, Long> seatTypeCountMap = requestParam.getPassengers().stream()
                 .collect(Collectors.groupingBy(PurchaseTicketPassengerDetailDTO::getSeatType, Collectors.counting()));
+        // 最终结构就是拆分为一个 Map，Key 是座位类型，value 是该座位类型的购票人数
         JSONArray seatTypeCountArray = seatTypeCountMap.entrySet().stream()
                 .map(entry -> {
                     JSONObject jsonObject = new JSONObject();
@@ -136,9 +159,15 @@ public final class TicketAvailabilityTokenBucket {
                     return jsonObject;
                 })
                 .collect(Collectors.toCollection(JSONArray::new));
-        List<RouteDTO> takeoutRouteDTOList = trainStationService
-                .listTakeoutTrainStationRoute(requestParam.getTrainId(), requestParam.getDeparture(), requestParam.getArrival());
+        // 获取需要判断扣减的站点
+        List<RouteDTO> takeoutRouteDTOList = trainStationService.listTakeoutTrainStationRoute(requestParam.getTrainId(), requestParam.getDeparture(), requestParam.getArrival());
+        // 用户购买的出发站点和到达站点
         String luaScriptKey = StrUtil.join("_", requestParam.getDeparture(), requestParam.getArrival());
+        // 3. 最终执行lua脚本获取令牌
+        // actualHashKey：存储 Redis Hash 结构的 Key 值，如 HamburgerSniper:index12306-ticket-service:ticket_availability_token_bucket:1。
+        // luaScriptKey：用户购买的出发站点和到达站点，比如北京南_南京南。
+        // seatTypeCountArray：需要扣减的座位类型以及对应数量。
+        // takeoutRouteDTOList：需要扣减的相关列车站点
         Long result = stringRedisTemplate.execute(actual, Lists.newArrayList(actualHashKey, luaScriptKey), JSON.toJSONString(seatTypeCountArray), JSON.toJSONString(takeoutRouteDTOList));
         return result != null && Objects.equals(result, 0L);
     }

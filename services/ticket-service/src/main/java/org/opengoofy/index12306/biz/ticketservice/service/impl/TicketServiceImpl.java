@@ -371,44 +371,61 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
      * 为了解决V1版本的问题，使用了令牌桶算法，解决用户下单时，车次无票问题
      * 与令牌桶不完全相同，令牌桶会以固定频率往桶中放入令牌，当令牌桶中有令牌时，用户可以进行下单操作，当令牌桶中没有令牌时，用户无法进行下单操作，直到有令牌被放入令牌桶中
      * 而我们的策略则是将没有出售的座位座位一个个令牌放入一个容器中，为了区分令牌桶，称为令牌容器
+     *
+     * 分布式多重锁：集群化部署后封装加锁逻辑，线程先去竞争单个服务的内部锁，竞争成功再去竞争分布式锁，从而减少Redis的压力
      */
+    @FinishStudy(status = TRUE)
     @Override
     public TicketPurchaseRespDTO purchaseTicketsV2(PurchaseTicketReqDTO requestParam) {
         // 责任链模式，验证 1：参数必填 2：参数正确性 3：乘客是否已买当前车次等...
         purchaseTicketAbstractChainContext.handler(TicketChainMarkEnum.TRAIN_PURCHASE_TICKET_FILTER.name(), requestParam);
+        // 令牌容器中获取令牌
         boolean tokenResult = ticketAvailabilityTokenBucket.takeTokenFromBucket(requestParam);
         if (!tokenResult) {
             throw new ServiceException("列车站点已无余票");
         }
+        // 存储本次请求需要获取的本地锁的集合
         List<ReentrantLock> localLockList = new ArrayList<>();
+        // 存储本次请求需要获取的分布式锁的集合
         List<RLock> distributedLockList = new ArrayList<>();
-        Map<Integer, List<PurchaseTicketPassengerDetailDTO>> seatTypeMap = requestParam.getPassengers().stream().collect(Collectors.groupingBy(PurchaseTicketPassengerDetailDTO::getSeatType));
-        seatTypeMap.forEach((searType, count) -> {
-            String lockKey = environment.resolvePlaceholders(String.format(LOCK_PURCHASE_TICKETS_V2, requestParam.getTrainId(), searType));
-            ReentrantLock localLock = localLockMap.getIfPresent(lockKey);
-            if (localLock == null) {
-                synchronized (TicketService.class) {
-                    if ((localLock = localLockMap.getIfPresent(lockKey)) == null) {
-                        localLock = new ReentrantLock(true);
-                        localLockMap.put(lockKey, localLock);
+        // 按照座位类型进行分组
+        Map<Integer, List<PurchaseTicketPassengerDetailDTO>> seatTypeMap = requestParam.getPassengers().stream()
+                .collect(Collectors.groupingBy(PurchaseTicketPassengerDetailDTO::getSeatType));
+        seatTypeMap.forEach(
+                (searType, count) -> {
+                    // 构建锁 Key，相比较上个版本，增加了座位类型
+                    String lockKey = environment.resolvePlaceholders(String.format(LOCK_PURCHASE_TICKETS_V2, requestParam.getTrainId(), searType));
+                    ReentrantLock localLock = localLockMap.getIfPresent(lockKey);
+                    if (localLock == null) {
+                        synchronized (TicketService.class) {
+                            if ((localLock = localLockMap.getIfPresent(lockKey)) == null) {
+                                localLock = new ReentrantLock(true);
+                                localLockMap.put(lockKey, localLock);
+                            }
+                        }
                     }
+                    // 添加到本地锁集合
+                    localLockList.add(localLock);
+                    RLock distributedLock = redissonClient.getFairLock(lockKey);
+                    // 添加到分布式锁集合
+                    distributedLockList.add(distributedLock);
                 }
-            }
-            localLockList.add(localLock);
-            RLock distributedLock = redissonClient.getFairLock(lockKey);
-            distributedLockList.add(distributedLock);
-        });
+        );
         try {
+            // 循环请求本地锁
             localLockList.forEach(ReentrantLock::lock);
+            // 循环请求分布式锁
             distributedLockList.forEach(RLock::lock);
-            return ticketService.executePurchaseTickets(requestParam);
+            return executePurchaseTickets(requestParam);
         } finally {
+            // 释放本地锁
             localLockList.forEach(localLock -> {
                 try {
                     localLock.unlock();
                 } catch (Throwable ignored) {
                 }
             });
+            // 释放分布式锁
             distributedLockList.forEach(distributedLock -> {
                 try {
                     distributedLock.unlock();

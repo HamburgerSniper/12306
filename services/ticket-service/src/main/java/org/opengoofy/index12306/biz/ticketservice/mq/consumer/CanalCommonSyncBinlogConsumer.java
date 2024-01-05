@@ -27,10 +27,13 @@ import org.opengoofy.index12306.biz.ticketservice.common.constant.TicketRocketMQ
 import org.opengoofy.index12306.biz.ticketservice.common.enums.CanalExecuteStrategyMarkEnum;
 import org.opengoofy.index12306.biz.ticketservice.mq.event.CanalBinlogEvent;
 import org.opengoofy.index12306.framework.starter.designpattern.strategy.AbstractStrategyChoose;
+import org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+
+import static org.opengoofy.index12306.framework.starter.log.annotation.FinishStudy.FinishStudyEnum.TRUE;
 
 /**
  * @description 列车车票余量缓存更新消费端
@@ -42,6 +45,7 @@ import java.util.Objects;
         topic = TicketRocketMQConstant.CANAL_COMMON_SYNC_TOPIC_KEY,
         consumerGroup = TicketRocketMQConstant.CANAL_COMMON_SYNC_CG_KEY
 )
+@FinishStudy(status = TRUE)
 public class CanalCommonSyncBinlogConsumer implements RocketMQListener<CanalBinlogEvent> {
 
     private final AbstractStrategyChoose abstractStrategyChoose;
@@ -49,15 +53,20 @@ public class CanalCommonSyncBinlogConsumer implements RocketMQListener<CanalBinl
     @Value("${ticket.availability.cache-update.type:}")
     private String ticketAvailabilityCacheUpdateType;
 
+    @FinishStudy(status = TRUE)
     @Override
     public void onMessage(CanalBinlogEvent message) {
         // 余票 Binlog 更新延迟问题如何解决？详情查看：https://nageoffer.com/12306/question
+        // 如果是 DDL 返回
+        // 如果不是 UPDATE 类型数据变更返回
+        // 如果没有开启 binlog 数据同步模型返回
         if (message.getIsDdl()
                 || CollUtil.isEmpty(message.getOld())
                 || !Objects.equals("UPDATE", message.getType())
                 || !StrUtil.equals(ticketAvailabilityCacheUpdateType, "binlog")) {
             return;
         }
+        // 通过策略模式进行不同 Binlog 变更类型的监听，比如说订单和座位两个表就分别有两个处理类
         abstractStrategyChoose.chooseAndExecute(
                 message.getTable(),
                 message,
